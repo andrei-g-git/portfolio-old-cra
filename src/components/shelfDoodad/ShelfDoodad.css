@@ -1,0 +1,10 @@
+.doodad-container {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  z-index: 2;
+}
+.doodad-container .shelf-doodad {
+  width: 100%;
+  height: 100%;
+}
