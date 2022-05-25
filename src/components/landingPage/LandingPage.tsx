@@ -2,9 +2,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { characterAnimationChanged } from '../../redux/actions';
-import { useCharacterEntrance, getCharacterAnimationUri } from './animations';
+import { 
+    useCharacterEntrance, 
+    getCharacterAnimationUri
+} from './animations';
+import { handleDoodadClick } from './landingPageController';
 import ShelfDoodad from '../shelfDoodad/ShelfDoodad';
-import { animations } from './animations';
 import "../landingPage/LandingPage.scss";
 
 export const LandingPage = (props: any) => {
@@ -13,14 +16,18 @@ export const LandingPage = (props: any) => {
 
     return (
         <div className="landing-page-container">
+
             <div className="landing-page-background"></div>
+
             <ShelfDoodad image={require("../../assets/img/testDoodad1.png")}
-                animation={animations["lookingAtThing1"]}
+                index={1}
+                notifyClick={handleDoodadClick(props.changeCharacterAnimation)}
                 x="100px"
                 y="200px"
             />
             <ShelfDoodad image={require("../../assets/img/testDoodad2.png")}
-                animation={animations["lookingAtThing2"]}
+                index={2}
+                notifyClick={handleDoodadClick(props.changeCharacterAnimation)}
                 x="1600px"
                 y="200px"
             />
