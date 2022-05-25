@@ -10,7 +10,7 @@ import { handleDoodadClick } from './landingPageController';
 import ShelfDoodad from '../shelfDoodad/ShelfDoodad';
 import "../landingPage/LandingPage.scss";
 
-export const LandingPage = (props: any) => {
+export const LandingPage = (props: any) => { //make this thing pannable horizontally rather than using the scrollbar
 
     useCharacterEntrance(props.changeCharacterAnimation);
 

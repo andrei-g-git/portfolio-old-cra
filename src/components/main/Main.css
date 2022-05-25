@@ -1,4 +1,6 @@
 .main {
-  width: 1920px;
-  height: 1080px;
+  width: 100%;
+  /* 100vh; */
+  /* 1920px; */
+  height: 9999px;
 }
