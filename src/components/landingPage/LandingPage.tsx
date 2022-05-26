@@ -7,6 +7,7 @@ import {
     getCharacterAnimationUri
 } from './animations';
 import { handleDoodadClick } from './landingPageController';
+import { useHorizontalPanning } from './movementHooks';
 import ShelfDoodad from '../shelfDoodad/ShelfDoodad';
 import "../landingPage/LandingPage.scss";
 
@@ -16,9 +17,7 @@ export const LandingPage = (props: any) => { //make this thing pannable horizont
 
     useCharacterEntrance(props.changeCharacterAnimation);
 
-    useEffect(() => {
-        deletePanning();
-    }, [])
+    useHorizontalPanning("landing-page-container"); //this adds more coupling to the library, should just call useEffect here and pass the element
 
     return (
         <div className="landing-page-container">
@@ -61,86 +60,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);
-
-
-
-
-
-
-
-
-
-
-const deletePanning = () => {
-    // let element: HTMLElement | null | undefined = null;
-    // let x_element = 0;
-    // let x_cursor_start = 0;
-
-    let mouseStartX = 0;
-    let dragging = false;
-    let initialOffsetX = 0;
-    let previousMouseX = 0;
-
-    let landingPage = (document.getElementsByClassName("landing-page-container") as HTMLCollectionOf<HTMLElement>)[0];
-
-
-    const startDragging = (event: any) => {
-        mouseStartX = event.clientX;
-        if(landingPage) initialOffsetX = landingPage.offsetLeft;
-        dragging = true;
-    }
-
-    const dragOn = (event: any) => {
-        event.preventDefault();
-        let mX = event.clientX;
-        if(mX === 0) mX = previousMouseX;
-        const mouseMoveX = mouseStartX - mX;
-        if(dragging){
-            previousMouseX = event.clientX;
-            landingPage.style.left = (initialOffsetX + mouseMoveX) + "px"; //this happens every loop
-            console.log(mouseMoveX + "   and mouse x is:  " + mX); //cursor moves to x = 0 at dragend
-        }        
-    }
-
-    const stopDragging = (event: any) => {
-        dragging = false; //probably redundant if it's not in mouse listner
-        document.removeEventListener("dragstart", startDragging)
-        document.removeEventListener("drag", dragOn)
-    }
-
-
-    
-    landingPage.addEventListener("dragstart", startDragging);
-
-    landingPage.addEventListener("drag", dragOn);
-
-    landingPage.addEventListener("dragend", stopDragging);
-
-/*     landingPage.addEventListener("dragstart", (event) => {
-        element = landingPage;
-        x_element = event.clientX - landingPage.offsetLeft;
-        x_cursor_start = event.clientX;
-        console.log("mouse x:   " + event.clientX)
-    });
-    landingPage.addEventListener("drag", (event) => {
-        var x_cursor = event.clientX;
-        if (element !== null && element != undefined) {
-          element.style.left = (x_cursor - x_element) + 'px'; //after dropping it subtracts value equal to the position of the mouse in the viewport every time --- I think it's actually that the mouse x value reverts to 0
-          
-            console.log(element.style.left+' - '+element.style.top);
-      
-        }
-    });
-    landingPage.addEventListener("dragend", (event) => {
-        if (element !== null && element != undefined) {
-            element.style.left = (landingPage.getBoundingClientRect().x - (x_cursor_start - event.clientX)) + "px";
-            element = null;
-        }
-    }); */
-
-
-
-
-}
 
 
