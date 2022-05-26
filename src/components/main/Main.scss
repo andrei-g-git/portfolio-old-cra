@@ -1,10 +1,14 @@
 .main{
-    width: 100%;/* 100vh; *//* 1920px; */
+    width: /* 100%; */100vh;/* 1920px; */
     height: 9999px;
     //position: relative;
     //left: 50%;
     //transform: translateX(-50%);
+    //overflow: hidden;
+}
 
+body{
+    overflow-x: hidden;
 }
 
 

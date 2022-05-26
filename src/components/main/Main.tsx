@@ -6,21 +6,16 @@ import NavBar from '../navbar/NavBar';
 import {whatever} from "../../redux/actions";
 import "./Main.scss";
 
-import {panzoom} from "../../js/delete.js";
+import {useEffect} from "react";
 
 function Main(props: any) {
 
+    useEffect(() => {
+        deleteThis()
+    }, [])
     window.addEventListener("resize", () => { //this is root level or window level, doesn't matter if it's in this component
+        deleteThis();
 
-        const elemWidth = 1920;
-        const windowWidth = window.innerWidth;
-
-        const scrollNextX = (elemWidth - windowWidth) / 2;
-        //window.scrollTo(scrollNextX, 0);
-        let landingPageArray = document.getElementsByClassName("landing-page-container") as HTMLCollectionOf<HTMLElement>;
-        let landingPage = landingPageArray[0];
-        //landingPage.style.left = "-" + scrollNextX.toString() + "px";
-        landingPage.scrollLeft = -scrollNextX;
     });
 
     return (
@@ -28,7 +23,7 @@ function Main(props: any) {
             <LandingPage />
             <NavBar />
             <div style={{
-                width: "100%",
+                width: "100vw",
                 height: "2000px",
                 backgroundColor: "lightgray",
                 display: "flex",
@@ -43,6 +38,17 @@ function Main(props: any) {
             <Footer /> */}
         </div>
     );
+}
+
+const deleteThis = () => {
+    const elemWidth = 1920;
+    const windowWidth = window.innerWidth;
+
+    const scrollNextX = (elemWidth - windowWidth) / 2;
+    let landingPageArray = document.getElementsByClassName("landing-page-container") as HTMLCollectionOf<HTMLElement>;
+    let landingPage = landingPageArray[0];
+    landingPage.style.right = scrollNextX.toString() + "px";
+    console.log("resizing")
 }
 
 const mapStateToProps = (state: any) => {

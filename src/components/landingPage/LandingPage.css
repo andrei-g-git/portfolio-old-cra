@@ -1,5 +1,4 @@
 .landing-page-container {
-  width: 100%;
   height: 100vh;
   position: relative;
 }
@@ -7,13 +6,16 @@
   background-image: url(../../assets/img/testBg1.png);
   background-repeat: no-repeat;
   width: 1920px;
+  /* 100%; */
   height: 100%;
+  overflow: hidden;
   position: absolute;
   left: 0;
 }
 .landing-page-container .character {
   width: 1920px;
   height: 100%;
+  object-fit: cover;
+  object-position: left;
   position: absolute;
-  top: 0;
 }
