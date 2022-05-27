@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Pan, DragObject } from "../interface/Movement";
+import { Pan, DragObject, DimensionsObject } from "../interface/Movement";
 import { clamp } from "../../js/utils";
 
 export const useHorizontalPanning = (identifier: string) => {
@@ -29,10 +29,15 @@ const panHorizontally = (
         mouseStart: 0,
         previousMousePosition: 0,
         initialOffset: 0
-    }
+    };
+
+    const dimensionsObject = {
+        windowWidth: 0
+    };
+
     if(element){
-        element.addEventListener("dragstart", startPanning(element, dragObject));
-        element.addEventListener("drag", pan(element, dragObject));
+        element.addEventListener("dragstart", startPanning(element, dragObject, dimensionsObject));
+        element.addEventListener("drag", pan(element, dragObject, dimensionsObject));
         element.addEventListener("dragend", stopPanning(dragObject));        
     }
 
@@ -40,19 +45,23 @@ const panHorizontally = (
 
 const startPanning = (
     element: HTMLElement | null, 
-    dragObject: DragObject
+    dragObject: DragObject,
+    dimensionsObject: DimensionsObject
 ) => {
     return (event: MouseEvent) => { //actually a DragEvent but I want to make this more universal
         const o = dragObject;
         o.mouseStart = event.clientX;
         if(element) o.initialOffset = element.offsetLeft;
-        o.dragging = true;        
+        o.dragging = true;  
+        
+        dimensionsObject.windowWidth = window.innerWidth; //I could prob get away with calling this in the pan function, not sure how slow it is though
     }
 };
 
 const pan = (
     element: HTMLElement | null,
-    dragObject: DragObject
+    dragObject: DragObject,
+    dimensionsObject: DimensionsObject
 ) => {
     return (event: MouseEvent) => {
         event.preventDefault();
@@ -63,10 +72,15 @@ const pan = (
         if(o.dragging){
             o.previousMousePosition = event.clientX;
             if(element){ 
+                const windowWidth = dimensionsObject.windowWidth;
                 let offset = o.initialOffset + mouseDelta;
-                offset = clamp(offset, -element.offsetWidth, 0);
+                let width = /* 1920; */ element.offsetWidth;
+                const max = 0;
+                const min = -width + windowWidth;
+
+                offset = clamp(offset, min, max);
                 element.style.left = offset + "px"; 
-                //console.log("el offset: " + element.offsetLeft + "   and clamped offset:  " + offset);
+                //console.log(offset);
             } 
 
             

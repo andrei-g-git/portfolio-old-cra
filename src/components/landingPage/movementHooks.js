@@ -18,22 +18,26 @@ var panHorizontally = function (element, startPanning, pan, stopPanning) {
         previousMousePosition: 0,
         initialOffset: 0
     };
+    var dimensionsObject = {
+        windowWidth: 0
+    };
     if (element) {
-        element.addEventListener("dragstart", startPanning(element, dragObject));
-        element.addEventListener("drag", pan(element, dragObject));
+        element.addEventListener("dragstart", startPanning(element, dragObject, dimensionsObject));
+        element.addEventListener("drag", pan(element, dragObject, dimensionsObject));
         element.addEventListener("dragend", stopPanning(dragObject));
     }
 };
-var startPanning = function (element, dragObject) {
+var startPanning = function (element, dragObject, dimensionsObject) {
     return function (event) {
         var o = dragObject;
         o.mouseStart = event.clientX;
         if (element)
             o.initialOffset = element.offsetLeft;
         o.dragging = true;
+        dimensionsObject.windowWidth = window.innerWidth; //I could prob get away with calling this in the pan function, not sure how slow it is though
     };
 };
-var pan = function (element, dragObject) {
+var pan = function (element, dragObject, dimensionsObject) {
     return function (event) {
         event.preventDefault();
         var o = dragObject;
@@ -44,10 +48,14 @@ var pan = function (element, dragObject) {
         if (o.dragging) {
             o.previousMousePosition = event.clientX;
             if (element) {
+                var windowWidth = dimensionsObject.windowWidth;
                 var offset = o.initialOffset + mouseDelta;
-                offset = utils_1.clamp(offset, -element.offsetWidth, 0);
+                var width = /* 1920; */ element.offsetWidth;
+                var max = 0;
+                var min = -width + windowWidth;
+                offset = utils_1.clamp(offset, min, max);
                 element.style.left = offset + "px";
-                //console.log("el offset: " + element.offsetLeft + "   and clamped offset:  " + offset);
+                //console.log(offset);
             }
         }
     };
