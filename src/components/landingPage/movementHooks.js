@@ -1,8 +1,11 @@
 "use strict";
 exports.__esModule = true;
-exports.useHorizontalPanning = void 0;
+exports.resizeCentered = exports.useCenteredResizing = exports.useHorizontalPanning = void 0;
 var react_1 = require("react");
 var utils_1 = require("../../js/utils");
+/*
+    useHorizontalPanning
+ */
 exports.useHorizontalPanning = function (identifier) {
     react_1.useEffect(function () {
         var element = document.getElementsByClassName(identifier)[0];
@@ -69,3 +72,21 @@ dragObject) {
         // document.removeEventListener("drag", pan);                                       which I don't know if they have constant references
     }; //if I don't clean up there may be mem leaks, hopefully only on old browsers like IE7
 }; //if there are leaks I should just make the curried callbacks non-anonymous
+/*
+    useCenteredResizing
+*/
+exports.useCenteredResizing = function (element, maxElementWidth) {
+    react_1.useEffect(function () {
+        exports.resizeCentered(element, maxElementWidth);
+    }, []);
+    window.addEventListener("resize", function () {
+        exports.resizeCentered(element, maxElementWidth);
+    });
+};
+exports.resizeCentered = function (identifier, maxElementWidth) {
+    var element = utils_1.getElementByClassOrId(identifier);
+    var windowWidth = window.innerWidth;
+    var offset = (maxElementWidth - windowWidth) / 2;
+    if (element)
+        element.style.right = offset + "px";
+};

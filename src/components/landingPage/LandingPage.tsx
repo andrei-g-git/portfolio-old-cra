@@ -7,13 +7,15 @@ import {
     getCharacterAnimationUri
 } from './animations';
 import { handleDoodadClick } from './landingPageController';
-import { useHorizontalPanning } from './movementHooks';
+import { useHorizontalPanning, useCenteredResizing } from './movementHooks';
 import ShelfDoodad from '../shelfDoodad/ShelfDoodad';
 import "../landingPage/LandingPage.scss";
 
 export const LandingPage = (props: any) => { //make this thing pannable horizontally rather than using the scrollbar
 
     useCharacterEntrance(props.changeCharacterAnimation);
+
+    useCenteredResizing("landing-page-container", 1920);
 
     useHorizontalPanning("landing-page-container"); //this adds more coupling to the library, should just call useEffect here and pass the element
 

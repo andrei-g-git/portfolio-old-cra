@@ -1,4 +1,3 @@
-import { NumberPayload } from "../../redux/interface/Payloads"
 import {useEffect} from "react";
 
 

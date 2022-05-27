@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { Pan, DragObject, DimensionsObject } from "../interface/Movement";
-import { clamp } from "../../js/utils";
+import { clamp, getElementByClassOrId } from "../../js/utils";
 
+/*
+    useHorizontalPanning
+ */
 export const useHorizontalPanning = (identifier: string) => {
     useEffect(() => {
         let element: HTMLElement | null = (document.getElementsByClassName(identifier) as HTMLCollectionOf<HTMLElement>)[0];
@@ -81,9 +84,7 @@ const pan = (
                 offset = clamp(offset, min, max);
                 element.style.left = offset + "px"; 
                 //console.log(offset);
-            } 
-
-            
+            }   
         }         
     }
 }
@@ -98,4 +99,30 @@ const stopPanning = (
         // document.removeEventListener("drag", pan);                                       which I don't know if they have constant references
     }                                                                                   //if I don't clean up there may be mem leaks, hopefully only on old browsers like IE7
 };                                                                                  //if there are leaks I should just make the curried callbacks non-anonymous
+
+
+
+
+/* 
+    useCenteredResizing
+*/
+
+export const useCenteredResizing = (element: string, maxElementWidth: number) => {
+    useEffect(() => {
+        resizeCentered(element, maxElementWidth);
+    },
+        []
+    );
+
+    window.addEventListener("resize", () => {   
+        resizeCentered(element, maxElementWidth);
+    });
+};
+
+export const resizeCentered = (identifier: string, maxElementWidth: number) => {
+    const element = getElementByClassOrId(identifier);
+    const windowWidth = window.innerWidth;
+    const offset = (maxElementWidth - windowWidth) / 2;
+    if(element) element.style.right = offset + "px";
+};
 

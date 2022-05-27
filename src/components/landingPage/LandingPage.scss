@@ -2,7 +2,7 @@
 
 .landing-page-container{
     //width: 100vw;/* 100%; */
-    width: 1920px;
+    width: $landingPageMaxWidth;
     height: 100vh;
     position: relative;
 
@@ -20,8 +20,8 @@
     .character{
         width: $landingPageMaxWidth;
         height: 100%;
-        object-fit: cover;
-        object-position: left;
+        // object-fit: cover;
+        // object-position: left;
         position: absolute;
         top: 0;
         left: 0;

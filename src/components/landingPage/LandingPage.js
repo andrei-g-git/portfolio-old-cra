@@ -11,6 +11,7 @@ var ShelfDoodad_1 = require("../shelfDoodad/ShelfDoodad");
 require("../landingPage/LandingPage.scss");
 exports.LandingPage = function (props) {
     animations_1.useCharacterEntrance(props.changeCharacterAnimation);
+    movementHooks_1.useCenteredResizing("landing-page-container", 1920);
     movementHooks_1.useHorizontalPanning("landing-page-container"); //this adds more coupling to the library, should just call useEffect here and pass the element
     return (React.createElement("div", { className: "landing-page-container" },
         React.createElement("div", { className: "landing-page-background" }),
