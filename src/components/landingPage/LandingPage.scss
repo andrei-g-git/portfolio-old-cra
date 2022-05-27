@@ -1,13 +1,15 @@
+@import "../../css/Variables.scss";
+
 .landing-page-container{
     //width: 100vw;/* 100%; */
+    //width: 1920px;
     height: 100vh;
     position: relative;
 
     .landing-page-background{
         background-image: url(../../assets/img/testBg1.png);
         background-repeat: no-repeat;
-        //background-position: center; //important
-        width: 1920px;/* 100%; */
+        width: $landingPageMaxWidth;
         height: 100%;
         overflow: hidden;
         //overflow: scroll; //this was supposed to cause an issue with ... something ... i forget
@@ -16,13 +18,13 @@
     }    
 
     .character{
-        width: 1920px;//100%;
+        width: $landingPageMaxWidth;
         height: 100%;
         object-fit: cover;
-        object-position: /* right; */ /* center */left;
+        object-position: left;
         position: absolute;
-        //top: 0;
-        //left: 0;
+        top: 0;
+        left: 0;
     }
 }
 

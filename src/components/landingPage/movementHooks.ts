@@ -1,5 +1,6 @@
-import { Pan, DragObject } from "../interface/Movement";
 import { useEffect } from "react";
+import { Pan, DragObject } from "../interface/Movement";
+import { clamp } from "../../js/utils";
 
 export const useHorizontalPanning = (identifier: string) => {
     useEffect(() => {
@@ -61,7 +62,14 @@ const pan = (
         const mouseDelta = o.mouseStart - mouseNow;
         if(o.dragging){
             o.previousMousePosition = event.clientX;
-            if(element) element.style.left = (o.initialOffset + mouseDelta) + "px"; 
+            if(element){ 
+                let offset = o.initialOffset + mouseDelta;
+                offset = clamp(offset, -element.offsetWidth, 0);
+                element.style.left = offset + "px"; 
+                //console.log("el offset: " + element.offsetLeft + "   and clamped offset:  " + offset);
+            } 
+
+            
         }         
     }
 }

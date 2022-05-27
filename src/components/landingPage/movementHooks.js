@@ -2,6 +2,7 @@
 exports.__esModule = true;
 exports.useHorizontalPanning = void 0;
 var react_1 = require("react");
+var utils_1 = require("../../js/utils");
 exports.useHorizontalPanning = function (identifier) {
     react_1.useEffect(function () {
         var element = document.getElementsByClassName(identifier)[0];
@@ -42,8 +43,12 @@ var pan = function (element, dragObject) {
         var mouseDelta = o.mouseStart - mouseNow;
         if (o.dragging) {
             o.previousMousePosition = event.clientX;
-            if (element)
-                element.style.left = (o.initialOffset + mouseDelta) + "px";
+            if (element) {
+                var offset = o.initialOffset + mouseDelta;
+                offset = utils_1.clamp(offset, -element.offsetWidth, 0);
+                element.style.left = offset + "px";
+                //console.log("el offset: " + element.offsetLeft + "   and clamped offset:  " + offset);
+            }
         }
     };
 };

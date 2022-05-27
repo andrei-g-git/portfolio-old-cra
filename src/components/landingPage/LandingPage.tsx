@@ -11,8 +11,6 @@ import { useHorizontalPanning } from './movementHooks';
 import ShelfDoodad from '../shelfDoodad/ShelfDoodad';
 import "../landingPage/LandingPage.scss";
 
-import { useEffect } from 'react';
-
 export const LandingPage = (props: any) => { //make this thing pannable horizontally rather than using the scrollbar
 
     useCharacterEntrance(props.changeCharacterAnimation);
