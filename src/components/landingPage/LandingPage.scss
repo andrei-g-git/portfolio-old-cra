@@ -6,6 +6,8 @@
     height: 100vh;
     position: relative;
 
+    overflow-y: hidden;
+
     .landing-page-background{
         background-image: url(../../assets/img/testBg1.png);
         background-repeat: no-repeat;
@@ -18,14 +20,42 @@
     }    
 
     .character{
-        width: $landingPageMaxWidth;
-        height: 100%;
-        // object-fit: cover;
-        // object-position: left;
+        // width: $landingPageMaxWidth;
+        // height: 100%;
+        width: 217px * 2;
+        height: 504px * 2;
         position: absolute;
         top: 0;
         left: 0;
+
+        // animation-name: walking-left;
+        // animation-duration: 2.2s;
+        // animation-fill-mode: forwards;
+        // animation-timing-function:cubic-bezier(0, 1, 1, 1);
+
+        // animation-name: turning-forward;
+        // animation-duration: .5s;
+        // animation-timing-function: ease-in-out;
+
+        animation: walking-left 2.2s forwards cubic-bezier(0, 1, 1, 1),
+            turning-forward 0.5s forwards ease-in-out
+        ;
+
+
     }
+}
+
+@keyframes walking-left{
+    from{
+        transform: translate($landingPageMaxWidth, 200px)
+    }
+    to{
+        transform: translate(calc(1920px - 960px - 434px/2), 200px);
+    }
+}
+
+@keyframes turning-forward {
+    
 }
 
 

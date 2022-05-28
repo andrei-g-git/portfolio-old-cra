@@ -5,7 +5,7 @@ var react_1 = require("react");
 exports.useCharacterEntrance = function (animationAction) {
     react_1.useEffect(function () {
         setTimeout(function () {
-            animationAction(exports.animations["leaning"]);
+            animationAction(exports.animations[ /* "leaning" */"turning"]);
             setTimeout(function () {
                 animationAction(exports.animations["idling"]);
             }, 750);
@@ -15,9 +15,11 @@ exports.useCharacterEntrance = function (animationAction) {
 exports.getCharacterAnimationUri = function (index) {
     switch (index) {
         case 0:
-            return require("../../assets/img/testChar1.gif");
+            //return require("../../assets/img/testChar1.gif");
+            return require("../../assets/img/walking-left.gif");
         case 1:
-            return require("../../assets/img/testCharIdle1.gif");
+            //return require("../../assets/img/testCharIdle1.gif");
+            return require("../../assets/img/turn-forward.gif");
         case 2:
             return require("../../assets/img/actualIdle1.gif");
         case 3:
@@ -31,7 +33,8 @@ exports.getCharacterAnimationUri = function (index) {
 };
 exports.animations = {
     walkingIn: 0,
-    leaning: 1,
+    turning: 1,
+    //leaning: 1,
     idling: 2,
     lookingAtThing1: 3,
     lookingAtThing2: 4
@@ -40,7 +43,8 @@ exports.getAnimationByName = function (name) {
     switch (name) {
         case "walkingIn":
             return 0;
-        case "leaning":
+        //case "leaning":
+        case "turning":
             return 1;
         case "idling":
             return 2;

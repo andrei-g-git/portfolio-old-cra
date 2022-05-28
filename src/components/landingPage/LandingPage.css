@@ -2,6 +2,7 @@
   width: 1920px;
   height: 100vh;
   position: relative;
+  overflow-y: hidden;
 }
 .landing-page-container .landing-page-background {
   background-image: url(../../assets/img/testBg1.png);
@@ -13,9 +14,20 @@
   left: 0;
 }
 .landing-page-container .character {
-  width: 1920px;
-  height: 100%;
+  width: 434px;
+  height: 1008px;
   position: absolute;
   top: 0;
   left: 0;
+  animation: walking-left 2.2s forwards cubic-bezier(0, 1, 1, 1), turning-forward 0.5s forwards ease-in-out;
 }
+
+@keyframes walking-left {
+  from {
+    transform: translate(1920px, 200px);
+  }
+  to {
+    transform: translate(calc(1920px - 960px - 434px/2), 200px);
+  }
+}
+@keyframes turning-forward {}
