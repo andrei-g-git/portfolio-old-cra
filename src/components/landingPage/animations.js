@@ -7,9 +7,9 @@ exports.useCharacterEntrance = function (animationAction) {
         setTimeout(function () {
             animationAction(exports.animations[ /* "leaning" */"turning"]);
             setTimeout(function () {
-                animationAction(exports.animations["idling"]);
-            }, 750);
-        }, 1800);
+                animationAction(exports.animations[ /* "idling" */"restingArms"]);
+            }, 500);
+        }, 2200);
     }, []);
 };
 exports.getCharacterAnimationUri = function (index) {
@@ -21,7 +21,8 @@ exports.getCharacterAnimationUri = function (index) {
             //return require("../../assets/img/testCharIdle1.gif");
             return require("../../assets/img/turn-forward.gif");
         case 2:
-            return require("../../assets/img/actualIdle1.gif");
+            //return require("../../assets/img/actualIdle1.gif");   
+            return require("../../assets/img/rest-arms.gif");
         case 3:
             return require("../../assets/img/testlookatthing1.gif");
         case 4:
@@ -35,7 +36,8 @@ exports.animations = {
     walkingIn: 0,
     turning: 1,
     //leaning: 1,
-    idling: 2,
+    //idling: 2,
+    restingArms: 2,
     lookingAtThing1: 3,
     lookingAtThing2: 4
 };
@@ -46,7 +48,8 @@ exports.getAnimationByName = function (name) {
         //case "leaning":
         case "turning":
             return 1;
-        case "idling":
+        //case "idling":
+        case "restingArms":
             return 2;
         case "lookingAtThing1":
             return 3;
