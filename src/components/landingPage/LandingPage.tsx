@@ -9,11 +9,12 @@ import {
 import { handleDoodadClick } from './landingPageController';
 import { useHorizontalPanning, useCenteredResizing } from './movementHooks';
 import ShelfDoodad from '../shelfDoodad/ShelfDoodad';
+import { animations } from './animations';
 import "../landingPage/LandingPage.scss";
 
 export const LandingPage = (props: any) => { //make this thing pannable horizontally rather than using the scrollbar
 
-    useCharacterEntrance(props.changeCharacterAnimation);
+    useCharacterEntrance(props.changeCharacterAnimation, animations);
 
     useCenteredResizing("landing-page-container", 1920);
 
@@ -26,18 +27,18 @@ export const LandingPage = (props: any) => { //make this thing pannable horizont
 
             <ShelfDoodad image={require("../../assets/img/testDoodad1.png")}
                 index={1}
-                notifyClick={handleDoodadClick(props.changeCharacterAnimation)}
+                notifyClick={handleDoodadClick(props.changeCharacterAnimation, animations)}
                 x="100px"
                 y="200px"
             />
             <ShelfDoodad image={require("../../assets/img/testDoodad2.png")}
                 index={2}
-                notifyClick={handleDoodadClick(props.changeCharacterAnimation)}
+                notifyClick={handleDoodadClick(props.changeCharacterAnimation, animations)}
                 x="1600px"
                 y="200px"
             />
             <img className="character" 
-                src={getCharacterAnimationUri(props.characterAnimation) + "?" + Math.random().toString()} //browsers cache media, non-looping gifs are preserved as their end animation even on page reload
+                src={getCharacterAnimationUri(props.characterAnimation, animations, "../../") + "?" + Math.random().toString()} //browsers cache media, non-looping gifs are preserved as their end animation even on page reload
                 alt="char"
             />
         </div>
