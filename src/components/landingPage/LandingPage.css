@@ -19,7 +19,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  animation: walking-left 2.2s forwards cubic-bezier(0, 1, 1, 1), turning-forward 0.5s forwards ease-in-out;
+  animation: walking-left 2.2s forwards cubic-bezier(0, 1, 1, 1), turning-forward 0.5s forwards ease-in-out, resting-arms 0.5s forwards ease-in-out;
 }
 
 @keyframes walking-left {
@@ -31,3 +31,4 @@
   }
 }
 @keyframes turning-forward {}
+@keyframes resting-arms {}

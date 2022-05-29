@@ -8,6 +8,9 @@ exports.useCharacterEntrance = function (animationAction) {
             animationAction(exports.animations[ /* "leaning" */"turning"]);
             setTimeout(function () {
                 animationAction(exports.animations[ /* "idling" */"restingArms"]);
+                setTimeout(function () {
+                    animationAction(exports.animations["idling"]);
+                }, 500);
             }, 500);
         }, 2200);
     }, []);
@@ -24,9 +27,11 @@ exports.getCharacterAnimationUri = function (index) {
             //return require("../../assets/img/actualIdle1.gif");   
             return require("../../assets/img/rest-arms.gif");
         case 3:
-            return require("../../assets/img/testlookatthing1.gif");
+            return require("../../assets/img/idling.gif");
         case 4:
-            return require("../../assets/img/testlookatthing2.gif");
+            return require("../../assets/img/testlookatthing1.gif");
+        case 5:
+            return require("../../assets/img/looking-right-1.gif");
         default:
             return "nope";
     }
@@ -38,8 +43,9 @@ exports.animations = {
     //leaning: 1,
     //idling: 2,
     restingArms: 2,
-    lookingAtThing1: 3,
-    lookingAtThing2: 4
+    idling: 3,
+    lookingAtThing1: 4,
+    lookingAtThing2: 5
 };
 exports.getAnimationByName = function (name) {
     switch (name) {
@@ -51,10 +57,12 @@ exports.getAnimationByName = function (name) {
         //case "idling":
         case "restingArms":
             return 2;
-        case "lookingAtThing1":
+        case "idling":
             return 3;
-        case "lookingAtThing2":
+        case "lookingAtThing1":
             return 4;
+        case "lookingAtThing2":
+            return 5;
         default:
             return 0;
     }
@@ -62,10 +70,10 @@ exports.getAnimationByName = function (name) {
 exports.getAnimationByDoodadNumber = function (index) {
     switch (index) {
         case 1:
-            return 3;
-        case 2:
             return 4;
+        case 2:
+            return 5;
         default:
-            return 3;
+            return 4;
     }
 };

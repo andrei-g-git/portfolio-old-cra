@@ -38,7 +38,8 @@
         // animation-timing-function: ease-in-out;
 
         animation: walking-left 2.2s forwards cubic-bezier(0, 1, 1, 1),
-            turning-forward 0.5s forwards ease-in-out
+            turning-forward 0.5s forwards ease-in-out,
+            resting-arms 0.5s forwards ease-in-out,
         ;
 
 
@@ -56,6 +57,10 @@
 
 @keyframes turning-forward {
     
+}
+
+@keyframes resting-arms{
+
 }
 
 

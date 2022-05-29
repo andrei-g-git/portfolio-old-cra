@@ -8,6 +8,12 @@ export const useCharacterEntrance = (animationAction: Function) => {
     
             setTimeout(() => {
                 animationAction(animations[/* "idling" */"restingArms"]);
+
+                setTimeout(() => {
+                    animationAction(animations["idling"])
+                }, 
+                    500
+                );
             },
                 500
             );
@@ -31,9 +37,11 @@ export const getCharacterAnimationUri = (index: number): string => {
             //return require("../../assets/img/actualIdle1.gif");   
             return require("../../assets/img/rest-arms.gif");
         case 3:
-            return require("../../assets/img/testlookatthing1.gif");    
+            return require("../../assets/img/idling.gif");
         case 4:
-            return require("../../assets/img/testlookatthing2.gif");            
+            return require("../../assets/img/testlookatthing1.gif");    
+        case 5:
+            return require("../../assets/img/looking-right-1.gif");            
         default: 
             return "nope"
     };
@@ -45,8 +53,9 @@ export const animations = {
     //leaning: 1,
     //idling: 2,
     restingArms: 2,
-    lookingAtThing1: 3,
-    lookingAtThing2: 4  
+    idling: 3,
+    lookingAtThing1: 4,
+    lookingAtThing2: 5  
 };
 
 export const getAnimationByName = (name: string): number => {
@@ -59,10 +68,12 @@ export const getAnimationByName = (name: string): number => {
         //case "idling":
         case "restingArms":
             return 2;
-        case "lookingAtThing1":
+        case "idling":
             return 3;
+        case "lookingAtThing1":
+            return 4;
         case "lookingAtThing2":
-            return 4;     
+            return 5;     
         default: 
             return 0;                                                                   
     }
@@ -71,10 +82,10 @@ export const getAnimationByName = (name: string): number => {
 export const getAnimationByDoodadNumber = (index: number) : number => {
     switch(index){
         case 1:
-            return 3;
-        case 2:
             return 4;
+        case 2:
+            return 5;
         default: 
-            return 3;
+            return 4;
     }
 };

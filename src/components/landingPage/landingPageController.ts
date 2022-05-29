@@ -7,7 +7,7 @@ export const handleDoodadClick = (changeAnimation: Function) => { //this is test
         setTimeout(() => {
             changeAnimation(getAnimationByName("idling"));
         },
-            1000
+            1500
         );
 
         return anim;

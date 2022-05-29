@@ -8,7 +8,7 @@ exports.handleDoodadClick = function (changeAnimation) {
         changeAnimation(anim);
         setTimeout(function () {
             changeAnimation(animations_1.getAnimationByName("idling"));
-        }, 1000);
+        }, 1500);
         return anim;
     };
 };
