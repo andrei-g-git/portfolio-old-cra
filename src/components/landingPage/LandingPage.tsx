@@ -3,11 +3,17 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { characterAnimationChanged } from '../../redux/actions';
 import { 
-    useCharacterEntrance, 
+    //useCharacterEntrance, 
     getCharacterAnimationUri
 } from './animations';
-import { handleDoodadClick } from './landingPageController';
-import { useHorizontalPanning, useCenteredResizing } from './movementHooks';
+import { 
+    handleDoodadClick, 
+    useCharacterEntrance 
+} from './landingPageController';
+import { 
+    useHorizontalPanning, 
+    useCenteredResizing 
+} from './movementHooks';
 import ShelfDoodad from '../shelfDoodad/ShelfDoodad';
 import { animations } from './animations';
 import "../landingPage/LandingPage.scss";

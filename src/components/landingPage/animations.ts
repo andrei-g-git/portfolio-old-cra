@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import { Animation } from "../interface/Animation";
 
-export const animations/* ForRealThisTime */: any = {
+export const animations: any = {
     walkingIn: <Animation> {
         index: 0,
         path: "assets/img/walking-left.gif",
@@ -40,35 +40,35 @@ export const animations/* ForRealThisTime */: any = {
     } 
 };
 
-export const useCharacterEntrance = (animationAction: Function, animationsObject: any) => {
-    useEffect(() => {
-        const beforeRestingArms: string = animationsObject.restingArms.preceedingAnimation;
-        const beforeTurning: string = animationsObject.turning.preceedingAnimation;
-        const beforeIdling: string = animationsObject.idling.preceedingAnimation;
-        setTimeout(() => {
-            animationAction(animations["turning"].index);
+// export const useCharacterEntrance = (animationAction: Function, animationsObject: any) => { //this should be in the loading page controller
+//     useEffect(() => {
+//         const beforeRestingArms: string = animationsObject.restingArms.preceedingAnimation;
+//         const beforeTurning: string = animationsObject.turning.preceedingAnimation;
+//         const beforeIdling: string = animationsObject.idling.preceedingAnimation;
+//         setTimeout(() => {
+//             animationAction(animations["turning"].index);
     
-            setTimeout(() => {
-                animationAction(animations["restingArms"].index);
+//             setTimeout(() => {
+//                 animationAction(animations["restingArms"].index);
                 
-                setTimeout(() => {
-                    animationAction(animations["idling"].index)
-                }, 
-                    animationsObject[beforeIdling]
-                        .duration
-                );
-            },
-                animationsObject[beforeRestingArms]
-                    .duration
-            );
-        },
-            animationsObject[beforeTurning]
-                .duration
-        );
-    },
-        []
-    );
-};
+//                 setTimeout(() => {
+//                     animationAction(animations["idling"].index)
+//                 }, 
+//                     animationsObject[beforeIdling]
+//                         .duration
+//                 );
+//             },
+//                 animationsObject[beforeRestingArms]
+//                     .duration
+//             );
+//         },
+//             animationsObject[beforeTurning]
+//                 .duration
+//         );
+//     },
+//         []
+//     );
+// };
 
 export const getCharacterAnimationUri = (index: number, animationsObject: any, relativePathPrefix: string): string => {
     // switch(index){
@@ -88,7 +88,7 @@ export const getCharacterAnimationUri = (index: number, animationsObject: any, r
     //         return "nope"
     // };
 
-    let path: string = "";//relativePathPrefix;
+    let path: string = "";
     for(const [name, animation] of Object.entries(animationsObject)){
         if((<Animation>animation).index === index){
             path += (<Animation>animation).path; 
@@ -98,32 +98,7 @@ export const getCharacterAnimationUri = (index: number, animationsObject: any, r
     return require(`../../${path}`); //if I concat the relative suffix dynamically it returns a cannot find module error ... luckily I'm only running animations in the same tsx file so ../../will work for now
 };
 
-// export const animations = {
-//     walkingIn: 0,
-//     turning: 1,
-//     restingArms: 2,
-//     idling: 3,
-//     lookingAtThing1: 4,
-//     lookingAtThing2: 5  
-// };
-
 export const getAnimationByName = (name: string, animationsObject: any): number => {
-    // switch(name){
-    //     case "walkingIn":
-    //         return 0;
-    //     case "turning":
-    //         return 1;
-    //     case "restingArms":
-    //         return 2;
-    //     case "idling":
-    //         return 3;
-    //     case "lookingAtThing1":
-    //         return 4;
-    //     case "lookingAtThing2":
-    //         return 5;     
-    //     default: 
-    //         return 0;                                                                   
-    // }
     return animationsObject[name].index;
 };
 

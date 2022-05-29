@@ -1,8 +1,7 @@
 "use strict";
 exports.__esModule = true;
-exports.getAnimationByDoodadNumber = exports.getAnimationByName = exports.getCharacterAnimationUri = exports.useCharacterEntrance = exports.animations = void 0;
-var react_1 = require("react");
-exports.animations /* ForRealThisTime */ = {
+exports.getAnimationByDoodadNumber = exports.getAnimationByName = exports.getCharacterAnimationUri = exports.animations = void 0;
+exports.animations = {
     walkingIn: {
         index: 0,
         path: "assets/img/walking-left.gif",
@@ -40,25 +39,33 @@ exports.animations /* ForRealThisTime */ = {
         preceedingAnimation: "idling"
     }
 };
-exports.useCharacterEntrance = function (animationAction, animationsObject) {
-    react_1.useEffect(function () {
-        var beforeRestingArms = animationsObject.restingArms.preceedingAnimation;
-        var beforeTurning = animationsObject.turning.preceedingAnimation;
-        var beforeIdling = animationsObject.idling.preceedingAnimation;
-        setTimeout(function () {
-            animationAction(exports.animations["turning"].index);
-            setTimeout(function () {
-                animationAction(exports.animations["restingArms"].index);
-                setTimeout(function () {
-                    animationAction(exports.animations["idling"].index);
-                }, animationsObject[beforeIdling]
-                    .duration);
-            }, animationsObject[beforeRestingArms]
-                .duration);
-        }, animationsObject[beforeTurning]
-            .duration);
-    }, []);
-};
+// export const useCharacterEntrance = (animationAction: Function, animationsObject: any) => { //this should be in the loading page controller
+//     useEffect(() => {
+//         const beforeRestingArms: string = animationsObject.restingArms.preceedingAnimation;
+//         const beforeTurning: string = animationsObject.turning.preceedingAnimation;
+//         const beforeIdling: string = animationsObject.idling.preceedingAnimation;
+//         setTimeout(() => {
+//             animationAction(animations["turning"].index);
+//             setTimeout(() => {
+//                 animationAction(animations["restingArms"].index);
+//                 setTimeout(() => {
+//                     animationAction(animations["idling"].index)
+//                 }, 
+//                     animationsObject[beforeIdling]
+//                         .duration
+//                 );
+//             },
+//                 animationsObject[beforeRestingArms]
+//                     .duration
+//             );
+//         },
+//             animationsObject[beforeTurning]
+//                 .duration
+//         );
+//     },
+//         []
+//     );
+// };
 exports.getCharacterAnimationUri = function (index, animationsObject, relativePathPrefix) {
     // switch(index){
     //     case 0:
@@ -76,7 +83,7 @@ exports.getCharacterAnimationUri = function (index, animationsObject, relativePa
     //     default: 
     //         return "nope"
     // };
-    var path = ""; //relativePathPrefix;
+    var path = "";
     for (var _i = 0, _a = Object.entries(animationsObject); _i < _a.length; _i++) {
         var _b = _a[_i], name = _b[0], animation = _b[1];
         if (animation.index === index) {
@@ -86,31 +93,7 @@ exports.getCharacterAnimationUri = function (index, animationsObject, relativePa
     }
     return require("../../" + path); //if I concat the relative suffix dynamically it returns a cannot find module error ... luckily I'm only running animations in the same tsx file so ../../will work for now
 };
-// export const animations = {
-//     walkingIn: 0,
-//     turning: 1,
-//     restingArms: 2,
-//     idling: 3,
-//     lookingAtThing1: 4,
-//     lookingAtThing2: 5  
-// };
 exports.getAnimationByName = function (name, animationsObject) {
-    // switch(name){
-    //     case "walkingIn":
-    //         return 0;
-    //     case "turning":
-    //         return 1;
-    //     case "restingArms":
-    //         return 2;
-    //     case "idling":
-    //         return 3;
-    //     case "lookingAtThing1":
-    //         return 4;
-    //     case "lookingAtThing2":
-    //         return 5;     
-    //     default: 
-    //         return 0;                                                                   
-    // }
     return animationsObject[name].index;
 };
 exports.getAnimationByDoodadNumber = function (index) {

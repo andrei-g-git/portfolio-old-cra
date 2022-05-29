@@ -1,8 +1,9 @@
 "use strict";
 exports.__esModule = true;
-exports.handleDoodadClick = void 0;
+exports.useCharacterEntrance = exports.handleDoodadClick = void 0;
 var animations_1 = require("./animations");
 var animations_2 = require("./animations");
+var react_1 = require("react");
 exports.handleDoodadClick = function (changeAnimation, animationsObject) {
     return function (index) {
         var anim = animations_1.getAnimationByDoodadNumber(index);
@@ -17,4 +18,23 @@ exports.handleDoodadClick = function (changeAnimation, animationsObject) {
         1500);
         return anim;
     };
+};
+exports.useCharacterEntrance = function (animationAction, animationsObject) {
+    react_1.useEffect(function () {
+        var beforeRestingArms = animationsObject.restingArms.preceedingAnimation;
+        var beforeTurning = animationsObject.turning.preceedingAnimation;
+        var beforeIdling = animationsObject.idling.preceedingAnimation;
+        setTimeout(function () {
+            animationAction(animations_2.animations["turning"].index);
+            setTimeout(function () {
+                animationAction(animations_2.animations["restingArms"].index);
+                setTimeout(function () {
+                    animationAction(animations_2.animations["idling"].index);
+                }, animationsObject[beforeIdling]
+                    .duration);
+            }, animationsObject[beforeRestingArms]
+                .duration);
+        }, animationsObject[beforeTurning]
+            .duration);
+    }, []);
 };
