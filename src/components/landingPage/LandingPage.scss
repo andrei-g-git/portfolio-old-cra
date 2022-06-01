@@ -9,15 +9,26 @@
     overflow-y: hidden;
 
     .landing-page-background{
-        background-image: url(../../assets/img/testBg1.png);
+        background-image: url(../../assets/img/landing-page-bg-1.png);
+        background-position: 0px -106px;
         background-repeat: no-repeat;
         width: $landingPageMaxWidth;
         height: 100%;
-        overflow: hidden;
-        //overflow: scroll; //this was supposed to cause an issue with ... something ... i forget
         position: absolute;
-        left: 0;
+        left: 0; 
+        overflow-x: hidden;
     }    
+
+    .landing-page-foreground{ //should be mixin
+        background-image: url(../../assets/img/landing-page-fg-1.png);
+        background-position: 0px -106px;
+        background-repeat: no-repeat;
+        width: $landingPageMaxWidth;
+        height: 100%;
+        position: absolute;
+        left: 0; 
+        overflow-x: hidden;
+    } 
 
     .character{
         // width: $landingPageMaxWidth;
@@ -25,7 +36,7 @@
         width: 217px * 2;
         height: 504px * 2;
         position: absolute;
-        top: 0;
+        //top: 100; this doesn't work for some reason
         left: 0;
 
         // animation-name: walking-left;
@@ -48,10 +59,10 @@
 
 @keyframes walking-left{
     from{
-        transform: translate($landingPageMaxWidth, 200px)
+        transform: translate($landingPageMaxWidth, /* 200px */150px)
     }
     to{
-        transform: translate(calc(1920px - 960px - 434px/2), 200px);
+        transform: translate(calc(1920px - 960px - 434px/2), /* 200px */150px);
     }
 }
 

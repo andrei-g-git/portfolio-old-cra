@@ -25,14 +25,20 @@ export const useCharacterEntrance = (animationAction: Function, animationsObject
         const beforeRestingArms: string = animationsObject.restingArms.preceedingAnimation;
         const beforeTurning: string = animationsObject.turning.preceedingAnimation;
         const beforeIdling: string = animationsObject.idling.preceedingAnimation;
+
+        // console.log(JSON.stringify(animationsObject))
+        // console.log(beforeRestingArms)
+        // console.log(beforeTurning)
+        // console.log(beforeIdling)
+        
         setTimeout(() => {
-            animationAction(animations["turning"].index);
+            animationAction(animationsObject["turning"].index);
     
             setTimeout(() => {
-                animationAction(animations["restingArms"].index);
+                animationAction(animationsObject["restingArms"].index);
                 
                 setTimeout(() => {
-                    animationAction(animations["idling"].index)
+                    animationAction(animationsObject["idling"].index)
                 }, 
                     animationsObject[beforeIdling]
                         .duration

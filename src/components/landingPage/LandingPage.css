@@ -5,29 +5,39 @@
   overflow-y: hidden;
 }
 .landing-page-container .landing-page-background {
-  background-image: url(../../assets/img/testBg1.png);
+  background-image: url(../../assets/img/landing-page-bg-1.png);
+  background-position: 0px -106px;
   background-repeat: no-repeat;
   width: 1920px;
   height: 100%;
-  overflow: hidden;
   position: absolute;
   left: 0;
+  overflow-x: hidden;
+}
+.landing-page-container .landing-page-foreground {
+  background-image: url(../../assets/img/landing-page-fg-1.png);
+  background-position: 0px -106px;
+  background-repeat: no-repeat;
+  width: 1920px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  overflow-x: hidden;
 }
 .landing-page-container .character {
   width: 434px;
   height: 1008px;
   position: absolute;
-  top: 0;
   left: 0;
   animation: walking-left 2.2s forwards cubic-bezier(0, 1, 1, 1), turning-forward 0.5s forwards ease-in-out, resting-arms 0.5s forwards ease-in-out;
 }
 
 @keyframes walking-left {
   from {
-    transform: translate(1920px, 200px);
+    transform: translate(1920px, 150px);
   }
   to {
-    transform: translate(calc(1920px - 960px - 434px/2), 200px);
+    transform: translate(calc(1920px - 960px - 434px/2), 150px);
   }
 }
 @keyframes turning-forward {}

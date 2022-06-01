@@ -24,12 +24,16 @@ exports.useCharacterEntrance = function (animationAction, animationsObject) {
         var beforeRestingArms = animationsObject.restingArms.preceedingAnimation;
         var beforeTurning = animationsObject.turning.preceedingAnimation;
         var beforeIdling = animationsObject.idling.preceedingAnimation;
+        // console.log(JSON.stringify(animationsObject))
+        // console.log(beforeRestingArms)
+        // console.log(beforeTurning)
+        // console.log(beforeIdling)
         setTimeout(function () {
-            animationAction(animations_2.animations["turning"].index);
+            animationAction(animationsObject["turning"].index);
             setTimeout(function () {
-                animationAction(animations_2.animations["restingArms"].index);
+                animationAction(animationsObject["restingArms"].index);
                 setTimeout(function () {
-                    animationAction(animations_2.animations["idling"].index);
+                    animationAction(animationsObject["idling"].index);
                 }, animationsObject[beforeIdling]
                     .duration);
             }, animationsObject[beforeRestingArms]

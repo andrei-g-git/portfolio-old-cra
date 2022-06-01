@@ -16,13 +16,13 @@ export const animations: any = {
     },
     restingArms: <Animation> {
         index: 2,
-        path: "assets/img/rest-arms.gif",
+        path: "assets/img/sitting.gif",//rest-arms.gif",
         duration: 500,
         preceedingAnimation: "turning"
     },
     idling: <Animation> {
         index: 3,
-        path: "assets/img/idling.gif",
+        path: "assets/img/idling-2.gif",
         duration: 2000,
         preceedingAnimation: "restingArms"
     },
@@ -39,36 +39,6 @@ export const animations: any = {
         preceedingAnimation: "idling"
     } 
 };
-
-// export const useCharacterEntrance = (animationAction: Function, animationsObject: any) => { //this should be in the loading page controller
-//     useEffect(() => {
-//         const beforeRestingArms: string = animationsObject.restingArms.preceedingAnimation;
-//         const beforeTurning: string = animationsObject.turning.preceedingAnimation;
-//         const beforeIdling: string = animationsObject.idling.preceedingAnimation;
-//         setTimeout(() => {
-//             animationAction(animations["turning"].index);
-    
-//             setTimeout(() => {
-//                 animationAction(animations["restingArms"].index);
-                
-//                 setTimeout(() => {
-//                     animationAction(animations["idling"].index)
-//                 }, 
-//                     animationsObject[beforeIdling]
-//                         .duration
-//                 );
-//             },
-//                 animationsObject[beforeRestingArms]
-//                     .duration
-//             );
-//         },
-//             animationsObject[beforeTurning]
-//                 .duration
-//         );
-//     },
-//         []
-//     );
-// };
 
 export const getCharacterAnimationUri = (index: number, animationsObject: any, relativePathPrefix: string): string => {
     // switch(index){

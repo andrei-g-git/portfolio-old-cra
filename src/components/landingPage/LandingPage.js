@@ -18,7 +18,8 @@ exports.LandingPage = function (props) {
         React.createElement("div", { className: "landing-page-background" }),
         React.createElement(ShelfDoodad_1["default"], { image: require("../../assets/img/testDoodad1.png"), index: 1, notifyClick: landingPageController_1.handleDoodadClick(props.changeCharacterAnimation, animations_2.animations), x: "100px", y: "200px" }),
         React.createElement(ShelfDoodad_1["default"], { image: require("../../assets/img/testDoodad2.png"), index: 2, notifyClick: landingPageController_1.handleDoodadClick(props.changeCharacterAnimation, animations_2.animations), x: "1600px", y: "200px" }),
-        React.createElement("img", { className: "character", src: animations_1.getCharacterAnimationUri(props.characterAnimation, animations_2.animations, "../../") + "?" + Math.random().toString(), alt: "char" })));
+        React.createElement("img", { className: "character", src: animations_1.getCharacterAnimationUri(props.characterAnimation, animations_2.animations, "../../") + "?" + Math.random().toString(), alt: "char" }),
+        React.createElement("div", { className: "landing-page-foreground" })));
 };
 var mapStateToProps = function (state) {
     return {

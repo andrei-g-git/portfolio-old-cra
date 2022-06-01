@@ -47,6 +47,9 @@ export const LandingPage = (props: any) => { //make this thing pannable horizont
                 src={getCharacterAnimationUri(props.characterAnimation, animations, "../../") + "?" + Math.random().toString()} //browsers cache media, non-looping gifs are preserved as their end animation even on page reload
                 alt="char"
             />
+
+            <div className="landing-page-foreground"></div>
+
         </div>
 
     );
