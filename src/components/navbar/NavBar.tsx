@@ -1,22 +1,37 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { navbarItemList } from './navbarItems';
 import { activeNavItemChanged, justClickedNavItem } from '../../redux/actions'; //this would probably be more proper if it was injected as a prop
+import NavItem from '../navItem/NavItem';
 import "./NavBar.scss";
 
 
 export const NavBar = (props: any /* CHANGE */) => {
+	const activeItemList = [true, false, false, false]; //this is really bad for obvious reasons
+	useEffect(() => {
+		activeItemList.forEach((item, index) => activeItemList[index] = false);
+		activeItemList[props.activeNavItem] = true;
+		console.log(activeItemList);
+	},
+		[props.activeNavItem]
+	);
 	return (
 		<div className="nav-bar">
 				{
 					navbarItemList.map((item, index) => 
-						<div className="nav-item"
-							key={index} //this is fine, the list is immutable
-							onClick={() => props.changeActiveNavItem(index)}
-						>
-							{item}
-						</div>
+						// <div className="nav-item"
+						// 	key={index} //this is fine, the list is immutable
+						// 	onClick={() => props.changeActiveNavItem(index)}
+						// >
+						// 	{item}
+						// </div>
+						<NavItem index={index}
+							name={item}
+							active={/* activeItemList[index] */props.activeNavItem == index ? true : false}
+							notifyParent={props.changeActiveNavItem}
+						/>
 					)
 				}				
 

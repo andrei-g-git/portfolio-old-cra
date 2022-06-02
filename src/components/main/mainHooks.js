@@ -44,5 +44,9 @@ exports.scrollToActiveNavItem = function (navIndex) {
             height = 0;
             break;
     }
-    window.scrollTo(0, height);
+    window.scrollTo({
+        top: height,
+        left: 0,
+        behavior: "smooth"
+    });
 };
