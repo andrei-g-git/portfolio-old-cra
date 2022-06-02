@@ -41,22 +41,6 @@ export const animations: any = {
 };
 
 export const getCharacterAnimationUri = (index: number, animationsObject: any, relativePathPrefix: string): string => {
-    // switch(index){
-    //     case 0:
-    //         return require("../../assets/img/walking-left.gif");
-    //     case 1:
-    //         return require("../../assets/img/turn-forward.gif");
-    //     case 2:
-    //         return require("../../assets/img/rest-arms.gif");
-    //     case 3:
-    //         return require("../../assets/img/idling.gif");
-    //     case 4:
-    //         return require("../../assets/img/looking-left-1.gif");    
-    //     case 5:
-    //         return require("../../assets/img/looking-right-1.gif");            
-    //     default: 
-    //         return "nope"
-    // };
 
     let path: string = "";
     for(const [name, animation] of Object.entries(animationsObject)){

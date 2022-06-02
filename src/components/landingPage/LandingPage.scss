@@ -39,15 +39,6 @@
         //top: 100; this doesn't work for some reason
         left: 0;
 
-        // animation-name: walking-left;
-        // animation-duration: 2.2s;
-        // animation-fill-mode: forwards;
-        // animation-timing-function:cubic-bezier(0, 1, 1, 1);
-
-        // animation-name: turning-forward;
-        // animation-duration: .5s;
-        // animation-timing-function: ease-in-out;
-
         animation: walking-left 2.2s forwards cubic-bezier(0, 1, 1, 1),
             turning-forward 0.5s forwards ease-in-out,
             resting-arms 0.5s forwards ease-in-out,

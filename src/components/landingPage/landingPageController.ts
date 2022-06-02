@@ -25,11 +25,6 @@ export const useCharacterEntrance = (animationAction: Function, animationsObject
         const beforeRestingArms: string = animationsObject.restingArms.preceedingAnimation;
         const beforeTurning: string = animationsObject.turning.preceedingAnimation;
         const beforeIdling: string = animationsObject.idling.preceedingAnimation;
-
-        // console.log(JSON.stringify(animationsObject))
-        // console.log(beforeRestingArms)
-        // console.log(beforeTurning)
-        // console.log(beforeIdling)
         
         setTimeout(() => {
             animationAction(animationsObject["turning"].index);

@@ -40,22 +40,6 @@ exports.animations = {
     }
 };
 exports.getCharacterAnimationUri = function (index, animationsObject, relativePathPrefix) {
-    // switch(index){
-    //     case 0:
-    //         return require("../../assets/img/walking-left.gif");
-    //     case 1:
-    //         return require("../../assets/img/turn-forward.gif");
-    //     case 2:
-    //         return require("../../assets/img/rest-arms.gif");
-    //     case 3:
-    //         return require("../../assets/img/idling.gif");
-    //     case 4:
-    //         return require("../../assets/img/looking-left-1.gif");    
-    //     case 5:
-    //         return require("../../assets/img/looking-right-1.gif");            
-    //     default: 
-    //         return "nope"
-    // };
     var path = "";
     for (var _i = 0, _a = Object.entries(animationsObject); _i < _a.length; _i++) {
         var _b = _a[_i], name = _b[0], animation = _b[1];

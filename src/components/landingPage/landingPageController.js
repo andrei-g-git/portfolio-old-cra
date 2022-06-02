@@ -24,10 +24,6 @@ exports.useCharacterEntrance = function (animationAction, animationsObject) {
         var beforeRestingArms = animationsObject.restingArms.preceedingAnimation;
         var beforeTurning = animationsObject.turning.preceedingAnimation;
         var beforeIdling = animationsObject.idling.preceedingAnimation;
-        // console.log(JSON.stringify(animationsObject))
-        // console.log(beforeRestingArms)
-        // console.log(beforeTurning)
-        // console.log(beforeIdling)
         setTimeout(function () {
             animationAction(animationsObject["turning"].index);
             setTimeout(function () {
