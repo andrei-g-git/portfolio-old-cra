@@ -1,20 +1,9 @@
 import * as React from 'react'
-import {useEffect} from "react";
 import "./NavItem.scss";
 
 function NavItem(props: any) {
-    let activityClass: string = "nav-item-inactive";
-    useEffect(() => { //this runs after the component return statement so it's useless
-        props.active ? 
-            activityClass = "nav-item-active"
-        :
-            activityClass = "nav-item-inactive"        
-    },
-        [props.active]
-    );
-
     return (
-        <div className={"nav-item" + " " + props.active ? "nav-item-active" : "nav-item-inactive"}
+        <div className={testClassName(props.active)}  
             key={props.index} //this is fine, the list is immutable
             onClick={() => props.notifyParent(props.index)}
         >
@@ -22,5 +11,11 @@ function NavItem(props: any) {
         </div>   
     )
 }
+
+const testClassName = (isActive: boolean): string => {
+    let secondClass: string = "nav-item-inactive";
+    if(isActive) secondClass = "nav-item-active";
+    return `nav-item ${secondClass}`;
+};
 
 export default NavItem;

@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { NumberPayload } from "../../redux/interface/Payloads";
+import { navbarItemList } from "../navbar/navbarItems";
 
 export const useScrollByActiveNavItem = (props: any /* change */) => { //this doesn't work, useEffect has to be called inside the component
     useEffect(() => {
@@ -54,3 +56,7 @@ export const scrollToActiveNavItem = (navIndex: number) => {
         behavior: "smooth"
     });
 };
+
+// export const highlightNavItemByScrollHeight = (changeActiveNavitem: NumberPayload, navItems: String[]) => {
+//     const height
+// };

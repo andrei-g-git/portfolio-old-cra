@@ -50,3 +50,6 @@ exports.scrollToActiveNavItem = function (navIndex) {
         behavior: "smooth"
     });
 };
+// export const highlightNavItemByScrollHeight = (changeActiveNavitem: NumberPayload, navItems: String[]) => {
+//     const height
+// };

@@ -57,15 +57,3 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
-
-
-// const deleteThis = () => {
-//     const elemWidth = 1920;
-//     const windowWidth = window.innerWidth;
-
-//     const scrollNextX = (elemWidth - windowWidth) / 2;
-//     let landingPageArray = document.getElementsByClassName("landing-page-container") as HTMLCollectionOf<HTMLElement>;
-//     let landingPage = landingPageArray[0];
-//     landingPage.style.right = scrollNextX.toString() + "px";
-//     console.log("resizing")
-// }
