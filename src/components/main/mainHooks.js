@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.scrollToActiveNavItem = exports.useScrollByActiveNavItem = void 0;
+exports.useHighlightNavItemByScrollHeight = exports.highlightNavItemByScrollHeight = exports.scrollToActiveNavItem = exports.useScrollByActiveNavItem = void 0;
 var react_1 = require("react");
 exports.useScrollByActiveNavItem = function (props /* change */) {
     react_1.useEffect(function () {
@@ -22,8 +22,12 @@ exports.useScrollByActiveNavItem = function (props /* change */) {
                 height = 0;
                 break;
         }
-        window.scrollTo(0, height);
-    }, [props.activeNavItem]);
+        window.scrollTo({
+            top: height,
+            left: 0,
+            behavior: "smooth"
+        });
+    }, [props.activeNavItem, props.clickedNavItem]);
 };
 exports.scrollToActiveNavItem = function (navIndex) {
     var height = 0;
@@ -50,6 +54,39 @@ exports.scrollToActiveNavItem = function (navIndex) {
         behavior: "smooth"
     });
 };
-// export const highlightNavItemByScrollHeight = (changeActiveNavitem: NumberPayload, navItems: String[]) => {
-//     const height
-// };
+exports.highlightNavItemByScrollHeight = function (changeActiveNavitem) {
+    document.addEventListener("scroll", function () {
+        var height = window.scrollY;
+        if (height >= 0 && height < 1080) {
+            changeActiveNavitem(0); //this assumes nav items are always ordered the right way, I have to change how I store the nav items
+        }
+        if (height >= 1080 && height < 2160) {
+            changeActiveNavitem(1);
+        }
+        if (height >= 2160 && height < 3240) {
+            changeActiveNavitem(2);
+        }
+        if (height >= 3240 && height < 4320) {
+            changeActiveNavitem(3);
+        }
+    });
+};
+exports.useHighlightNavItemByScrollHeight = function (changeActiveNavitem) {
+    react_1.useEffect(function () {
+        document.addEventListener("scroll", function () {
+            var height = window.scrollY;
+            if (height >= 0 && height < 1080) {
+                changeActiveNavitem(0); //this assumes nav items are always ordered the right way, I have to change how I store the nav items
+            }
+            if (height >= 1080 && height < 2160) {
+                changeActiveNavitem(1);
+            }
+            if (height >= 2160 && height < 3240) {
+                changeActiveNavitem(2);
+            }
+            if (height >= 3240 && height < 4320) {
+                changeActiveNavitem(3);
+            }
+        });
+    }, []);
+};

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { navbarItemList } from './navbarItems';
 import { activeNavItemChanged, justClickedNavItem } from '../../redux/actions'; //this would probably be more proper if it was injected as a prop
+import { NavItems } from './navItems';
 import NavItem from '../navItem/NavItem';
 import "./NavBar.scss";
 
@@ -20,9 +21,9 @@ export const NavBar = (props: any /* CHANGE */) => {
 	return (
 		<div className="nav-bar">
 				{
-					navbarItemList.map((item, index) => 
+					NavItems.getNavItems().map((item, index) => 
 						<NavItem index={index}
-							name={item}
+							name={item.toUpperCase()}
 							active={props.activeNavItem === index ? true : false}
 							notifyParent={props.changeActiveNavItem}
 						/>

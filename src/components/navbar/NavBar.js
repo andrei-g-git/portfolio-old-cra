@@ -3,8 +3,8 @@ exports.__esModule = true;
 exports.NavBar = void 0;
 var React = require("react");
 var react_redux_1 = require("react-redux");
-var navbarItems_1 = require("./navbarItems");
 var actions_1 = require("../../redux/actions"); //this would probably be more proper if it was injected as a prop
+var navItems_1 = require("./navItems");
 var NavItem_1 = require("../navItem/NavItem");
 require("./NavBar.scss");
 exports.NavBar = function (props /* CHANGE */) {
@@ -16,8 +16,8 @@ exports.NavBar = function (props /* CHANGE */) {
     // },
     // 	[props.activeNavItem]
     // );
-    return (React.createElement("div", { className: "nav-bar" }, navbarItems_1.navbarItemList.map(function (item, index) {
-        return React.createElement(NavItem_1["default"], { index: index, name: item, active: props.activeNavItem === index ? true : false, notifyParent: props.changeActiveNavItem });
+    return (React.createElement("div", { className: "nav-bar" }, navItems_1.NavItems.getNavItems().map(function (item, index) {
+        return React.createElement(NavItem_1["default"], { index: index, name: item.toUpperCase(), active: props.activeNavItem === index ? true : false, notifyParent: props.changeActiveNavItem });
     })));
 };
 var mapStateToProps = function (state) {

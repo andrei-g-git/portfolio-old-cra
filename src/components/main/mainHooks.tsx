@@ -23,9 +23,13 @@ export const useScrollByActiveNavItem = (props: any /* change */) => { //this do
                 break;
         }
 
-        window.scrollTo(0, height);
+        window.scrollTo({
+            top: height,
+            left: 0,
+            behavior: "smooth"
+        });
     },
-        [props.activeNavItem] 
+        [props.activeNavItem, props.clickedNavItem] 
     );
 
 };
@@ -57,6 +61,43 @@ export const scrollToActiveNavItem = (navIndex: number) => {
     });
 };
 
-// export const highlightNavItemByScrollHeight = (changeActiveNavitem: NumberPayload, navItems: String[]) => {
-//     const height
-// };
+export const highlightNavItemByScrollHeight = (changeActiveNavitem: Function) => {
+    document.addEventListener("scroll", () => {
+        let height: number = window.scrollY;
+        if(height >= 0 && height < 1080){
+            changeActiveNavitem(0); //this assumes nav items are always ordered the right way, I have to change how I store the nav items
+        }
+        if(height >= 1080 && height < 2160){
+            changeActiveNavitem(1);
+        }
+        if(height >= 2160 && height < 3240){
+            changeActiveNavitem(2);
+        }
+        if(height >= 3240 && height < 4320){
+            changeActiveNavitem(3);
+        }
+    });
+};
+
+export const useHighlightNavItemByScrollHeight = (changeActiveNavitem: Function) => {
+    useEffect(() => {
+        document.addEventListener("scroll", () => {
+            let height: number = window.scrollY;
+            if(height >= 0 && height < 1080){
+                changeActiveNavitem(0); //this assumes nav items are always ordered the right way, I have to change how I store the nav items
+            }
+            if(height >= 1080 && height < 2160){
+                changeActiveNavitem(1);
+            }
+            if(height >= 2160 && height < 3240){
+                changeActiveNavitem(2);
+            }
+            if(height >= 3240 && height < 4320){
+                changeActiveNavitem(3);
+            }
+        });
+    }, 
+        []
+    )
+
+};

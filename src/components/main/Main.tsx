@@ -4,20 +4,35 @@ import { Dispatch } from 'redux';
 import { useEffect } from 'react';
 import LandingPage from '../landingPage/LandingPage';
 import NavBar from '../navbar/NavBar';
-import { useScrollByActiveNavItem, scrollToActiveNavItem } from './mainHooks';
+import { activeNavItemChanged } from '../../redux/actions';
+import { 
+    useScrollByActiveNavItem, 
+    scrollToActiveNavItem, 
+    highlightNavItemByScrollHeight, 
+    useHighlightNavItemByScrollHeight
+} from './mainHooks';
 import "./Main.scss";
 
 //import {useEffect} from "react";
 
 function Main(props: any) {
 
-    //useScrollByActiveNavItem(props.activeNavItem); //doesn't work when useEffect must be triggered by prop changes outside the component
+    // useEffect(() => {
+    //     highlightNavItemByScrollHeight(props.changeActiveNavItem); //don't forget the cleanup
+    // },
+    //     []
+    // );
+
+    useHighlightNavItemByScrollHeight(props.changeActiveNavItem);
+
+    useScrollByActiveNavItem(props); //doesn't work when useEffect must be triggered by prop changes outside the component
         //prob because the props aren't yet initialized
-    useEffect(() => { //fuck this doesn't work when you click on the same nav item because the state doens't change...
-        scrollToActiveNavItem(props.activeNavItem)
-    },
-        [props.activeNavItem, props.clickedNavItem] //I don't like this
-    );
+
+    // useEffect(() => { 
+    //     scrollToActiveNavItem(props.activeNavItem)
+    // },
+    //     [props.activeNavItem, props.clickedNavItem] //I don't like this
+    // );
 
     return (
         <div className="main" id="main">
@@ -50,8 +65,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return{
-        handleClick: (value: number) => {
-            //dispatch(whatever(value))
+        changeActiveNavItem: (navIndex: number) => {
+            dispatch(activeNavItemChanged(navIndex));
         }
     }
 };

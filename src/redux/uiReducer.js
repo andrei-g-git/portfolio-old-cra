@@ -13,11 +13,11 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.uiReducer = void 0;
 var actionTypes_1 = require("./actionTypes");
-var uiEnums_1 = require("./uiEnums");
+var navItems_1 = require("../components/navbar/navItems");
 var initialState = {
     whatevs: 123,
     characterAnimation: 0,
-    activeNavItem: uiEnums_1.NavItems.HOME.index,
+    activeNavItem: navItems_1.NavItems.HOME.index,
     clickedNavItem: false
 };
 exports.uiReducer = function (state, action) {

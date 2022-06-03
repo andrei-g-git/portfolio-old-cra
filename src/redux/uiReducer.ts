@@ -5,7 +5,7 @@ import {
     JUST_CLICKED_NAV_ITEM   
 } from "./actionTypes";
 import {ReduxAction} from "./interface/ReduxAction";
-import { NavItems } from "./uiEnums";
+import { NavItems } from "../components/navbar/navItems";
 
 interface UiState{ //should be in the interfaces folder
     whatevs: number,
