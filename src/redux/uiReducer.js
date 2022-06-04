@@ -18,7 +18,10 @@ var initialState = {
     whatevs: 123,
     characterAnimation: 0,
     activeNavItem: navItems_1.NavItems.HOME.index,
-    clickedNavItem: false
+    clickedNavItem: false,
+    autoScrolling: false,
+    selectedNavItem: 0,
+    highlightedNavItem: 0
 };
 exports.uiReducer = function (state, action) {
     if (state === void 0) { state = initialState; }
@@ -31,6 +34,12 @@ exports.uiReducer = function (state, action) {
             return __assign(__assign({}, state), { activeNavItem: action.payload });
         case actionTypes_1.JUST_CLICKED_NAV_ITEM:
             return __assign(__assign({}, state), { clickedNavItem: action.payload });
+        case actionTypes_1.SWITCHED_AUTOSCROLL:
+            return __assign(__assign({}, state), { autoScrolling: action.payload });
+        case actionTypes_1.NAV_ITEM_SELECTED:
+            return __assign(__assign({}, state), { selectedNavItem: action.payload });
+        case actionTypes_1.NAV_ITEM_HIGHLIGHTED:
+            return __assign(__assign({}, state), { highlightedNavItem: action.payload });
         default:
             return state;
     }

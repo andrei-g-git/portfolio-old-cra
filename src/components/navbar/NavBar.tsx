@@ -3,29 +3,27 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { navbarItemList } from './navbarItems';
-import { activeNavItemChanged, justClickedNavItem } from '../../redux/actions'; //this would probably be more proper if it was injected as a prop
+import { 
+	activeNavItemChanged, 
+	justClickedNavItem,
+	navItemSelected
+} from '../../redux/actions'; //this would probably be more proper if it was injected as a prop
+//import { finishDispatchWrapper } from '../../redux/utils/reduxUtils';
 import { NavItems } from './navItems';
 import NavItem from '../navItem/NavItem';
 import "./NavBar.scss";
 
 
 export const NavBar = (props: any /* CHANGE */) => {
-	// const activeItemList = [true, false, false, false]; //this is really bad for obvious reasons ///
-	// useEffect(() => {
-	// 	activeItemList.forEach((item, index) => activeItemList[index] = false);
-	// 	activeItemList[props.activeNavItem] = true;
-	// 	console.log(activeItemList);
-	// },
-	// 	[props.activeNavItem]
-	// );
+
 	return (
 		<div className="nav-bar">
 				{
 					NavItems.getNavItems().map((item, index) => 
 						<NavItem index={index}
 							name={item.toUpperCase()}
-							active={props.activeNavItem === index ? true : false}
-							notifyParent={props.changeActiveNavItem}
+							active={props.highlightedNavItem === index ? true : false}
+							notifyParent={props.selectedNavItem}
 						/>
 					)
 				}				
@@ -36,20 +34,25 @@ export const NavBar = (props: any /* CHANGE */) => {
 
 const mapStateToProps = (state: any) => {
 	return{
-		activeNavItem: state.ui.activeNavItem
+		activeNavItem: state.ui.activeNavItem,
+		highlightedNavItem: state.ui.highlightedNavItem
 	};
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
 	return{
-		changeActiveNavItem: (navIndex: number) => {
-			dispatch(activeNavItemChanged(navIndex));
+		selectedNavItem: (navIndex: number) => {
+			dispatch(navItemSelected(navIndex));
+			// finishDispatchWrapper(dispatch, justClickedNavItem, true) //this seems to happen too fast, the change isn't registering
+			// 	.then(
+			// 		dispatch(justClickedNavItem(false))
+			// 	)
 			dispatch(justClickedNavItem(true));
 			setTimeout(() => {
 				dispatch(justClickedNavItem(false)); //band aid
 			},
-				50
-			);
+				10
+			);			
 		}
 	}
 }

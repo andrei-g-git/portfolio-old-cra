@@ -3,10 +3,14 @@ import {
     WHATEVER,
     CHARACTER_ANIMATION_CHANGED,
     ACTIVE_NAV_ITEM_CHANGED,
-    JUST_CLICKED_NAV_ITEM
+    JUST_CLICKED_NAV_ITEM,
+    SWITCHED_AUTOSCROLL,
+    NAV_ITEM_HIGHLIGHTED,
+    NAV_ITEM_SELECTED
 } from "./actionTypes";
 import {
-    NumberPayload
+    NumberPayload,
+    BooleanPayload
 } from "./interface/Payloads";
 
 export const whatever = (value: number): NumberPayload => {
@@ -30,9 +34,30 @@ export const activeNavItemChanged = (navIndex: number): NumberPayload => {
     };
 };
 
-export const justClickedNavItem = (justClicked: boolean): {type: string, payload: boolean} => {
+export const justClickedNavItem = (justClicked: boolean): BooleanPayload => {
     return{
         type: JUST_CLICKED_NAV_ITEM,
         payload: justClicked
+    };
+};
+
+export const switchedAutoscroll = (autoScrolling: boolean): BooleanPayload => {
+    return{
+        type: SWITCHED_AUTOSCROLL,
+        payload: autoScrolling
+    };    
+};
+
+export const navItemHighlighted = (navIndex: number): NumberPayload => {
+    return{
+        type: NAV_ITEM_HIGHLIGHTED,
+        payload: navIndex
+    };
+};
+
+export const navItemSelected = (navIndex: number): NumberPayload => {
+    return{
+        type: NAV_ITEM_SELECTED,
+        payload: navIndex
     };
 };

@@ -2,26 +2,17 @@
 exports.__esModule = true;
 var React = require("react");
 var react_redux_1 = require("react-redux");
+var react_1 = require("react");
 var LandingPage_1 = require("../landingPage/LandingPage");
 var NavBar_1 = require("../navbar/NavBar");
 var actions_1 = require("../../redux/actions");
 var mainHooks_1 = require("./mainHooks");
 require("./Main.scss");
-//import {useEffect} from "react";
 function Main(props) {
-    // useEffect(() => {
-    //     highlightNavItemByScrollHeight(props.changeActiveNavItem); //don't forget the cleanup
-    // },
-    //     []
-    // );
-    mainHooks_1.useHighlightNavItemByScrollHeight(props.changeActiveNavItem);
-    mainHooks_1.useScrollByActiveNavItem(props); //doesn't work when useEffect must be triggered by prop changes outside the component
-    //prob because the props aren't yet initialized
-    // useEffect(() => { 
-    //     scrollToActiveNavItem(props.activeNavItem)
-    // },
-    //     [props.activeNavItem, props.clickedNavItem] //I don't like this
-    // );
+    mainHooks_1.useHighlightNavItemByScrollHeight(props.highlightNavItem);
+    react_1.useEffect(function () {
+        mainHooks_1.scrollToActiveNavItem(props.selectedNavItem);
+    }, [props.clickedNavItem]);
     return (React.createElement("div", { className: "main", id: "main" },
         React.createElement(LandingPage_1["default"], null),
         React.createElement(NavBar_1["default"], null),
@@ -36,14 +27,22 @@ function Main(props) {
 }
 var mapStateToProps = function (state) {
     return {
-        activeNavItem: state.ui.activeNavItem,
-        clickedNavItem: state.ui.clickedNavItem
+        //activeNavItem: state.ui.activeNavItem,
+        clickedNavItem: state.ui.clickedNavItem,
+        autoScrolling: state.ui.autoScrolling,
+        selectedNavItem: state.ui.selectedNavItem
     };
 };
 var mapDispatchToProps = function (dispatch) {
     return {
-        changeActiveNavItem: function (navIndex) {
-            dispatch(actions_1.activeNavItemChanged(navIndex));
+        // changeActiveNavItem: (navIndex: number) => {
+        //     dispatch(activeNavItemChanged(navIndex));
+        // },
+        toggleAutoscrolling: function (isAutoScrolling) {
+            dispatch(actions_1.switchedAutoscroll(isAutoScrolling));
+        },
+        highlightNavItem: function (navIndex) {
+            dispatch(actions_1.navItemHighlighted(navIndex));
         }
     };
 };
