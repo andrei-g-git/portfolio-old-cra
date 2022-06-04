@@ -14,7 +14,7 @@ function Main(props) {
         mainHooks_1.scrollToActiveNavItem(props.selectedNavItem);
     }, [props.clickedNavItem]);
     return (React.createElement("div", { className: "main", id: "main" },
-        React.createElement(LandingPage_1["default"], null),
+        React.createElement(LandingPage_1["default"], { height: "100vh" }),
         React.createElement(NavBar_1["default"], null),
         React.createElement("div", { style: {
                 width: "100vw",

@@ -13,11 +13,12 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.uiReducer = void 0;
 var actionTypes_1 = require("./actionTypes");
-var navItems_1 = require("../components/navbar/navItems");
+//import { NavItems } from "../components/navbar/navItems";
+var Pages_1 = require("../components/main/Pages");
 var initialState = {
     whatevs: 123,
     characterAnimation: 0,
-    activeNavItem: navItems_1.NavItems.HOME.index,
+    activeNavItem: Pages_1.Pages.HOME.index,
     clickedNavItem: false,
     autoScrolling: false,
     selectedNavItem: 0,

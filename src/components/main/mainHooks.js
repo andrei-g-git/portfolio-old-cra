@@ -2,6 +2,8 @@
 exports.__esModule = true;
 exports.useHighlightNavItemByScrollHeight = exports.scrollToActiveNavItem = exports.useScrollByActiveNavItem = void 0;
 var react_1 = require("react");
+var Pages_1 = require("./Pages");
+var utils_1 = require("../../js/utils");
 exports.useScrollByActiveNavItem = function (props /* change */) {
     react_1.useEffect(function () {
         var height = 0;
@@ -40,16 +42,16 @@ exports.scrollToActiveNavItem = function (selectedNavIndex) {
     var height = 0;
     switch (selectedNavIndex) {
         case 0:
-            height = 0; //obviously these will have to be more dynamic
+            height = 0; //convertViewportHeightToNumber(Pages.HOME.height); 
             break;
         case 1:
-            height = 1080;
+            height = utils_1.convertViewportHeightToNumber(Pages_1.Pages.HOME.height); //if I change orders this is going to break
             break;
         case 2:
-            height = 2160;
+            height = utils_1.convertViewportHeightToNumber(Pages_1.Pages.HOME.height) + utils_1.convertViewportHeightToNumber(Pages_1.Pages.ABOUT.height);
             break;
         case 3:
-            height = 3240;
+            height = utils_1.convertViewportHeightToNumber(Pages_1.Pages.HOME.height) + utils_1.convertViewportHeightToNumber(Pages_1.Pages.ABOUT.height) + utils_1.convertViewportHeightToNumber(Pages_1.Pages.PORTFOLIO.height);
             break;
         default:
             height = 0;

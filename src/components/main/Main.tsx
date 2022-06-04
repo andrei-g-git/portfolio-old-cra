@@ -29,7 +29,7 @@ function Main(props: any) {
 
     return (
         <div className="main" id="main">
-            <LandingPage />
+            <LandingPage height="100vh"/>
             <NavBar />
             <div style={{
                 width: "100vw",

@@ -9,7 +9,8 @@ import {
 	navItemSelected
 } from '../../redux/actions'; //this would probably be more proper if it was injected as a prop
 //import { finishDispatchWrapper } from '../../redux/utils/reduxUtils';
-import { NavItems } from './navItems';
+//import { NavItems } from './navItems';
+import { Pages } from "../main/Pages";
 import NavItem from '../navItem/NavItem';
 import "./NavBar.scss";
 
@@ -19,7 +20,7 @@ export const NavBar = (props: any /* CHANGE */) => {
 	return (
 		<div className="nav-bar">
 				{
-					NavItems.getNavItems().map((item, index) => 
+					Pages.getNavItems().map((item, index) => 
 						<NavItem index={index}
 							name={item.toUpperCase()}
 							active={props.highlightedNavItem === index ? true : false}

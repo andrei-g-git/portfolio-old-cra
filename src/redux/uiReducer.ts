@@ -8,7 +8,8 @@ import {
     NAV_ITEM_HIGHLIGHTED 
 } from "./actionTypes";
 import {ReduxAction} from "./interface/ReduxAction";
-import { NavItems } from "../components/navbar/navItems";
+//import { NavItems } from "../components/navbar/navItems";
+import { Pages } from "../components/main/Pages";
 
 interface UiState{ //should be in the interfaces folder
     whatevs: number,
@@ -23,7 +24,7 @@ interface UiState{ //should be in the interfaces folder
 const initialState: UiState = {
     whatevs: 123,
     characterAnimation: 0,
-    activeNavItem: NavItems.HOME.index,
+    activeNavItem: Pages.HOME.index,
     clickedNavItem: false,
     autoScrolling: false,
     selectedNavItem: 0,

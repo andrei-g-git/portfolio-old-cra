@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { NumberPayload } from "../../redux/interface/Payloads";
 import { navbarItemList } from "../navbar/navbarItems";
+import { Pages } from "./Pages";
+import { convertViewportHeightToNumber } from "../../js/utils";
 
 export const useScrollByActiveNavItem = (props: any /* change */) => { //too coupled
     useEffect(() => {
@@ -46,16 +48,16 @@ export const scrollToActiveNavItem = (selectedNavIndex: number) => {
     let height: number = 0;
     switch(selectedNavIndex){
         case 0:
-            height = 0; //obviously these will have to be more dynamic
+            height = 0;//convertViewportHeightToNumber(Pages.HOME.height); 
             break;
         case 1: 
-            height = 1080;
+            height = convertViewportHeightToNumber(Pages.HOME.height); //if I change orders this is going to break
             break;
         case 2: 
-            height = 2160;
+            height = convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height);
             break;
         case 3: 
-            height = 3240;
+            height = convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height) + convertViewportHeightToNumber(Pages.PORTFOLIO.height);
             break;
         default:
             height = 0;

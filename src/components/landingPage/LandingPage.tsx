@@ -27,7 +27,7 @@ export const LandingPage = (props: any) => { //make this thing pannable horizont
     useHorizontalPanning("landing-page-container"); //this adds more coupling to the library, should just call useEffect here and pass the element
 
     return (
-        <div className="landing-page-container">
+        <div className="landing-page-container" style={{height: props.height}}>
 
             <div className="landing-page-background"></div>
 
