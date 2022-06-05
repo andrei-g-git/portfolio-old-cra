@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 import { useEffect } from 'react';
 import LandingPage from '../landingPage/LandingPage';
 import NavBar from '../navbar/NavBar';
+import About from '../about/About';
 import { 
     activeNavItemChanged,
     switchedAutoscroll,
@@ -31,16 +32,7 @@ function Main(props: any) {
         <div className="main" id="main">
             <LandingPage height="100vh"/>
             <NavBar />
-            <div style={{
-                width: "100vw",
-                height: "2000px",
-                backgroundColor: "lightgray",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
-            }} >
-                delete
-            </div>
+            <About height="100vh"/>
 
         {/*   <PageBelowNavbar />
             <YetAnotherPage />

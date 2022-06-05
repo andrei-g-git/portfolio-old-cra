@@ -1,0 +1,29 @@
+.about-container {
+  display: flex;
+  width: 100vw;
+  background-color: bisque;
+}
+@media (max-width: 480px) {
+  .about-container {
+    flex-direction: column;
+    background-color: blueviolet;
+  }
+}
+.about-container .about-me {
+  width: 25%;
+}
+.about-container .about-me .about-avatar {
+  width: 200px;
+  height: 250px;
+  background-color: brown;
+}
+.about-container .about-me .little-bit-about {
+  width: 100%;
+  height: 250px;
+  font-size: large;
+}
+.about-container .skills {
+  width: 500px;
+  height: 700px;
+  background-color: cornflowerblue;
+}

@@ -5,6 +5,7 @@ var react_redux_1 = require("react-redux");
 var react_1 = require("react");
 var LandingPage_1 = require("../landingPage/LandingPage");
 var NavBar_1 = require("../navbar/NavBar");
+var About_1 = require("../about/About");
 var actions_1 = require("../../redux/actions");
 var mainHooks_1 = require("./mainHooks");
 require("./Main.scss");
@@ -16,14 +17,7 @@ function Main(props) {
     return (React.createElement("div", { className: "main", id: "main" },
         React.createElement(LandingPage_1["default"], { height: "100vh" }),
         React.createElement(NavBar_1["default"], null),
-        React.createElement("div", { style: {
-                width: "100vw",
-                height: "2000px",
-                backgroundColor: "lightgray",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
-            } }, "delete")));
+        React.createElement(About_1["default"], { height: "100vh" })));
 }
 var mapStateToProps = function (state) {
     return {

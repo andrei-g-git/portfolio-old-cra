@@ -1,4 +1,4 @@
-export class Pages { ///
+export class Pages { // should probably use a map, it's ordered and getting values by string isn't that bad...
     static get HOME(){
         return {
             index: 0,
