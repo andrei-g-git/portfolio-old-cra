@@ -1,0 +1,59 @@
+.gauge-container{
+    position: relative;
+
+    top: -1000px;
+
+    .gauge-max-range{
+        position: relative;
+        top: 0;
+        left: 0;
+        height: 5px;
+        background-color: grey;
+        border-radius: 2px;
+    }
+
+    .gauge-value{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 5px;
+        background-color: aqua;
+        border-radius: 2px;   
+        
+        animation: fillLeftward 3s forward ease-in-out;
+    }
+
+    .gauge-nudge{
+        position: absolute;
+        top: -2px;//-1 * calc(9px - 5px)/2;
+        left: /* -400px; */ 0; //-400px; //for anim
+        //transform: translateX(-1 * 9px/2);
+        width: 9px;
+        height: 9px;
+        background-color: crimson;
+        border-radius: 50%;   
+        
+        //animation: fillLeftward 3s forwards ease-in-out;
+        // transform: translateX(width);
+        // transition: /* width  */3s ease-in-out;
+
+        //transform: translateX(0);
+
+        //transition-duration: 5s;
+
+        //transform: translateX(800px);
+    }
+
+    .gauge-nudge:active{
+        transform: translateX(200px);
+    }
+}
+
+@keyframes fillLeftward {
+    from{
+        transform: translateX(-1 * 9px/2);
+    }
+    to{
+        transform: translateX(--gauge-fill-x);
+    }
+}

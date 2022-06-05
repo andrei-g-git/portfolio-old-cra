@@ -1,0 +1,42 @@
+.gauge-container {
+  position: relative;
+  top: -1000px;
+}
+.gauge-container .gauge-max-range {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 5px;
+  background-color: grey;
+  border-radius: 2px;
+}
+.gauge-container .gauge-value {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  background-color: aqua;
+  border-radius: 2px;
+  animation: fillLeftward 3s forward ease-in-out;
+}
+.gauge-container .gauge-nudge {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  background-color: crimson;
+  border-radius: 50%;
+}
+.gauge-container .gauge-nudge:active {
+  transform: translateX(200px);
+}
+
+@keyframes fillLeftward {
+  from {
+    transform: translateX(-4.5px);
+  }
+  to {
+    transform: translateX(--gauge-fill-x);
+  }
+}

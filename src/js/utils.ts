@@ -16,4 +16,12 @@ export const convertViewportHeightToNumber = (viewportValue: string): number => 
     }
 
     return pixelNumericValue;
-}
+};
+
+export const convertToPixels = (value: string | number, altValue: string): string => {
+    let pixelValue = altValue;
+    if(value && typeof value === "number"){
+        pixelValue = `${value}px`;
+    } 
+    return pixelValue;
+};

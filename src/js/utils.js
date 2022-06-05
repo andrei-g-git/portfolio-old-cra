@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.convertViewportHeightToNumber = exports.getElementByClassOrId = exports.clamp = void 0;
+exports.convertToPixels = exports.convertViewportHeightToNumber = exports.getElementByClassOrId = exports.clamp = void 0;
 exports.clamp = function (value, min, max) {
     return Math.min(Math.max(value, min), max);
 };
@@ -17,4 +17,11 @@ exports.convertViewportHeightToNumber = function (viewportValue) {
         pixelNumericValue = window.innerHeight * viewportPercent; //maybe I should pass the innerHeight as a value
     }
     return pixelNumericValue;
+};
+exports.convertToPixels = function (value, altValue) {
+    var pixelValue = altValue;
+    if (value && typeof value === "number") {
+        pixelValue = value + "px";
+    }
+    return pixelValue;
 };
