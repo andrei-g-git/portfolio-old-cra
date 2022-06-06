@@ -1,0 +1,10 @@
+.skill-icon-and-name {
+  display: flex;
+}
+.skill-icon-and-name .skill-icon {
+  width: 20px;
+  height: 20px;
+}
+.skill-icon-and-name .skill-name {
+  margin: unset;
+}

@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Gauge from '../gauge/Gauge';
+import Skill from '../skill/Skill';
+import SkillGroup from '../skillGroup/SkillGroup';
+import { skills } from '../../data/skills';
 import "./About.scss";
 
 const About = (props: any) => {
@@ -16,7 +19,8 @@ const About = (props: any) => {
 			</div>
 			<div className="skills">
 				<br/><br/><br/><br/><br/><br/>
-				<Gauge width={400} maxWidth={550} index={3}/>
+				<SkillGroup skills={skills} />
+				
 			</div>
 		</div>
 	);

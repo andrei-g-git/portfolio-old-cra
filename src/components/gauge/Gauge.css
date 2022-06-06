@@ -1,6 +1,5 @@
 .gauge-container {
   position: relative;
-  top: -1000px;
 }
 .gauge-container .gauge-max-range {
   position: relative;

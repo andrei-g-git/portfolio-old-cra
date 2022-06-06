@@ -2,7 +2,8 @@
 exports.__esModule = true;
 var React = require("react");
 var react_redux_1 = require("react-redux");
-var Gauge_1 = require("../gauge/Gauge");
+var SkillGroup_1 = require("../skillGroup/SkillGroup");
+var skills_1 = require("../../data/skills");
 require("./About.scss");
 var About = function (props) {
     return (React.createElement("div", { className: "about-container", style: { height: props.height } },
@@ -16,7 +17,7 @@ var About = function (props) {
             React.createElement("br", null),
             React.createElement("br", null),
             React.createElement("br", null),
-            React.createElement(Gauge_1["default"], { width: 400, maxWidth: 550, index: 3 }))));
+            React.createElement(SkillGroup_1["default"], { skills: skills_1.skills }))));
 };
 var mapStateToProps = function (state) { return ({}); };
 var mapDispatchToProps = {};
