@@ -1,3 +1,5 @@
+@import "../../css/Mixins.scss";
+
 .gauge-container{
     position: relative;
 
@@ -5,6 +7,7 @@
 
     .gauge-max-range{
         position: relative;
+        width: 100%;
         top: 0;
         left: 0;
         height: 5px;
@@ -14,6 +17,7 @@
 
     .gauge-value{
         position: absolute;
+        width: 100%;
         top: 0;
         left: 0;
         height: 5px;
@@ -23,37 +27,62 @@
         animation: fillLeftward 3s forward ease-in-out;
     }
 
-    .gauge-nudge{
+    .gauge-nudge-container{
         position: absolute;
+        width: 100%;        
         top: -2px;//-1 * calc(9px - 5px)/2;
-        left: /* -400px; */ 0; //-400px; //for anim
-        //transform: translateX(-1 * 9px/2);
-        width: 9px;
-        height: 9px;
-        background-color: crimson;
-        border-radius: 50%;   
-        
-        //animation: fillLeftward 3s forwards ease-in-out;
-        // transform: translateX(width);
-        // transition: /* width  */3s ease-in-out;
+        left: 0; 
 
-        //transform: translateX(0);
-
-        //transition-duration: 5s;
-
-        //transform: translateX(800px);
+        .actual-nudge{
+            width: 9px;
+            height: 9px;
+            background-color: crimson;
+            border-radius: 50%; 
+        }
     }
 
-    .gauge-nudge:active{
-        transform: translateX(200px);
-    }
+    @include animateOneWayWithClass(".scale-horizontal-percent-10", scalePercent10, 10, 0.3s);
+    @include animateOneWayWithClass(".scale-horizontal-percent-20", scalePercent20, 20, 0.6s);
+    @include animateOneWayWithClass(".scale-horizontal-percent-30", scalePercent30, 30, 0.9s);
+    @include animateOneWayWithClass(".scale-horizontal-percent-40", scalePercent40, 40, 1.2s);
+    @include animateOneWayWithClass(".scale-horizontal-percent-50", scalePercent50, 50, 1.5s);
+    @include animateOneWayWithClass(".scale-horizontal-percent-60", scalePercent60, 60, 1.8s);
+    @include animateOneWayWithClass(".scale-horizontal-percent-70", scalePercent70, 70, 2.1s);
+    @include animateOneWayWithClass(".scale-horizontal-percent-80", scalePercent80, 80, 2.4s);
+    @include animateOneWayWithClass(".scale-horizontal-percent-90", scalePercent90, 90, 2.7s);
+    @include animateOneWayWithClass(".scale-horizontal-percent-100", scalePercent100, 100, 3.0s);
+
+    @include animateOneWayWithClass(".translate-horizontal-percent-10", translatePercent10, 10, 0.3s);
+    @include animateOneWayWithClass(".translate-horizontal-percent-20", translatePercent20, 20, 0.6s);
+    @include animateOneWayWithClass(".translate-horizontal-percent-30", translatePercent30, 30, 0.9s);
+    @include animateOneWayWithClass(".translate-horizontal-percent-40", translatePercent40, 40, 1.2s);
+    @include animateOneWayWithClass(".translate-horizontal-percent-50", translatePercent50, 50, 1.5s);
+    @include animateOneWayWithClass(".translate-horizontal-percent-60", translatePercent60, 60, 1.8s);
+    @include animateOneWayWithClass(".translate-horizontal-percent-70", translatePercent70, 70, 2.1s);
+    @include animateOneWayWithClass(".translate-horizontal-percent-80", translatePercent80, 80, 2.4s);
+    @include animateOneWayWithClass(".translate-horizontal-percent-90", translatePercent90, 90, 2.7s);
+    @include animateOneWayWithClass(".translate-horizontal-percent-100", translatePercent100, 100, 3.0s);
 }
 
-@keyframes fillLeftward {
-    from{
-        transform: translateX(-1 * 9px/2);
-    }
-    to{
-        transform: translateX(--gauge-fill-x);
-    }
-}
+@include keyFrameScaleX(scalePercent10, 0, 10%);
+@include keyFrameScaleX(scalePercent20, 0, 20%);
+@include keyFrameScaleX(scalePercent30, 0, 30%);
+@include keyFrameScaleX(scalePercent40, 0, 40%);
+@include keyFrameScaleX(scalePercent50, 0, 50%);
+@include keyFrameScaleX(scalePercent60, 0, 60%);
+@include keyFrameScaleX(scalePercent70, 0, 70%);
+@include keyFrameScaleX(scalePercent80, 0, 80%);
+@include keyFrameScaleX(scalePercent90, 0, 90%);
+@include keyFrameScaleX(scalePercent100, 0, 100%);
+
+
+@include keyFrameTranslateX(translatePercent10, 0, 10%);
+@include keyFrameTranslateX(translatePercent20, 0, 20%);
+@include keyFrameTranslateX(translatePercent30, 0, 30%);
+@include keyFrameTranslateX(translatePercent40, 0, 40%);
+@include keyFrameTranslateX(translatePercent50, 0, 50%);
+@include keyFrameTranslateX(translatePercent60, 0, 60%);
+@include keyFrameTranslateX(translatePercent70, 0, 70%);
+@include keyFrameTranslateX(translatePercent80, 0, 80%);
+@include keyFrameTranslateX(translatePercent90, 0, 90%);
+@include keyFrameTranslateX(translatePercent100, 0, 100%);

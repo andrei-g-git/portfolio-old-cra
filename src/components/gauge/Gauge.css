@@ -4,6 +4,7 @@
 }
 .gauge-container .gauge-max-range {
   position: relative;
+  width: 100%;
   top: 0;
   left: 0;
   height: 5px;
@@ -12,6 +13,7 @@
 }
 .gauge-container .gauge-value {
   position: absolute;
+  width: 100%;
   top: 0;
   left: 0;
   height: 5px;
@@ -19,24 +21,256 @@
   border-radius: 2px;
   animation: fillLeftward 3s forward ease-in-out;
 }
-.gauge-container .gauge-nudge {
+.gauge-container .gauge-nudge-container {
   position: absolute;
+  width: 100%;
   top: -2px;
   left: 0;
+}
+.gauge-container .gauge-nudge-container .actual-nudge {
   width: 9px;
   height: 9px;
   background-color: crimson;
   border-radius: 50%;
 }
-.gauge-container .gauge-nudge:active {
-  transform: translateX(200px);
+.gauge-container .scale-horizontal-percent-10 {
+  transform-origin: left;
+  animation: scalePercent10 0.03s forwards ease-in-out;
+}
+.gauge-container .scale-horizontal-percent-20 {
+  transform-origin: left;
+  animation: scalePercent20 0.12s forwards ease-in-out;
+}
+.gauge-container .scale-horizontal-percent-30 {
+  transform-origin: left;
+  animation: scalePercent30 0.27s forwards ease-in-out;
+}
+.gauge-container .scale-horizontal-percent-40 {
+  transform-origin: left;
+  animation: scalePercent40 0.48s forwards ease-in-out;
+}
+.gauge-container .scale-horizontal-percent-50 {
+  transform-origin: left;
+  animation: scalePercent50 0.75s forwards ease-in-out;
+}
+.gauge-container .scale-horizontal-percent-60 {
+  transform-origin: left;
+  animation: scalePercent60 1.08s forwards ease-in-out;
+}
+.gauge-container .scale-horizontal-percent-70 {
+  transform-origin: left;
+  animation: scalePercent70 1.47s forwards ease-in-out;
+}
+.gauge-container .scale-horizontal-percent-80 {
+  transform-origin: left;
+  animation: scalePercent80 1.92s forwards ease-in-out;
+}
+.gauge-container .scale-horizontal-percent-90 {
+  transform-origin: left;
+  animation: scalePercent90 2.43s forwards ease-in-out;
+}
+.gauge-container .scale-horizontal-percent-100 {
+  transform-origin: left;
+  animation: scalePercent100 3s forwards ease-in-out;
+}
+.gauge-container .translate-horizontal-percent-10 {
+  transform-origin: left;
+  animation: translatePercent10 0.03s forwards ease-in-out;
+}
+.gauge-container .translate-horizontal-percent-20 {
+  transform-origin: left;
+  animation: translatePercent20 0.12s forwards ease-in-out;
+}
+.gauge-container .translate-horizontal-percent-30 {
+  transform-origin: left;
+  animation: translatePercent30 0.27s forwards ease-in-out;
+}
+.gauge-container .translate-horizontal-percent-40 {
+  transform-origin: left;
+  animation: translatePercent40 0.48s forwards ease-in-out;
+}
+.gauge-container .translate-horizontal-percent-50 {
+  transform-origin: left;
+  animation: translatePercent50 0.75s forwards ease-in-out;
+}
+.gauge-container .translate-horizontal-percent-60 {
+  transform-origin: left;
+  animation: translatePercent60 1.08s forwards ease-in-out;
+}
+.gauge-container .translate-horizontal-percent-70 {
+  transform-origin: left;
+  animation: translatePercent70 1.47s forwards ease-in-out;
+}
+.gauge-container .translate-horizontal-percent-80 {
+  transform-origin: left;
+  animation: translatePercent80 1.92s forwards ease-in-out;
+}
+.gauge-container .translate-horizontal-percent-90 {
+  transform-origin: left;
+  animation: translatePercent90 2.43s forwards ease-in-out;
+}
+.gauge-container .translate-horizontal-percent-100 {
+  transform-origin: left;
+  animation: translatePercent100 3s forwards ease-in-out;
 }
 
-@keyframes fillLeftward {
+@keyframes scalePercent10 {
   from {
-    transform: translateX(-4.5px);
+    transform: scaleX(0);
   }
   to {
-    transform: translateX(--gauge-fill-x);
+    transform: scaleX(10%);
+  }
+}
+@keyframes scalePercent20 {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(20%);
+  }
+}
+@keyframes scalePercent30 {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(30%);
+  }
+}
+@keyframes scalePercent40 {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(40%);
+  }
+}
+@keyframes scalePercent50 {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(50%);
+  }
+}
+@keyframes scalePercent60 {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(60%);
+  }
+}
+@keyframes scalePercent70 {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(70%);
+  }
+}
+@keyframes scalePercent80 {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(80%);
+  }
+}
+@keyframes scalePercent90 {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(90%);
+  }
+}
+@keyframes scalePercent100 {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(100%);
+  }
+}
+@keyframes translatePercent10 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(10%);
+  }
+}
+@keyframes translatePercent20 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(20%);
+  }
+}
+@keyframes translatePercent30 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(30%);
+  }
+}
+@keyframes translatePercent40 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(40%);
+  }
+}
+@keyframes translatePercent50 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(50%);
+  }
+}
+@keyframes translatePercent60 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(60%);
+  }
+}
+@keyframes translatePercent70 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(70%);
+  }
+}
+@keyframes translatePercent80 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(80%);
+  }
+}
+@keyframes translatePercent90 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(90%);
+  }
+}
+@keyframes translatePercent100 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
   }
 }

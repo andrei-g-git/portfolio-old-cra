@@ -1,0 +1,30 @@
+@mixin animateOneWayWithClass($className, $animation, $percent, $maxDuration: 3s){
+    #{$className}{
+        transform-origin: left;
+        animation: $animation 
+            $maxDuration * $percent/100 
+            forwards ease-in-out;
+    }
+}
+
+@mixin keyFrameTranslateX($identifier, $start, $end){
+    @keyframes #{$identifier} {
+        from{
+            transform: translateX($start);
+        }
+        to{
+            transform: translateX($end)
+        }
+    }
+}
+
+@mixin keyFrameScaleX($identifier, $start, $end){
+    @keyframes #{$identifier} {
+        from{
+            transform: scaleX($start);
+        }
+        to{
+            transform: scaleX($end)
+        }
+    }
+}

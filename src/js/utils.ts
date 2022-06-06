@@ -25,3 +25,16 @@ export const convertToPixels = (value: string | number, altValue: string): strin
     } 
     return pixelValue;
 };
+
+export const calcFractionToDecimal = (numerator: number, max: number, decimals: number): number => {
+    const fraction = numerator / max;
+    return parseFloat(fraction.toFixed(decimals));
+};
+
+export const calcPercentIncrement10 = (numerator: number, max: number): number => {
+    const fraction = numerator / max;
+    const withTwoDecimals =  parseFloat(fraction.toFixed(2));
+    const forRounding = withTwoDecimals * 10;
+    const rounded = Math.round(forRounding);
+    return rounded * 10;
+}

@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.convertToPixels = exports.convertViewportHeightToNumber = exports.getElementByClassOrId = exports.clamp = void 0;
+exports.calcPercentIncrement10 = exports.calcFractionToDecimal = exports.convertToPixels = exports.convertViewportHeightToNumber = exports.getElementByClassOrId = exports.clamp = void 0;
 exports.clamp = function (value, min, max) {
     return Math.min(Math.max(value, min), max);
 };
@@ -24,4 +24,15 @@ exports.convertToPixels = function (value, altValue) {
         pixelValue = value + "px";
     }
     return pixelValue;
+};
+exports.calcFractionToDecimal = function (numerator, max, decimals) {
+    var fraction = numerator / max;
+    return parseFloat(fraction.toFixed(decimals));
+};
+exports.calcPercentIncrement10 = function (numerator, max) {
+    var fraction = numerator / max;
+    var withTwoDecimals = parseFloat(fraction.toFixed(2));
+    var forRounding = withTwoDecimals * 10;
+    var rounded = Math.round(forRounding);
+    return rounded * 10;
 };

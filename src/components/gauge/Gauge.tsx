@@ -1,89 +1,36 @@
 import * as React from 'react';
-import { useEffect } from 'react';
-import { Transition } from 'react-transition-group';
-import { convertToPixels } from "../../js/utils";
+import { 
+    convertToPixels,
+    calcPercentIncrement10 
+} from "../../js/utils";
 import "./Gauge.scss";
 
 function Gauge(props: any) {
 
-    // useEffect(() => {
-    //     // const gaugeContainer = document.getElementById(`gauge-container-${props.index}`);
-    //     // if(gaugeContainer) gaugeContainer.setAttribute("style", `--gauge-fill-x: ${props.width}`);
-
-    //     setTimeout(() => {
-    //         const gaugeNudge = document.getElementById(`gauge-nudge-${props.index}`);
-    //         if(gaugeNudge){
-    //             gaugeNudge.focus();
-    //         } 
-    //     }, 
-    //         50
-    //     )
-
-    //     // setTimeout(() => {
-    //     //     const gaugeNudge = document.getElementById(`gauge-nudge-${props.index}`);
-    //     //     const abc = 123;
-    //     // }, 
-    //     //     1000
-    //     // )
-
-        
-    // },
-    //     []
-    // )
     let maxWidth: number | string = convertToPixels(props.maxWidth, "700px");
     let width: number | string = convertToPixels(props.width, "0px");
-
-    const blah = "450px"
-
-    //////////
-
-    const defaultStyle = {
-        left: "0px",
-        transitionDuration: "3s",
-        transitionTimingFunction: "ease-in-out"
-    }
-    const transitionStyle = {
-        entering: {transform: `translateX(0px)`},
-        entered: {transform: `translateX(0px)`},
-        exiting: {transform: `translateX(450px})`},
-        exited: {transform: `translateX(450px})`}
-    }
-    /////////////
+    const percentTranslateX = calcPercentIncrement10(parseInt(width), parseInt(maxWidth));
 
     return (
         <div className="gauge-container"
             id={`gauge-container-${props.index}`}
-            style={{}}
+            style={{width: maxWidth}}
         >
             <div className="gauge-max-range" 
                 data-testid="gauge-max-range"
-                style={{width: maxWidth}}
+                //style={{width: maxWidth}}
             />
-            <div className="gauge-value" 
+            <div className={`gauge-value scale-horizontal-percent-${percentTranslateX}`}
                 data-testid="gauge-value"
-                style={{width: width}}
+                //style={{width: width}}
             />
 
-<Transition in={false} timeout={3000}>
-    {state => (
-            <div className="gauge-nudge" 
-                data-testid="gauge-nudge"
+            <div className={`gauge-nudge-container translate-horizontal-percent-${percentTranslateX}`}
+                data-testid = "gauge-nudge"
                 id={`gauge-nudge-${props.index}`}
-                //style={{left: width}}
-                // style={{
-                //     left: "0px",
-                //     transform: `translateX(450px})`,
-                //     transitionDuration: "3s",
-                //     transitionTimingFunction: "ease-in-out"
-                // }}
-                style={{
-                    ...defaultStyle,
-                    ...transitionStyle
-                }}
-            />     
-     
-    )}
-</Transition>
+            >
+                <div className="actual-nudge" />
+            </div>
 
         </div>
     );
