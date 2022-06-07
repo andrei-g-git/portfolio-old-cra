@@ -1,25 +1,10 @@
 import * as React from 'react';
-import { useEffect } from 'react';
-import { connect } from 'react-redux';
 import { 
-    convertToPixels,
-    calcPercentIncrement10 
+    convertToPixels
 } from "../../js/utils";
 import "./Gauge.scss";
 
 function Gauge(props: any) {
-    let restartAnimation = true ;//false;
-
-    // useEffect(() => {
-    //     restartAnimation = true;
-    //     setTimeout(() => {
-    //         restartAnimation = false;
-    //     }, 
-    //         50
-    //     );
-    // },
-    //     props.page
-    // );
 
     let maxWidth: number | string = convertToPixels(props.maxWidth, "700px");
 
@@ -30,11 +15,9 @@ function Gauge(props: any) {
         >
             <div className="gauge-max-range" 
                 data-testid="gauge-max-range"
-                //style={{width: maxWidth}}
             />
-            <div className={`gauge-value${addAnimationClass(restartAnimation, `scale-horizontal-percent-${props.proficiency}`)}`}//scale-horizontal-percent-${props.proficiency}`}
+            <div className={`gauge-value scale-horizontal-percent-${props.proficiency}`}
                 data-testid="gauge-value"
-                //style={{width: width}}
             />
 
             <div className={`gauge-nudge-container translate-horizontal-percent-${props.proficiency}`}
@@ -48,18 +31,4 @@ function Gauge(props: any) {
     );
 }
 
-const addAnimationClass = (restartAnimation: boolean, secondClass: string): string => {
-    let animationClass = "";
-    if(restartAnimation) animationClass = " " + secondClass;
-    return animationClass;
-};
-
-const mapStateToProps = (state: any) => {
-    return {
-        page: state.ui.highlightedNavItem   
-    }
-};
-
-const mapDispatchToProps = {}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Gauge);
+export default Gauge;

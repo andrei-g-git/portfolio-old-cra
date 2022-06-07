@@ -25,7 +25,7 @@ const SkillGroup = (props: any) => {
                         key={index}
                     >
                         <Gauge proficiency={skill.proficiency} 
-                            maxWidth={550} 
+                            maxWidth={450} 
                             index={index}
                         />
                     </Skill>
