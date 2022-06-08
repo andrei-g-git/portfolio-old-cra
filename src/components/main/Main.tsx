@@ -18,6 +18,7 @@ import {
 } from './mainHooks';
 import "./Main.scss";
 
+
 function Main(props: any) {
 
     useHighlightNavItemByScrollHeight(props.highlightNavItem);

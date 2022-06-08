@@ -1,12 +1,121 @@
 "use strict";
 exports.__esModule = true;
-exports.resizeCentered = exports.useCenteredResizing = exports.useHorizontalPanning = void 0;
+exports.resizeCentered = exports.useCenteredResizing = exports.useHorizontalPanning_onhold = exports.useHorizontalPanning = void 0;
 var react_1 = require("react");
 var utils_1 = require("../../js/utils");
+var panzoom_1 = require("@panzoom/panzoom");
 /*
     useHorizontalPanning
  */
-exports.useHorizontalPanning = function (identifier) {
+exports.useHorizontalPanning = function (identifier, maxWidth) {
+    react_1.useEffect(function () {
+        var element = document.getElementsByClassName(identifier)[0];
+        if (element) {
+            var panzoom_2 = panzoom_1["default"](element, { disableYAxis: true, disableZoom: true, touchAction: "pan-y" });
+            var viewportWidth = window.innerWidth;
+            var offsetToStillSeePartOfCharacter = 100;
+            var amountToPan_1 = viewportWidth - offsetToStillSeePartOfCharacter;
+            var dragObject_1 = {
+                xStart: 0,
+                location: "center",
+                left: amountToPan_1,
+                center: 0,
+                right: -amountToPan_1
+            };
+            element.addEventListener("panzoomstart", function (event) {
+                event.preventDefault();
+                dragObject_1.xStart = panzoom_2.getPan().x;
+            });
+            element.addEventListener("panzoomend", function (event) {
+                event.preventDefault();
+                var x = panzoom_2.getPan().x;
+                var viewportWidth = window.innerWidth;
+                var overflowingAreaWidth = maxWidth - viewportWidth;
+                var overflowOnEigherSide = overflowingAreaWidth / 2;
+                // if(x > overflowOnEigherSide) panzoom.pan(overflowOnEigherSide, 0);
+                // if(x < -overflowOnEigherSide) panzoom.pan(-overflowOnEigherSide, 0);
+                //can't implement snap panning, these events run 4 times in a row each, it's messing with all the branching
+                if ((x > dragObject_1.center - 5) && (x < dragObject_1.center + 5)) {
+                    if ((x - dragObject_1.xStart) > 10) {
+                        panzoom_2.pan(amountToPan_1, 0, { duration: 1000 });
+                        //dragObject.location = "left";
+                    }
+                    if ((x - dragObject_1.xStart) < 10) {
+                        panzoom_2.pan(-amountToPan_1, 0, { duration: 1000 });
+                        //dragObject.location = "right"
+                    }
+                }
+                else if ((x > dragObject_1.left - 5) && (x < dragObject_1.left + 5)) {
+                    if ((x - dragObject_1.xStart) > 10) {
+                        panzoom_2.pan(amountToPan_1, 0);
+                        //dragObject.location = "left";
+                    }
+                    if ((x - dragObject_1.xStart) < 10) {
+                        panzoom_2.pan(0, 0, { duration: 1000 });
+                        //dragObject.location = "center"
+                    }
+                }
+                else if ((x > dragObject_1.right - 5) && (x < dragObject_1.right + 5)) {
+                    if ((x - dragObject_1.xStart) > 10) {
+                        panzoom_2.pan(0, 0);
+                        //dragObject.location = "center";
+                    }
+                    if ((x - dragObject_1.xStart) < 10) {
+                        panzoom_2.pan(-amountToPan_1, 0, { duration: 1000 });
+                        //dragObject.location = "right"
+                    }
+                }
+                console.log(/* "location:   " + dragObject.location + "  and x:  " +  */ panzoom_2.getPan().x);
+            });
+        }
+    }, []);
+};
+var onPanZoomStart = function (panzoom, dragObject) {
+    dragObject.xStart = panzoom.getPan().x;
+};
+var onPanZoomEnd = function (panzoom, dragObject, maxWidth) {
+    var x = panzoom.getPan().x;
+    var viewportWidth = window.innerWidth;
+    var overflowingAreaWidth = maxWidth - viewportWidth;
+    var overflowOnEigherSide = overflowingAreaWidth / 2;
+    // if(x > overflowOnEigherSide) panzoom.pan(overflowOnEigherSide, 0);
+    // if(x < -overflowOnEigherSide) panzoom.pan(-overflowOnEigherSide, 0);
+    var offsetToStillSeePartOfCharacter = 100;
+    var amountToPan = viewportWidth - offsetToStillSeePartOfCharacter;
+    if (dragObject.location === "center") {
+        if ((x - dragObject.xStart) > 10) {
+            panzoom.pan(amountToPan, 0, { duration: 1000 });
+            dragObject.location = "left";
+        }
+        if ((x - dragObject.xStart) < 10) {
+            panzoom.pan(-amountToPan, 0, { duration: 1000 });
+            dragObject.location = "right";
+        }
+    }
+    else if (dragObject.location === "left") {
+        if ((x - dragObject.xStart) > 10) {
+            panzoom.pan(amountToPan, 0);
+            dragObject.location = "left";
+        }
+        if ((x - dragObject.xStart) < 10) {
+            panzoom.pan(0, 0, { duration: 1000 });
+            dragObject.location = "center";
+        }
+    }
+    else if (dragObject.location === "right") {
+        if ((x - dragObject.xStart) > 10) {
+            panzoom.pan(0, 0);
+            dragObject.location = "center";
+        }
+        if ((x - dragObject.xStart) < 10) {
+            panzoom.pan(-amountToPan, 0, { duration: 1000 });
+            dragObject.location = "right";
+        }
+    }
+    console.log("location:   " + dragObject.location + "  and x:  " + panzoom.getPan().x);
+};
+//on hold... using panzoom library for now    
+exports.useHorizontalPanning_onhold = function (identifier) {
     react_1.useEffect(function () {
         var element = document.getElementsByClassName(identifier)[0];
         if (!element)

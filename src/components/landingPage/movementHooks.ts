@@ -1,12 +1,135 @@
 import { useEffect } from "react";
 import { Pan, DragObject, DimensionsObject } from "../interface/Movement";
 import { clamp, getElementByClassOrId } from "../../js/utils";
-
+import Panzoom, { PanzoomObject } from "@panzoom/panzoom";
 
 /*
     useHorizontalPanning
  */
-export const useHorizontalPanning = (identifier: string) => {
+export const useHorizontalPanning = (identifier: string, maxWidth: number): void => {
+    useEffect(() => {
+        let element: HTMLElement | null = (document.getElementsByClassName(identifier) as HTMLCollectionOf<HTMLElement>)[0];
+        if(element){
+            const panzoom = Panzoom(element, {disableYAxis: true, disableZoom: true, touchAction: "pan-y"});
+
+            const viewportWidth = window.innerWidth;
+            const offsetToStillSeePartOfCharacter = 100;
+            const amountToPan = viewportWidth - offsetToStillSeePartOfCharacter;
+
+
+            const dragObject = {
+                xStart: 0,
+                location: "center", //should be enum, strings suck,
+                left: amountToPan,
+                center: 0,
+                right: -amountToPan
+            }
+
+            element.addEventListener("panzoomstart", (event) => {
+                event.preventDefault();
+                dragObject.xStart = panzoom.getPan().x;
+            });
+
+
+            element.addEventListener("panzoomend", (event) => {
+                event.preventDefault();
+                const x = panzoom.getPan().x;
+                const viewportWidth = window.innerWidth;
+                const overflowingAreaWidth = maxWidth - viewportWidth;
+                const overflowOnEigherSide = overflowingAreaWidth / 2;
+                // if(x > overflowOnEigherSide) panzoom.pan(overflowOnEigherSide, 0);
+                // if(x < -overflowOnEigherSide) panzoom.pan(-overflowOnEigherSide, 0);
+
+                //can't implement snap panning, these events run 4 times in a row each, it's messing with all the branching
+
+
+            
+                if((x > dragObject.center - 5) && (x < dragObject.center + 5)){
+                    if((x - dragObject.xStart) > 10) {
+                        panzoom.pan(amountToPan, 0, {duration: 1000});
+                        //dragObject.location = "left";
+                    }
+                    if((x - dragObject.xStart) < 10) {
+                        panzoom.pan( - amountToPan, 0, {duration: 1000});
+                        //dragObject.location = "right"
+                    }                        
+                }else if((x > dragObject.left - 5) && (x < dragObject.left + 5)){
+                    if((x - dragObject.xStart) > 10) {
+                        panzoom.pan(amountToPan, 0);
+                        //dragObject.location = "left";
+                    }
+                    if((x - dragObject.xStart) < 10) {
+                        panzoom.pan(0, 0, {duration: 1000});
+                        //dragObject.location = "center"
+                    }                        
+                }else if((x > dragObject.right - 5) && (x < dragObject.right + 5)){
+                    if((x - dragObject.xStart) > 10) {
+                        panzoom.pan(0, 0);
+                        //dragObject.location = "center";
+                    }
+                    if((x - dragObject.xStart) < 10) {
+                        panzoom.pan( - amountToPan, 0, {duration: 1000});
+                        //dragObject.location = "right"
+                    }                        
+                }                
+                console.log(/* "location:   " + dragObject.location + "  and x:  " +  */panzoom.getPan().x)
+            });
+
+        }
+    },
+        []
+    )
+};
+
+const onPanZoomStart = (panzoom: PanzoomObject, dragObject : {xStart: number, location: string}) => {
+    dragObject.xStart = panzoom.getPan().x;
+};
+
+const onPanZoomEnd = (panzoom: PanzoomObject, dragObject : {xStart: number, location: string}, maxWidth: number) => {
+    const x = panzoom.getPan().x;
+    const viewportWidth = window.innerWidth;
+    const overflowingAreaWidth = maxWidth - viewportWidth;
+    const overflowOnEigherSide = overflowingAreaWidth / 2;
+    // if(x > overflowOnEigherSide) panzoom.pan(overflowOnEigherSide, 0);
+    // if(x < -overflowOnEigherSide) panzoom.pan(-overflowOnEigherSide, 0);
+
+    const offsetToStillSeePartOfCharacter = 100;
+    const amountToPan = viewportWidth - offsetToStillSeePartOfCharacter;
+
+    if(dragObject.location === "center"){
+        if((x - dragObject.xStart) > 10) {
+            panzoom.pan(amountToPan, 0, {duration: 1000});
+            dragObject.location = "left";
+        }
+        if((x - dragObject.xStart) < 10) {
+            panzoom.pan( - amountToPan, 0, {duration: 1000});
+            dragObject.location = "right"
+        }                        
+    }else if(dragObject.location === "left"){
+        if((x - dragObject.xStart) > 10) {
+            panzoom.pan(amountToPan, 0);
+            dragObject.location = "left";
+        }
+        if((x - dragObject.xStart) < 10) {
+            panzoom.pan(0, 0, {duration: 1000});
+            dragObject.location = "center"
+        }                        
+    }else if(dragObject.location === "right"){
+        if((x - dragObject.xStart) > 10) {
+            panzoom.pan(0, 0);
+            dragObject.location = "center";
+        }
+        if((x - dragObject.xStart) < 10) {
+            panzoom.pan( - amountToPan, 0, {duration: 1000});
+            dragObject.location = "right"
+        }                        
+    }                
+    console.log("location:   " + dragObject.location + "  and x:  " + panzoom.getPan().x)
+};
+
+
+//on hold... using panzoom library for now    
+export const useHorizontalPanning_onhold = (identifier: string) => {
 
     useEffect(() => {
         let element: HTMLElement | null = (document.getElementsByClassName(identifier) as HTMLCollectionOf<HTMLElement>)[0];
