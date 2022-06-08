@@ -1,6 +1,5 @@
 .nav-bar {
-  width: 100vw;
-  /* 100%; */
+  width: 100%;
   background-color: aquamarine;
   position: -webkit-sticky;
   position: -moz-sticky;

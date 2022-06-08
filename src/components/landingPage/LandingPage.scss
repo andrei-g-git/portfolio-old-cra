@@ -1,12 +1,25 @@
 @import "../../css/Variables.scss";
 
-.landing-page-container{
-    //width: 100vw;/* 100%; */
+
+@mixin bgOrFg() {
+    background-image: url(../../assets/img/landing-page-fg-1.png);
+    background-position: 0px -106px;
+    background-repeat: no-repeat;
     width: $landingPageMaxWidth;
-    //height: 100vh;
+    height: 100%;
+    position: absolute;
+    left: 0; 
+    overflow-x: hidden;    
+}
+
+.landing-page-container{
+    width: $landingPageMaxWidth;
     position: relative;
 
+    //overflow: hidden; //y for char feet and x for panning
     overflow-y: hidden;
+
+    //touch-action: pan-x; 
 
     .landing-page-background{
         background-image: url(../../assets/img/landing-page-bg-1.png);
@@ -17,6 +30,7 @@
         position: absolute;
         left: 0; 
         overflow-x: hidden;
+        //@include bgOrFg();
     }    
 
     .landing-page-foreground{ //should be mixin
@@ -28,32 +42,48 @@
         position: absolute;
         left: 0; 
         overflow-x: hidden;
+        //@include bgOrFg();
     } 
 
     .character{
-        // width: $landingPageMaxWidth;
-        // height: 100%;
         width: 217px * 2;
         height: 504px * 2;
         position: absolute;
         //top: 100; this doesn't work for some reason
         left: 0;
 
+
         animation: walking-left 2.2s forwards cubic-bezier(0, 1, 1, 1),
             turning-forward 0.5s forwards ease-in-out,
             resting-arms 0.5s forwards ease-in-out,
         ;
-
-
+        -webkit-animation: walking-left 2.2s forwards cubic-bezier(0, 1, 1, 1),
+            turning-forward 0.5s forwards ease-in-out,
+            resting-arms 0.5s forwards ease-in-out,
+        ;
+        -moz-animation: walking-left 2.2s forwards cubic-bezier(0, 1, 1, 1),
+            turning-forward 0.5s forwards ease-in-out,
+            resting-arms 0.5s forwards ease-in-out,
+        ;
+        -ms-animation: walking-left 2.2s forwards cubic-bezier(0, 1, 1, 1),
+        turning-forward 0.5s forwards ease-in-out,
+        resting-arms 0.5s forwards ease-in-out,
+    ;
     }
 }
 
 @keyframes walking-left{
     from{
-        transform: translate($landingPageMaxWidth, /* 200px */150px)
+        transform: translate($landingPageMaxWidth, 150px);
+        -webkit-transform: translate($landingPageMaxWidth, 150px);
+        -moz-transform: translate($landingPageMaxWidth, 150px);
+        -ms-transform: translate($landingPageMaxWidth, 150px);
     }
     to{
-        transform: translate(calc(1920px - 960px - 434px/2), /* 200px */150px);
+        transform: translate(calc(1920px - 960px - 434px/2), 150px);
+        -webkit-transform: translate(calc(1920px - 960px - 434px/2), 150px);
+        -moz-transform: translate(calc(1920px - 960px - 434px/2), 150px);
+        -ms-transform: translate(calc(1920px - 960px - 434px/2), 150px);
     }
 }
 
@@ -64,6 +94,7 @@
 @keyframes resting-arms{
 
 }
+
 
 
 

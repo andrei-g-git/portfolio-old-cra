@@ -11,7 +11,9 @@ const About = (props: any) => {
 		<div className="about-container" 
 			style={{height: props.height}}
 		>
-			<div className="about-me-container">
+			<div className="about-me-container"
+				id="about-me-container"
+			>
 				<div className="about-me">
 					<div className="about-avatar" />
 					<p className="little-bit-about">

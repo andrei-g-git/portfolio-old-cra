@@ -31,7 +31,8 @@ var panHorizontally = function (element, startPanning, pan, stopPanning) {
     }
 };
 var startPanning = function (element, dragObject, dimensionsObject) {
-    return function (event) {
+    return function (event /* DragEvent */) {
+        console.log("started panning");
         var o = dragObject;
         o.mouseStart = event.clientX;
         if (element)
@@ -41,7 +42,7 @@ var startPanning = function (element, dragObject, dimensionsObject) {
     };
 };
 var pan = function (element, dragObject, dimensionsObject) {
-    return function (event) {
+    return function (event /* DragEvent */) {
         event.preventDefault();
         var o = dragObject;
         var mouseNow = event.clientX;
@@ -58,7 +59,7 @@ var pan = function (element, dragObject, dimensionsObject) {
                 var min = -width + windowWidth;
                 offset = utils_1.clamp(offset, min, max);
                 element.style.left = offset + "px";
-                //console.log(offset);
+                console.log(offset);
             }
         }
     };

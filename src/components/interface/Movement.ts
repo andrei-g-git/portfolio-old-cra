@@ -7,4 +7,4 @@ export interface DragObject {
 export interface DimensionsObject {
     windowWidth: number
 };
-export type Pan = (element: HTMLElement | null, dragObject: DragObject, dimensionsObject: DimensionsObject) => (event: MouseEvent) => void;
+export type Pan = (element: HTMLElement | null, dragObject: DragObject, dimensionsObject: DimensionsObject) => (event: MouseEvent/* DragEvent */) => void;

@@ -1,12 +1,10 @@
 .nav-bar{
-    width: 100vw;/* 100%; */
+    width: /* 100vw; */100%;
     background-color: aquamarine;
     position: -webkit-sticky;
     position: -moz-sticky;
     position: sticky;
     top: 0;
-    //left: 50%;
-    //transform: translateX(-50%);
     display: flex;
     justify-content: space-around;
 }

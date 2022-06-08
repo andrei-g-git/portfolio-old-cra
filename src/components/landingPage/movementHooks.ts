@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import { Pan, DragObject, DimensionsObject } from "../interface/Movement";
 import { clamp, getElementByClassOrId } from "../../js/utils";
 
+
 /*
     useHorizontalPanning
  */
 export const useHorizontalPanning = (identifier: string) => {
+
     useEffect(() => {
         let element: HTMLElement | null = (document.getElementsByClassName(identifier) as HTMLCollectionOf<HTMLElement>)[0];
         if(! element) element = document.getElementById(identifier);
@@ -51,7 +53,8 @@ const startPanning = (
     dragObject: DragObject,
     dimensionsObject: DimensionsObject
 ) => {
-    return (event: MouseEvent) => { //actually a DragEvent but I want to make this more universal
+    return (event: MouseEvent/* DragEvent */) => { //actually a /* DragEvent */ but I want to make this more universal
+        console.log("started panning")
         const o = dragObject;
         o.mouseStart = event.clientX;
         if(element) o.initialOffset = element.offsetLeft;
@@ -66,7 +69,7 @@ const pan = (
     dragObject: DragObject,
     dimensionsObject: DimensionsObject
 ) => {
-    return (event: MouseEvent) => {
+    return (event: MouseEvent/* DragEvent */) => {
         event.preventDefault();
         const o = dragObject;
         let mouseNow = event.clientX;
@@ -83,7 +86,8 @@ const pan = (
 
                 offset = clamp(offset, min, max);
                 element.style.left = offset + "px"; 
-                //console.log(offset);
+
+                console.log(offset);
             }   
         }         
     }

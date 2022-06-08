@@ -8,6 +8,8 @@
     width: 100vw;
     background-color: bisque;
 
+    //touch-action: pan-y;
+
     @media(max-width: map-get($breakpoints, "tablet")){
         flex-direction: column;
         //justify-content:flex-start;
