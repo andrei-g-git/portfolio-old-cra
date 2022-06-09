@@ -10,7 +10,7 @@ import {
     useCharacterEntrance 
 } from './landingPageController';
 import { 
-    useHorizontalPanning, 
+    useHorizontalPanningPANZOOM, 
     useCenteredResizing 
 } from './movementHooks';
 import ShelfDoodad from '../shelfDoodad/ShelfDoodad';
@@ -23,7 +23,7 @@ export const LandingPage = (props: any) => { //make this thing pannable horizont
 
     useCenteredResizing("landing-page-container", 1920);
 
-    useHorizontalPanning("landing-page-container", 1920);
+    useHorizontalPanningPANZOOM("landing-page-container", 1920);
 
     return (
         <div className="landing-page-container" 

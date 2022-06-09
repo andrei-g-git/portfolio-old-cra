@@ -13,7 +13,7 @@ require("../landingPage/LandingPage.scss");
 exports.LandingPage = function (props) {
     landingPageController_1.useCharacterEntrance(props.changeCharacterAnimation, animations_2.animations);
     movementHooks_1.useCenteredResizing("landing-page-container", 1920);
-    movementHooks_1.useHorizontalPanning("landing-page-container", 1920);
+    movementHooks_1.useHorizontalPanningPANZOOM("landing-page-container", 1920);
     return (React.createElement("div", { className: "landing-page-container", id: "landing-page-container", style: { height: props.height } },
         React.createElement("div", { className: "landing-page-background" }),
         React.createElement(ShelfDoodad_1["default"], { image: require("../../assets/img/testDoodad1.png"), index: 1, notifyClick: landingPageController_1.handleDoodadClick(props.changeCharacterAnimation, animations_2.animations), x: "100px", y: "200px" }),

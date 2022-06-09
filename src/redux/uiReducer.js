@@ -15,6 +15,7 @@ exports.uiReducer = void 0;
 var actionTypes_1 = require("./actionTypes");
 //import { NavItems } from "../components/navbar/navItems";
 var Pages_1 = require("../components/main/Pages");
+var uiEnums_1 = require("../js/uiEnums");
 var initialState = {
     whatevs: 123,
     characterAnimation: 0,
@@ -22,7 +23,9 @@ var initialState = {
     clickedNavItem: false,
     autoScrolling: false,
     selectedNavItem: 0,
-    highlightedNavItem: 0
+    highlightedNavItem: 0,
+    scrolling: false,
+    scrollDirection: uiEnums_1.Scrolling.NONE
 };
 exports.uiReducer = function (state, action) {
     if (state === void 0) { state = initialState; }
@@ -41,6 +44,10 @@ exports.uiReducer = function (state, action) {
             return __assign(__assign({}, state), { selectedNavItem: action.payload });
         case actionTypes_1.NAV_ITEM_HIGHLIGHTED:
             return __assign(__assign({}, state), { highlightedNavItem: action.payload });
+        case actionTypes_1.SCROLLED:
+            return __assign(__assign({}, state), { scrolling: action.payload });
+        case actionTypes_1.SCROLL_DIRECTION_CANGED:
+            return __assign(__assign({}, state), { scrollDirection: action.payload });
         default:
             return state;
     }

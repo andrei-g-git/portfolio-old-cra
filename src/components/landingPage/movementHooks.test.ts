@@ -1,5 +1,5 @@
 import { renderHook } from "@testing-library/react";
-import { useHorizontalPanning } from "./movementHooks";
+import { useHorizontalPanningPANZOOM } from "./movementHooks";
 
 describe("movementHooks", () => {
     it("whatever", () => { 
@@ -8,8 +8,8 @@ describe("movementHooks", () => {
         element.setAttribute("id", "element-class");
         document.appendChild(element)
 
-        //renderHook(() => {useHorizontalPanning("element-class")}); //this is the oldUseHorizontalPanning
-        renderHook(() => {useHorizontalPanning("element-class", 1000)}); //with panzoom, test will probably fail
+        //renderHook(() => {useHorizontalPanningPANZOOM("element-class")}); //this is the oldUseHorizontalPanningPANZOOM
+        renderHook(() => {useHorizontalPanningPANZOOM("element-class", 1000)}); //with panzoom, test will probably fail
 
         let mousedown = new MouseEvent("mousedown", {clientX: 10, clientY: 10});
         let mousemove = new MouseEvent("mousemove", {clientX: 110, clientY: 110});

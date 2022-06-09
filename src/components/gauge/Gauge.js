@@ -4,7 +4,7 @@ var React = require("react");
 var utils_1 = require("../../js/utils");
 require("./Gauge.scss");
 function Gauge(props) {
-    var maxWidth = utils_1.convertToPixels(props.maxWidth, "700px");
+    var maxWidth = utils_1.convertToPixels(props.maxWidth, "700px"); // think this could override the width passed in the skillgroup component
     return (React.createElement("div", { className: "gauge-container", id: "gauge-container-" + props.index, style: { width: maxWidth } },
         React.createElement("div", { className: "gauge-max-range", "data-testid": "gauge-max-range" }),
         React.createElement("div", { className: "gauge-value scale-horizontal-percent-" + props.proficiency, "data-testid": "gauge-value" }),

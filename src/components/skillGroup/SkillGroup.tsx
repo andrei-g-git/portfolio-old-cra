@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Skill from '../skill/Skill';
 import Gauge from '../gauge/Gauge';
 import { SkillData } from '../../data/dataTypes';
+import { withPageState } from '../_higherOrderComponents/withPageState';
 
 const SkillGroup = (props: any) => {
 
@@ -13,7 +14,7 @@ const SkillGroup = (props: any) => {
         [props.page]
     );
 
-    
+    const GaugeWithPageState = withPageState(Gauge);   
 
     return (
         <div className="skill-group-container" defaultValue={props.page}>
@@ -24,10 +25,26 @@ const SkillGroup = (props: any) => {
                         index={index}
                         key={index}
                     >
-                        <Gauge proficiency={skill.proficiency} 
-                            maxWidth={450} 
+
+                        <GaugeWithPageState proficiency={skill.proficiency} 
+                            maxWidth={350} 
                             index={index}
                         />
+
+{/*                         <Gauge proficiency={skill.proficiency} 
+                            maxWidth={350} 
+                            index={index}
+                        /> */}
+                        {/* {
+                            withPageState(
+                                Gauge, 
+                                {
+                                    proficiency: skill.proficiency,
+                                    maxWidth: 350,
+                                    index: index
+                                }
+                            )
+                        } */}
                     </Skill>
                 )
             }

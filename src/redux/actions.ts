@@ -6,7 +6,9 @@ import {
     JUST_CLICKED_NAV_ITEM,
     SWITCHED_AUTOSCROLL,
     NAV_ITEM_HIGHLIGHTED,
-    NAV_ITEM_SELECTED
+    NAV_ITEM_SELECTED,
+    SCROLLED,
+    SCROLL_DIRECTION_CANGED
 } from "./actionTypes";
 import {
     NumberPayload,
@@ -61,3 +63,17 @@ export const navItemSelected = (navIndex: number): NumberPayload => {
         payload: navIndex
     };
 };
+
+export const scrolled = (isScrolling: boolean): BooleanPayload => {
+    return{
+        type: SCROLLED,
+        payload: isScrolling
+    };
+};
+
+export const scrollDirectionChanged = (scrollDirection: number): NumberPayload => {
+    return{
+        type: SCROLL_DIRECTION_CANGED,
+        payload: scrollDirection
+    };
+}

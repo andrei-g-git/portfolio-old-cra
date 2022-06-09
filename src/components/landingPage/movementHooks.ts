@@ -6,7 +6,7 @@ import Panzoom, { PanzoomObject } from "@panzoom/panzoom";
 /*
     useHorizontalPanning
  */
-export const useHorizontalPanning = (identifier: string, maxWidth: number): void => {
+export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number): void => {
     useEffect(() => {
         let element: HTMLElement | null = (document.getElementsByClassName(identifier) as HTMLCollectionOf<HTMLElement>)[0];
         if(element){
@@ -92,51 +92,7 @@ export const useHorizontalPanning = (identifier: string, maxWidth: number): void
     )
 };
 
-const onPanZoomStart = (panzoom: PanzoomObject, dragObject : {xStart: number, location: string}) => {
-    dragObject.xStart = panzoom.getPan().x;
-};
 
-const onPanZoomEnd = (panzoom: PanzoomObject, dragObject : {xStart: number, location: string}, maxWidth: number) => {
-    const x = panzoom.getPan().x;
-    const viewportWidth = window.innerWidth;
-    const overflowingAreaWidth = maxWidth - viewportWidth;
-    const overflowOnEigherSide = overflowingAreaWidth / 2;
-    // if(x > overflowOnEigherSide) panzoom.pan(overflowOnEigherSide, 0);
-    // if(x < -overflowOnEigherSide) panzoom.pan(-overflowOnEigherSide, 0);
-
-    const offsetToStillSeePartOfCharacter = 100;
-    const amountToPan = viewportWidth - offsetToStillSeePartOfCharacter;
-
-    if(dragObject.location === "center"){
-        if((x - dragObject.xStart) > 10) {
-            panzoom.pan(amountToPan, 0, {duration: 1000});
-            dragObject.location = "left";
-        }
-        if((x - dragObject.xStart) < 10) {
-            panzoom.pan( - amountToPan, 0, {duration: 1000});
-            dragObject.location = "right"
-        }                        
-    }else if(dragObject.location === "left"){
-        if((x - dragObject.xStart) > 10) {
-            panzoom.pan(amountToPan, 0);
-            dragObject.location = "left";
-        }
-        if((x - dragObject.xStart) < 10) {
-            panzoom.pan(0, 0, {duration: 1000});
-            dragObject.location = "center"
-        }                        
-    }else if(dragObject.location === "right"){
-        if((x - dragObject.xStart) > 10) {
-            panzoom.pan(0, 0);
-            dragObject.location = "center";
-        }
-        if((x - dragObject.xStart) < 10) {
-            panzoom.pan( - amountToPan, 0, {duration: 1000});
-            dragObject.location = "right"
-        }                        
-    }                
-    console.log("location:   " + dragObject.location + "  and x:  " + panzoom.getPan().x)
-};
 
 
 //on hold... using panzoom library for now    

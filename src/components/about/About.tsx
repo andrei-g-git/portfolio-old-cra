@@ -1,11 +1,28 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import Gauge from '../gauge/Gauge';
-import Skill from '../skill/Skill';
 import SkillGroup from '../skillGroup/SkillGroup';
 import { skills } from '../../data/skills';
 import "./About.scss";
 
+/* 
+	I should have a state where it's appropriate for the skill gauges to re-animate, when I pass the landingPage downward ot the portfolio page upward
+	I need a scrolling and scrollingDown bool state
+	A scroll listner will update both
+
+	var timer = null;
+	window.addEventListener('scroll', function() {
+		if(timer !== null) {
+			clearTimeout(timer);        
+		}
+		timer = setTimeout(function() {
+			// do something
+		}, 150);
+	}, false);
+
+	A hook runs every time the highlightednavitem changes and if it's value mathces the landingPage or portfolio elements it will preform the above checks
+	If true then the gauges must re-render
+	It probabaly doesn't hur to re-render the whole page since it would cause less headaches with props ... Or I can just have a counter prop or some shit... 
+*/
 const About = (props: any) => {
 	return (
 		<div className="about-container" 

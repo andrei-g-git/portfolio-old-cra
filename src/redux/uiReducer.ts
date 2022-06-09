@@ -5,11 +5,14 @@ import {
     JUST_CLICKED_NAV_ITEM  ,
     SWITCHED_AUTOSCROLL,
     NAV_ITEM_SELECTED,
-    NAV_ITEM_HIGHLIGHTED 
+    NAV_ITEM_HIGHLIGHTED,
+    SCROLLED,
+    SCROLL_DIRECTION_CANGED 
 } from "./actionTypes";
 import {ReduxAction} from "./interface/ReduxAction";
 //import { NavItems } from "../components/navbar/navItems";
 import { Pages } from "../components/main/Pages";
+import { Scrolling } from "../js/uiEnums";
 
 interface UiState{ //should be in the interfaces folder
     whatevs: number,
@@ -18,7 +21,9 @@ interface UiState{ //should be in the interfaces folder
     clickedNavItem: boolean,
     autoScrolling: boolean,
     selectedNavItem: number,
-    highlightedNavItem: number
+    highlightedNavItem: number,
+    scrolling: boolean,
+    scrollDirection: number
 }
 
 const initialState: UiState = {
@@ -28,7 +33,9 @@ const initialState: UiState = {
     clickedNavItem: false,
     autoScrolling: false,
     selectedNavItem: 0,
-    highlightedNavItem: 0
+    highlightedNavItem: 0,
+    scrolling: false,
+    scrollDirection: Scrolling.NONE
 };
 
 export const uiReducer = (state: UiState = initialState, action: ReduxAction): UiState => {
@@ -67,7 +74,17 @@ export const uiReducer = (state: UiState = initialState, action: ReduxAction): U
             return{
                 ...state,
                 highlightedNavItem: action.payload
-            };            
+            };   
+        case SCROLLED:
+            return{
+                ...state,
+                scrolling: action.payload
+            };
+        case SCROLL_DIRECTION_CANGED:
+            return{
+                ...state,
+                scrollDirection: action.payload
+            };         
         default:
             return state;
     }

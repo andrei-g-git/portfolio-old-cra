@@ -8,8 +8,8 @@ describe("movementHooks", function () {
         element.setAttribute("class", "element-class");
         element.setAttribute("id", "element-class");
         document.appendChild(element);
-        //renderHook(() => {useHorizontalPanning("element-class")}); //this is the oldUseHorizontalPanning
-        react_1.renderHook(function () { movementHooks_1.useHorizontalPanning("element-class", 1000); }); //with panzoom, test will probably fail
+        //renderHook(() => {useHorizontalPanningPANZOOM("element-class")}); //this is the oldUseHorizontalPanningPANZOOM
+        react_1.renderHook(function () { movementHooks_1.useHorizontalPanningPANZOOM("element-class", 1000); }); //with panzoom, test will probably fail
         var mousedown = new MouseEvent("mousedown", { clientX: 10, clientY: 10 });
         var mousemove = new MouseEvent("mousemove", { clientX: 110, clientY: 110 });
         var mouseup = new MouseEvent("mouseup");

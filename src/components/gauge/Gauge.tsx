@@ -6,7 +6,7 @@ import "./Gauge.scss";
 
 function Gauge(props: any) {
 
-    let maxWidth: number | string = convertToPixels(props.maxWidth, "700px");
+    let maxWidth: number | string = convertToPixels(props.maxWidth, "700px"); // think this could override the width passed in the skillgroup component
 
     return (
         <div className="gauge-container"
