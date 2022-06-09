@@ -10,10 +10,10 @@ export const useHorizontalPanning = (identifier: string, maxWidth: number): void
     useEffect(() => {
         let element: HTMLElement | null = (document.getElementsByClassName(identifier) as HTMLCollectionOf<HTMLElement>)[0];
         if(element){
-            const panzoom = Panzoom(element, {disableYAxis: true, disableZoom: true, touchAction: "pan-y"});
+            const panzoom = Panzoom(element, {disableYAxis: true, disableZoom: true, touchAction: "pan-y", animate: true, duration: 150});
 
             const viewportWidth = window.innerWidth;
-            const offsetToStillSeePartOfCharacter = 100;
+            const offsetToStillSeePartOfCharacter = 200;
             const amountToPan = viewportWidth - offsetToStillSeePartOfCharacter;
 
 
@@ -25,9 +25,22 @@ export const useHorizontalPanning = (identifier: string, maxWidth: number): void
                 right: -amountToPan
             }
 
+            //panzoom.setStyle("transition-duration", "1s");
+
             element.addEventListener("panzoomstart", (event) => {
                 event.preventDefault();
                 dragObject.xStart = panzoom.getPan().x;
+                
+                const x = panzoom.getPan().x;
+                if((x > dragObject.center - 5) && (x < dragObject.center + 5)){
+                    dragObject.location = "center";
+                }
+                if((x > dragObject.left - 5) && (x < dragObject.left + 5)){
+                    dragObject.location = "left";
+                }
+                if((x > dragObject.right - 5) && (x < dragObject.right + 5)){
+                    dragObject.location = "right";
+                }    
             });
 
 
@@ -40,40 +53,38 @@ export const useHorizontalPanning = (identifier: string, maxWidth: number): void
                 // if(x > overflowOnEigherSide) panzoom.pan(overflowOnEigherSide, 0);
                 // if(x < -overflowOnEigherSide) panzoom.pan(-overflowOnEigherSide, 0);
 
-                //can't implement snap panning, these events run 4 times in a row each, it's messing with all the branching
+                console.log("x is: " + x + "     and prev x: " + dragObject.xStart)
 
+                if(Math.abs((x - dragObject.xStart)) > 10){
+                    if(dragObject.location === "center"){ 
+                        if((x - dragObject.xStart) > 10) {
+                            panzoom.pan(amountToPan, 0);
+                        }
+                        if((x - dragObject.xStart) < 10) {
+                            panzoom.pan( - amountToPan, 0);
+                        }                        
+                    }else if(dragObject.location === "left"){
+                        if((x - dragObject.xStart) > 10) {
+                            panzoom.pan(amountToPan, 0);
+                        }
+                        if((x - dragObject.xStart) < 10) { 
+                            panzoom.pan(0, 0);
+                        }                        
+                    }else if(dragObject.location === "right"){
+                        if((x - dragObject.xStart) > 10) {
+                            panzoom.pan(0, 0);
+                        }
+                        if((x - dragObject.xStart) < 10) {
+                            panzoom.pan( - amountToPan, 0);
+                        }                        
+                    }                       
+                }
+
+                
+                console.log(x - dragObject.xStart + "  and prev location: " + dragObject.location)
+            });
 
             
-                if((x > dragObject.center - 5) && (x < dragObject.center + 5)){
-                    if((x - dragObject.xStart) > 10) {
-                        panzoom.pan(amountToPan, 0, {duration: 1000});
-                        //dragObject.location = "left";
-                    }
-                    if((x - dragObject.xStart) < 10) {
-                        panzoom.pan( - amountToPan, 0, {duration: 1000});
-                        //dragObject.location = "right"
-                    }                        
-                }else if((x > dragObject.left - 5) && (x < dragObject.left + 5)){
-                    if((x - dragObject.xStart) > 10) {
-                        panzoom.pan(amountToPan, 0);
-                        //dragObject.location = "left";
-                    }
-                    if((x - dragObject.xStart) < 10) {
-                        panzoom.pan(0, 0, {duration: 1000});
-                        //dragObject.location = "center"
-                    }                        
-                }else if((x > dragObject.right - 5) && (x < dragObject.right + 5)){
-                    if((x - dragObject.xStart) > 10) {
-                        panzoom.pan(0, 0);
-                        //dragObject.location = "center";
-                    }
-                    if((x - dragObject.xStart) < 10) {
-                        panzoom.pan( - amountToPan, 0, {duration: 1000});
-                        //dragObject.location = "right"
-                    }                        
-                }                
-                console.log(/* "location:   " + dragObject.location + "  and x:  " +  */panzoom.getPan().x)
-            });
 
         }
     },

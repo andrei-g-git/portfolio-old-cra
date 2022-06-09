@@ -11,9 +11,9 @@ exports.useHorizontalPanning = function (identifier, maxWidth) {
     react_1.useEffect(function () {
         var element = document.getElementsByClassName(identifier)[0];
         if (element) {
-            var panzoom_2 = panzoom_1["default"](element, { disableYAxis: true, disableZoom: true, touchAction: "pan-y" });
+            var panzoom_2 = panzoom_1["default"](element, { disableYAxis: true, disableZoom: true, touchAction: "pan-y", animate: true, duration: 150 });
             var viewportWidth = window.innerWidth;
-            var offsetToStillSeePartOfCharacter = 100;
+            var offsetToStillSeePartOfCharacter = 200;
             var amountToPan_1 = viewportWidth - offsetToStillSeePartOfCharacter;
             var dragObject_1 = {
                 xStart: 0,
@@ -22,9 +22,20 @@ exports.useHorizontalPanning = function (identifier, maxWidth) {
                 center: 0,
                 right: -amountToPan_1
             };
+            //panzoom.setStyle("transition-duration", "1s");
             element.addEventListener("panzoomstart", function (event) {
                 event.preventDefault();
                 dragObject_1.xStart = panzoom_2.getPan().x;
+                var x = panzoom_2.getPan().x;
+                if ((x > dragObject_1.center - 5) && (x < dragObject_1.center + 5)) {
+                    dragObject_1.location = "center";
+                }
+                if ((x > dragObject_1.left - 5) && (x < dragObject_1.left + 5)) {
+                    dragObject_1.location = "left";
+                }
+                if ((x > dragObject_1.right - 5) && (x < dragObject_1.right + 5)) {
+                    dragObject_1.location = "right";
+                }
             });
             element.addEventListener("panzoomend", function (event) {
                 event.preventDefault();
@@ -34,38 +45,34 @@ exports.useHorizontalPanning = function (identifier, maxWidth) {
                 var overflowOnEigherSide = overflowingAreaWidth / 2;
                 // if(x > overflowOnEigherSide) panzoom.pan(overflowOnEigherSide, 0);
                 // if(x < -overflowOnEigherSide) panzoom.pan(-overflowOnEigherSide, 0);
-                //can't implement snap panning, these events run 4 times in a row each, it's messing with all the branching
-                if ((x > dragObject_1.center - 5) && (x < dragObject_1.center + 5)) {
-                    if ((x - dragObject_1.xStart) > 10) {
-                        panzoom_2.pan(amountToPan_1, 0, { duration: 1000 });
-                        //dragObject.location = "left";
+                console.log("x is: " + x + "     and prev x: " + dragObject_1.xStart);
+                if (Math.abs((x - dragObject_1.xStart)) > 10) {
+                    if (dragObject_1.location === "center") {
+                        if ((x - dragObject_1.xStart) > 10) {
+                            panzoom_2.pan(amountToPan_1, 0);
+                        }
+                        if ((x - dragObject_1.xStart) < 10) {
+                            panzoom_2.pan(-amountToPan_1, 0);
+                        }
                     }
-                    if ((x - dragObject_1.xStart) < 10) {
-                        panzoom_2.pan(-amountToPan_1, 0, { duration: 1000 });
-                        //dragObject.location = "right"
+                    else if (dragObject_1.location === "left") {
+                        if ((x - dragObject_1.xStart) > 10) {
+                            panzoom_2.pan(amountToPan_1, 0);
+                        }
+                        if ((x - dragObject_1.xStart) < 10) {
+                            panzoom_2.pan(0, 0);
+                        }
                     }
-                }
-                else if ((x > dragObject_1.left - 5) && (x < dragObject_1.left + 5)) {
-                    if ((x - dragObject_1.xStart) > 10) {
-                        panzoom_2.pan(amountToPan_1, 0);
-                        //dragObject.location = "left";
-                    }
-                    if ((x - dragObject_1.xStart) < 10) {
-                        panzoom_2.pan(0, 0, { duration: 1000 });
-                        //dragObject.location = "center"
-                    }
-                }
-                else if ((x > dragObject_1.right - 5) && (x < dragObject_1.right + 5)) {
-                    if ((x - dragObject_1.xStart) > 10) {
-                        panzoom_2.pan(0, 0);
-                        //dragObject.location = "center";
-                    }
-                    if ((x - dragObject_1.xStart) < 10) {
-                        panzoom_2.pan(-amountToPan_1, 0, { duration: 1000 });
-                        //dragObject.location = "right"
+                    else if (dragObject_1.location === "right") {
+                        if ((x - dragObject_1.xStart) > 10) {
+                            panzoom_2.pan(0, 0);
+                        }
+                        if ((x - dragObject_1.xStart) < 10) {
+                            panzoom_2.pan(-amountToPan_1, 0);
+                        }
                     }
                 }
-                console.log(/* "location:   " + dragObject.location + "  and x:  " +  */ panzoom_2.getPan().x);
+                console.log(x - dragObject_1.xStart + "  and prev location: " + dragObject_1.location);
             });
         }
     }, []);
