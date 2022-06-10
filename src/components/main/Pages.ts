@@ -13,10 +13,10 @@ export class Pages { // should probably use a map, it's ordered and getting valu
             height: "100vh"
         };
     }
-    static get PORTFOLIO(){
+    static get PROJECTS(){
         return {
             index: 2,
-            name: "portfolio",
+            name: "projects",//"portfolio",
             height: "100vh"
         };
     }
@@ -32,7 +32,7 @@ export class Pages { // should probably use a map, it's ordered and getting valu
         return [
             Pages.HOME.name,
             Pages.ABOUT.name,
-            Pages.PORTFOLIO.name,
+            Pages.PROJECTS.name,
             Pages.CONTACT.name ///////
         ];
     }

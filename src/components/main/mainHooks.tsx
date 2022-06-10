@@ -57,7 +57,7 @@ export const scrollToActiveNavItem = (selectedNavIndex: number) => {
             height = convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height);
             break;
         case 3: 
-            height = convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height) + convertViewportHeightToNumber(Pages.PORTFOLIO.height);
+            height = convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height) + convertViewportHeightToNumber(Pages.PROJECTS.height);
             break;
         default:
             height = 0;

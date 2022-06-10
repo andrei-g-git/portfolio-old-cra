@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Scrolling } from "../../js/uiEnums";
+import { Pages } from "../main/Pages";
 import { toggleWithTimer } from "../../js/utils";
 
 export const useScrollCheck = (toggleScrolling: Function) => {
@@ -58,4 +59,26 @@ export const useScrollDirection = (changeScrollDirection: Function, toggleScroll
     }, 
         []
     )
-}
+};
+
+export const useReRenderWhenScrollToPage = (uncouplePropObject: {page: number, scrolling: boolean, scrollDirection: number}): boolean => {
+	const [reRenderSkills, setReRenderSkills] = useState(false);
+
+    const {page, scrolling, scrollDirection} = uncouplePropObject;
+
+	useEffect(() => {
+		if(scrolling){
+			if((scrollDirection === Scrolling.DOWN && page === Pages.ABOUT.index) || 
+				(scrollDirection === Scrolling.UP && page === Pages.PROJECTS.index)
+			){
+				setReRenderSkills(true);
+			} else {
+				setReRenderSkills(false);
+			}
+		}
+	}, 
+		[page]
+	);
+
+    return reRenderSkills;
+};

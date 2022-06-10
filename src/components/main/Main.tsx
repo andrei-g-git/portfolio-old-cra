@@ -13,12 +13,14 @@ import {
     navItemSelected,
     navItemHighlighted 
 } from '../../redux/actions';
+import Contact from '../contact/Contact';
 import { 
     useScrollByActiveNavItem, 
     scrollToActiveNavItem,
     useHighlightNavItemByScrollHeight
 } from './mainHooks';
 import "./Main.scss";
+
 
 
 function Main(props: any) {
@@ -35,16 +37,16 @@ function Main(props: any) {
 
     return (
         <div className="main" id="main">
-            <LandingPage height="100vh"/>
+            <LandingPage height="100vh"/> {/* heights are stored in the Pages class */}
             {/* <StickyContainer> */}
                 <NavBar />
             {/* </StickyContainer> */}
             
             <About height="100vh"/>
 
-        {/*   <PageBelowNavbar />
-            <YetAnotherPage />
-            <Footer /> */}
+            <div className="portfolio-container" style={{height: "100vh", width: "100vw", backgroundColor: "pink"}} />
+
+            <Contact height="100vh" />
         </div>
     );
 }

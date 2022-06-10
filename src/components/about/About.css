@@ -4,6 +4,7 @@
   gap: 10%;
   width: 100vw;
   background-color: bisque;
+  position: relative;
 }
 @media (max-width: 720px) {
   .about-container {
@@ -11,6 +12,10 @@
     align-items: center;
     gap: 0;
   }
+}
+.about-container .about-title {
+  position: absolute;
+  top: 20px;
 }
 .about-container .about-me-container {
   position: relative;

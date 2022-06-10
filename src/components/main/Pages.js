@@ -26,11 +26,11 @@ var Pages = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Pages, "PORTFOLIO", {
+    Object.defineProperty(Pages, "PROJECTS", {
         get: function () {
             return {
                 index: 2,
-                name: "portfolio",
+                name: "projects",
                 height: "100vh"
             };
         },
@@ -52,7 +52,7 @@ var Pages = /** @class */ (function () {
         return [
             Pages.HOME.name,
             Pages.ABOUT.name,
-            Pages.PORTFOLIO.name,
+            Pages.PROJECTS.name,
             Pages.CONTACT.name ///////
         ];
     };

@@ -1,0 +1,83 @@
+.contact-container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  background-color: #42413e;
+  position: relative;
+  padding-top: 200px;
+}
+@media (max-width: 720px) {
+  .contact-container {
+    flex-direction: column;
+  }
+}
+.contact-container .contact-title {
+  position: absolute;
+  top: 20px;
+}
+.contact-container .contact-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.contact-container .contact-form .contact-form-input {
+  width: 700px;
+  min-width: 700px;
+  max-width: 700px;
+  height: 2rem;
+  min-height: 2rem;
+  max-height: 2rem;
+  background-color: #272623;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: large;
+  color: white;
+}
+.contact-container .contact-form .contact-form-input:focus {
+  border: none;
+  border: 1px solid #555453;
+}
+.contact-container .contact-form .contact-form-text-area {
+  width: 700px;
+  min-width: 700px;
+  max-width: 700px;
+  height: 400px;
+  min-height: 400px;
+  max-height: 400px;
+  background-color: #272623;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: large;
+  color: white;
+}
+.contact-container .contact-form .contact-form-submit {
+  background-color: transparent;
+  border: none;
+  border: 3px solid aquamarine;
+  color: aquamarine;
+  font-size: larger;
+}
+.contact-container .contact-form .contact-form-submit:active {
+  border-color: white;
+  color: white;
+}
+.contact-container .contact-footer {
+  width: 100%;
+  height: 200px;
+  background-color: #1c1d20;
+  position: absolute;
+  bottom: 0;
+}
+.contact-container .back-to-top {
+  width: 128px;
+  height: 128px;
+  background-image: url(../../assets/img/arrow-aquamarine-512.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  bottom: 140px;
+  z-index: 2;
+}

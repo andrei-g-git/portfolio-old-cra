@@ -1,8 +1,9 @@
 "use strict";
 exports.__esModule = true;
-exports.useScrollDirection = exports.useScrollCheck = void 0;
+exports.useReRenderWhenScrollToPage = exports.useScrollDirection = exports.useScrollCheck = void 0;
 var react_1 = require("react");
 var uiEnums_1 = require("../../js/uiEnums");
+var Pages_1 = require("../main/Pages");
 var utils_1 = require("../../js/utils");
 exports.useScrollCheck = function (toggleScrolling) {
     react_1.useEffect(function () {
@@ -45,4 +46,20 @@ exports.useScrollDirection = function (changeScrollDirection, toggleScrolling) {
             }, 150);
         });
     }, []);
+};
+exports.useReRenderWhenScrollToPage = function (uncouplePropObject) {
+    var _a = react_1.useState(false), reRenderSkills = _a[0], setReRenderSkills = _a[1];
+    var page = uncouplePropObject.page, scrolling = uncouplePropObject.scrolling, scrollDirection = uncouplePropObject.scrollDirection;
+    react_1.useEffect(function () {
+        if (scrolling) {
+            if ((scrollDirection === uiEnums_1.Scrolling.DOWN && page === Pages_1.Pages.ABOUT.index) ||
+                (scrollDirection === uiEnums_1.Scrolling.UP && page === Pages_1.Pages.PROJECTS.index)) {
+                setReRenderSkills(true);
+            }
+            else {
+                setReRenderSkills(false);
+            }
+        }
+    }, [page]);
+    return reRenderSkills;
 };

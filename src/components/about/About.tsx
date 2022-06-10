@@ -1,60 +1,30 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import SkillGroup from '../skillGroup/SkillGroup';
 import { skills } from '../../data/skills';
-import { useScrollCheck, useScrollDirection } from '../_universalHooks/uiHooks';
+import { useReRenderWhenScrollToPage, useScrollCheck, useScrollDirection } from '../_universalHooks/uiHooks';
 import { scrolled, scrollDirectionChanged } from '../../redux/actions';
-import { Scrolling } from '../../js/uiEnums';
-import { Pages } from '../main/Pages';
 import "./About.scss";
 
-
-/* 
-	I should have a state where it's appropriate for the skill gauges to re-animate, when I pass the landingPage downward ot the portfolio page upward
-	I need a scrolling and scrollingDown bool state
-	A scroll listner will update both
-
-	var timer = null;
-	window.addEventListener('scroll', function() {
-		if(timer !== null) {
-			clearTimeout(timer);        
-		}
-		timer = setTimeout(function() {
-			// do something
-		}, 150);
-	}, false);
-
-	A hook runs every time the highlightednavitem changes and if it's value mathces the landingPage or portfolio elements it will preform the above checks
-	If true then the gauges must re-render
-	It probabaly doesn't hur to re-render the whole page since it would cause less headaches with props ... Or I can just have a counter prop or some shit... 
-*/
 const About = (props: any) => {
 
-	//useScrollCheck(props.toggleScrolling);
 	useScrollDirection(props.changeScrollDirection, props.toggleScrolling)
 
-	const [reRenderSkills, setReRenderSkills] = useState(false);
-
-	useEffect(() => {
-		if(props.scrolling){
-			if((props.scrollDirection === Scrolling.DOWN && props.page === Pages.ABOUT.index) || 
-				(props.scrollDirection === Scrolling.UP && props.page === Pages.PORTFOLIO.index)
-			){
-				setReRenderSkills(true);
-			} else {
-				setReRenderSkills(false);
-			}
-		}
-	}, 
-		[props.page]
-	)
+	let reRenderSkills = useReRenderWhenScrollToPage({
+		page: props.page,
+		scrolling: props.scrolling,
+		scrollDirection: props.scrollDirection
+	});
 
 	return (
 		<div className="about-container" 
 			style={{height: props.height}}
 		>
+			<div className="about-title">
+				ABOUT
+			</div>
+			
 			<div className="about-me-container"
 				id="about-me-container"
 			>
