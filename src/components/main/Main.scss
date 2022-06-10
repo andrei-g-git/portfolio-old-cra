@@ -4,7 +4,9 @@
     //overflow: hidden;
     //touch-action: pan-y;
 
-    overflow-x: hidden;
+    //overflow-x: hidden; -- fucks with position: sticky
+    
+    //position: absolute; //position:sticky still doesn't work
 }
    
 

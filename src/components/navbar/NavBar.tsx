@@ -2,23 +2,24 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { navbarItemList } from './navbarItems';
 import { 
-	activeNavItemChanged, 
 	justClickedNavItem,
 	navItemSelected
 } from '../../redux/actions'; //this would probably be more proper if it was injected as a prop
-//import { finishDispatchWrapper } from '../../redux/utils/reduxUtils';
-//import { NavItems } from './navItems';
 import { Pages } from "../main/Pages";
 import NavItem from '../navItem/NavItem';
 import "./NavBar.scss";
 
+const Sticky = require("sticky-js");
 
 export const NavBar = (props: any /* CHANGE */) => {
 
+	const sticky = new Sticky(".nav-bar"); //position: sticky doesn't work even after removeing overflow from parent
+
 	return (
-		<div className="nav-bar">
+		<div className="nav-bar"
+			id="nav-bar"
+		>
 				{
 					Pages.getNavItems().map((item, index) => 
 						<NavItem index={index}

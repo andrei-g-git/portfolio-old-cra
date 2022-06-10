@@ -3,6 +3,8 @@ exports.__esModule = true;
 var React = require("react");
 var react_redux_1 = require("react-redux");
 var react_1 = require("react");
+//import stickybits from "stickybits";
+//import { StickyContainer/* , Sticky */} from "react-sticky";
 var LandingPage_1 = require("../landingPage/LandingPage");
 var NavBar_1 = require("../navbar/NavBar");
 var About_1 = require("../about/About");
@@ -14,6 +16,7 @@ function Main(props) {
     react_1.useEffect(function () {
         mainHooks_1.scrollToActiveNavItem(props.selectedNavItem);
     }, [props.clickedNavItem]);
+    //stickybits("nav-bar", {verticalPosition: 'bottom'}); //position: sticky isn't working anymore (has absolute position, top, and overflow removed from parent, still doens't work)
     return (React.createElement("div", { className: "main", id: "main" },
         React.createElement(LandingPage_1["default"], { height: "100vh" }),
         React.createElement(NavBar_1["default"], null),

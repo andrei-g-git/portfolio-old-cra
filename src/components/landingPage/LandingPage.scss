@@ -16,7 +16,6 @@
     width: $landingPageMaxWidth;
     position: relative;
 
-    //overflow: hidden; //y for char feet and x for panning
     overflow-y: hidden;
 
     //touch-action: pan-x; 
@@ -30,7 +29,7 @@
         position: absolute;
         left: 0; 
         overflow-x: hidden;
-        //@include bgOrFg();
+
     }    
 
     .landing-page-foreground{ //should be mixin
@@ -42,7 +41,7 @@
         position: absolute;
         left: 0; 
         overflow-x: hidden;
-        //@include bgOrFg();
+
     } 
 
     .character{

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { connect } from "react-redux";
 import { Dispatch } from 'redux';
 import { useEffect } from 'react';
+//import stickybits from "stickybits";
+//import { StickyContainer/* , Sticky */} from "react-sticky";
 import LandingPage from '../landingPage/LandingPage';
 import NavBar from '../navbar/NavBar';
 import About from '../about/About';
@@ -29,10 +31,15 @@ function Main(props: any) {
         [props.clickedNavItem]
     );
 
+    //stickybits("nav-bar", {verticalPosition: 'bottom'}); //position: sticky isn't working anymore (has absolute position, top, and overflow removed from parent, still doens't work)
+
     return (
         <div className="main" id="main">
             <LandingPage height="100vh"/>
-            <NavBar />
+            {/* <StickyContainer> */}
+                <NavBar />
+            {/* </StickyContainer> */}
+            
             <About height="100vh"/>
 
         {/*   <PageBelowNavbar />
