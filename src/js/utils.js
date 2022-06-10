@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.calcPercentIncrement10 = exports.calcFractionToDecimal = exports.convertToPixels = exports.convertViewportHeightToNumber = exports.getElementByClassOrId = exports.clamp = void 0;
+exports.toggleWithTimer = exports.calcPercentIncrement10 = exports.calcFractionToDecimal = exports.convertToPixels = exports.convertViewportHeightToNumber = exports.getElementByClassOrId = exports.clamp = void 0;
 exports.clamp = function (value, min, max) {
     return Math.min(Math.max(value, min), max);
 };
@@ -35,4 +35,14 @@ exports.calcPercentIncrement10 = function (numerator, max) {
     var forRounding = withTwoDecimals * 10;
     var rounded = Math.round(forRounding);
     return rounded * 10;
+};
+exports.toggleWithTimer = function (timer, duration, callback, initialState) {
+    callback(initialState);
+    if (timer !== null) {
+        clearTimeout(timer);
+    }
+    timer = setTimeout(function () {
+        callback(!initialState);
+    }, duration);
+    return timer;
 };

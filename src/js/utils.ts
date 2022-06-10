@@ -38,3 +38,17 @@ export const calcPercentIncrement10 = (numerator: number, max: number): number =
     const rounded = Math.round(forRounding);
     return rounded * 10;
 }
+
+export const toggleWithTimer = (timer: NodeJS.Timeout | null, duration: number, callback: Function, initialState: boolean): any => {
+    callback(initialState);
+    if(timer !== null) {
+        clearTimeout(timer);        
+    }
+    timer = setTimeout(() => {
+        callback(! initialState);
+    }, 
+        duration
+    );
+
+    return timer;
+};

@@ -9,9 +9,9 @@ import { withPageState } from '../_higherOrderComponents/withPageState';
 const SkillGroup = (props: any) => {
 
     useEffect(() => {
-
+        console.log(props.refill)
     },
-        [props.page]
+        [props.refill]
     );
 
     const GaugeWithPageState = withPageState(Gauge);   
@@ -54,7 +54,7 @@ const SkillGroup = (props: any) => {
 
 const mapStateToProps = (state: any) => {
     return {
-        page: state.ui.highlightedNavItem   
+        //page: state.ui.highlightedNavItem   
     }
 };
 

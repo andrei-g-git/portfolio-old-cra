@@ -1,8 +1,15 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import SkillGroup from '../skillGroup/SkillGroup';
 import { skills } from '../../data/skills';
+import { useScrollCheck, useScrollDirection } from '../_universalHooks/uiHooks';
+import { scrolled, scrollDirectionChanged } from '../../redux/actions';
+import { Scrolling } from '../../js/uiEnums';
+import { Pages } from '../main/Pages';
 import "./About.scss";
+
 
 /* 
 	I should have a state where it's appropriate for the skill gauges to re-animate, when I pass the landingPage downward ot the portfolio page upward
@@ -24,6 +31,26 @@ import "./About.scss";
 	It probabaly doesn't hur to re-render the whole page since it would cause less headaches with props ... Or I can just have a counter prop or some shit... 
 */
 const About = (props: any) => {
+
+	//useScrollCheck(props.toggleScrolling);
+	useScrollDirection(props.changeScrollDirection, props.toggleScrolling)
+
+	const [reRenderSkills, setReRenderSkills] = useState(false);
+
+	useEffect(() => {
+		if(props.scrolling){
+			if((props.scrollDirection === Scrolling.DOWN && props.page === Pages.ABOUT.index) || 
+				(props.scrollDirection === Scrolling.UP && props.page === Pages.PORTFOLIO.index)
+			){
+				setReRenderSkills(true);
+			} else {
+				setReRenderSkills(false);
+			}
+		}
+	}, 
+		[props.page]
+	)
+
 	return (
 		<div className="about-container" 
 			style={{height: props.height}}
@@ -40,7 +67,7 @@ const About = (props: any) => {
 			</div>
 			<div className="skills-container">
 				<div className="skills">
-					<SkillGroup skills={skills} />
+					<SkillGroup skills={skills} refill={reRenderSkills}/>
 					
 				</div>				
 			</div>
@@ -49,8 +76,23 @@ const About = (props: any) => {
 	);
 };
 
-const mapStateToProps = (state: any) => ({})
+const mapStateToProps = (state: any) => {
+	return{
+		scrolling: state.ui.scrolling,
+		scrollDirection: state.ui.scrollDirection,
+		page: state.ui.highlightedNavItem 
+	};
+};
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = (dispatch: Dispatch) => {
+	return{
+		toggleScrolling: (isScrolling: boolean) => {
+			dispatch(scrolled(isScrolling));
+		},
+		changeScrollDirection: (directionIndex: number) => {
+			dispatch(scrollDirectionChanged(directionIndex));
+		}
+	};
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(About)
+export default connect(mapStateToProps, mapDispatchToProps)(About);

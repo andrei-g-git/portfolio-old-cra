@@ -8,7 +8,8 @@ var Gauge_1 = require("../gauge/Gauge");
 var withPageState_1 = require("../_higherOrderComponents/withPageState");
 var SkillGroup = function (props) {
     react_1.useEffect(function () {
-    }, [props.page]);
+        console.log(props.refill);
+    }, [props.refill]);
     var GaugeWithPageState = withPageState_1.withPageState(Gauge_1["default"]);
     return (React.createElement("div", { className: "skill-group-container", defaultValue: props.page }, props.skills.map(function (skill, index) {
         return React.createElement(Skill_1["default"], { name: skill.name, icon: require("../../assets/img/" + skill.icon), index: index, key: index },
@@ -17,7 +18,7 @@ var SkillGroup = function (props) {
 };
 var mapStateToProps = function (state) {
     return {
-        page: state.ui.highlightedNavItem
+    //page: state.ui.highlightedNavItem   
     };
 };
 var mapDispatchToProps = {};
