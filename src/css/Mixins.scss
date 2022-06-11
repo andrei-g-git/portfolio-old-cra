@@ -28,3 +28,8 @@
         }
     }
 }
+
+@mixin pageTitle($paddingTop: 40px, $paddingBottom: 50px){
+    padding-top: $paddingTop;
+    padding-bottom: $paddingBottom;
+}

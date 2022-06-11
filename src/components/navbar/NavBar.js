@@ -10,14 +10,17 @@ require("./NavBar.scss");
 var Sticky = require("sticky-js");
 exports.NavBar = function (props /* CHANGE */) {
     var sticky = new Sticky(".nav-bar"); //position: sticky doesn't work even after removeing overflow from parent
-    return (React.createElement("div", { className: "nav-bar", id: "nav-bar" }, Pages_1.Pages.getNavItems().map(function (item, index) {
-        return React.createElement(NavItem_1["default"], { index: index, name: item.toUpperCase(), active: props.highlightedNavItem === index ? true : false, notifyParent: props.selectedNavItem });
-    })));
+    return (React.createElement("div", { className: "nav-bar", id: "nav-bar" },
+        Pages_1.Pages.getNavItems().map(function (item, index) {
+            return React.createElement(NavItem_1["default"], { index: index, name: item.toUpperCase(), active: props.highlightedNavItem === index ? true : false, notifyParent: props.selectedNavItem });
+        }),
+        React.createElement("button", { onClick: function () { return props.themeToggle(!props.darkTheme); } }, "T")));
 };
 var mapStateToProps = function (state) {
     return {
         activeNavItem: state.ui.activeNavItem,
-        highlightedNavItem: state.ui.highlightedNavItem
+        highlightedNavItem: state.ui.highlightedNavItem,
+        darkTheme: state.ui.darkTheme
     };
 };
 var mapDispatchToProps = function (dispatch) {
@@ -32,6 +35,9 @@ var mapDispatchToProps = function (dispatch) {
             setTimeout(function () {
                 dispatch(actions_1.justClickedNavItem(false)); //band aid
             }, 10);
+        },
+        themeToggle: function (isDark) {
+            dispatch(actions_1.toggledTheme(isDark));
         }
     };
 };

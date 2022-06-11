@@ -6,7 +6,7 @@ import "./Contact.scss";
 function Contact(props: any) {
   return (
     <div className="contact-container"
-        style={{height: props.height}}
+        style={{height: props.height, maxHeight: props.height}}
     >
         <div className="contact-title">
             CONTACT

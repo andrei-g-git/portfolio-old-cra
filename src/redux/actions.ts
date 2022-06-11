@@ -8,7 +8,8 @@ import {
     NAV_ITEM_HIGHLIGHTED,
     NAV_ITEM_SELECTED,
     SCROLLED,
-    SCROLL_DIRECTION_CANGED
+    SCROLL_DIRECTION_CANGED,
+    TOGGLED_THEME
 } from "./actionTypes";
 import {
     NumberPayload,
@@ -76,4 +77,11 @@ export const scrollDirectionChanged = (scrollDirection: number): NumberPayload =
         type: SCROLL_DIRECTION_CANGED,
         payload: scrollDirection
     };
-}
+};
+
+export const toggledTheme = (isDark: boolean): BooleanPayload => {
+    return{
+        type: TOGGLED_THEME,
+        payload: isDark
+    };
+};

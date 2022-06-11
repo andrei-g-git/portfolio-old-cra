@@ -1,0 +1,53 @@
+$themes: (
+    dark: (
+        bg-primary: rgb(107, 94, 79),
+        bg-secondary: rgb(94, 141, 125),
+
+        cta-primary: rgb(0, 189, 189),
+
+        text-primary: rgb(209, 180, 180),
+        text-cta: rgb(255, 209, 216),
+        text-secondary: white,
+
+        contact-bg-primary: rgb(66, 65, 62),
+        contact-bg-secondary: rgb(85, 84, 83),
+        footer-bg: rgb(28, 29, 32),
+    ),
+    light: (
+        bg-primary: bisque,
+        bg-secondary: aquamarine,
+
+        cta-primary: aqua,
+
+        text-primary: black,
+        text-cta: rgb(255, 209, 216),
+        text-secondary: white,
+
+        contact-bg-primary: rgb(66, 65, 62),
+        contact-bg-secondary: rgb(85, 84, 83),
+        footer-bg: rgb(28, 29, 32),
+    )
+);
+
+$theme-map: ();
+
+@mixin themed(){
+    @each $theme, $map in $themes{
+        $theme-map: $map !global; //if not using helper function for maping then I prob don't need the !global
+        .theme--#{$theme} & {
+
+            @each $key, $submap in $map {
+                $value: map-get(map-get($themes, $theme), '#{$key}');
+                $theme-map: map-merge($theme-map, ($key: $value)) !global;
+              }
+
+            @content;    // the content inside @include theme() {...}
+        }
+
+        $theme-map: () !global;
+    }
+}
+
+@function theme-get($key) {
+    @return map-get($theme-map, $key);
+  }

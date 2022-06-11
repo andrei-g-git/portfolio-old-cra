@@ -1,0 +1,10 @@
+.projects-container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  background-color: bisque;
+}
+.projects-container .projects-title {
+  padding-top: 40px;
+  padding-bottom: 50px;
+}

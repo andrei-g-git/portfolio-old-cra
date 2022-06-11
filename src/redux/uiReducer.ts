@@ -7,7 +7,8 @@ import {
     NAV_ITEM_SELECTED,
     NAV_ITEM_HIGHLIGHTED,
     SCROLLED,
-    SCROLL_DIRECTION_CANGED 
+    SCROLL_DIRECTION_CANGED,
+    TOGGLED_THEME 
 } from "./actionTypes";
 import {ReduxAction} from "./interface/ReduxAction";
 //import { NavItems } from "../components/navbar/navItems";
@@ -23,7 +24,8 @@ interface UiState{ //should be in the interfaces folder
     selectedNavItem: number,
     highlightedNavItem: number,
     scrolling: boolean,
-    scrollDirection: number
+    scrollDirection: number,
+    darkTheme: boolean
 }
 
 const initialState: UiState = {
@@ -35,7 +37,8 @@ const initialState: UiState = {
     selectedNavItem: 0,
     highlightedNavItem: 0,
     scrolling: false,
-    scrollDirection: Scrolling.NONE
+    scrollDirection: Scrolling.NONE,
+    darkTheme: false
 };
 
 export const uiReducer = (state: UiState = initialState, action: ReduxAction): UiState => {
@@ -84,7 +87,12 @@ export const uiReducer = (state: UiState = initialState, action: ReduxAction): U
             return{
                 ...state,
                 scrollDirection: action.payload
-            };         
+            };     
+        case TOGGLED_THEME:
+            return{
+                ...state,
+                darkTheme: action.payload
+            };    
         default:
             return state;
     }

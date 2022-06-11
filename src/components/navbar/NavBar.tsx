@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { 
 	justClickedNavItem,
-	navItemSelected
+	navItemSelected,
+	toggledTheme
 } from '../../redux/actions'; //this would probably be more proper if it was injected as a prop
 import { Pages } from "../main/Pages";
 import NavItem from '../navItem/NavItem';
@@ -28,7 +29,9 @@ export const NavBar = (props: any /* CHANGE */) => {
 							notifyParent={props.selectedNavItem}
 						/>
 					)
-				}				
+				}		
+
+				<button onClick={() => props.themeToggle(! props.darkTheme)}>T</button>		
 
 		</div>
 	)
@@ -37,7 +40,8 @@ export const NavBar = (props: any /* CHANGE */) => {
 const mapStateToProps = (state: any) => {
 	return{
 		activeNavItem: state.ui.activeNavItem,
-		highlightedNavItem: state.ui.highlightedNavItem
+		highlightedNavItem: state.ui.highlightedNavItem,
+		darkTheme: state.ui.darkTheme
 	};
 }
 
@@ -55,6 +59,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 			},
 				10
 			);			
+		},
+		themeToggle: (isDark: boolean) => {
+			dispatch(toggledTheme(isDark));
 		}
 	}
 }

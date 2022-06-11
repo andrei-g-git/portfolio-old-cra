@@ -28,7 +28,7 @@ export const LandingPage = (props: any) => { //make this thing pannable horizont
     return (
         <div className="landing-page-container" 
             id="landing-page-container"
-            style={{height: props.height}}
+            style={{height: props.height, maxHeight: props.height}}
         >
 
             <div className="landing-page-background"></div>

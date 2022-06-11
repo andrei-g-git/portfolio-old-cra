@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.scrollDirectionChanged = exports.scrolled = exports.navItemSelected = exports.navItemHighlighted = exports.switchedAutoscroll = exports.justClickedNavItem = exports.activeNavItemChanged = exports.characterAnimationChanged = exports.whatever = void 0;
+exports.toggledTheme = exports.scrollDirectionChanged = exports.scrolled = exports.navItemSelected = exports.navItemHighlighted = exports.switchedAutoscroll = exports.justClickedNavItem = exports.activeNavItemChanged = exports.characterAnimationChanged = exports.whatever = void 0;
 var actionTypes_1 = require("./actionTypes");
 exports.whatever = function (value) {
     return {
@@ -54,5 +54,11 @@ exports.scrollDirectionChanged = function (scrollDirection) {
     return {
         type: actionTypes_1.SCROLL_DIRECTION_CANGED,
         payload: scrollDirection
+    };
+};
+exports.toggledTheme = function (isDark) {
+    return {
+        type: actionTypes_1.TOGGLED_THEME,
+        payload: isDark
     };
 };

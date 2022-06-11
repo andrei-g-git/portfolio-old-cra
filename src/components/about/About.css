@@ -3,8 +3,13 @@
   justify-content: center;
   gap: 10%;
   width: 100vw;
-  background-color: bisque;
   position: relative;
+}
+.theme--dark .about-container {
+  background-color: #6b5e4f;
+}
+.theme--light .about-container {
+  background-color: bisque;
 }
 @media (max-width: 720px) {
   .about-container {
@@ -14,8 +19,8 @@
   }
 }
 .about-container .about-title {
-  position: absolute;
-  top: 20px;
+  padding-top: 40px;
+  padding-bottom: 50px;
 }
 .about-container .about-me-container {
   position: relative;

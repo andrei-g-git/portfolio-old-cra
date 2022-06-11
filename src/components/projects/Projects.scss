@@ -1,0 +1,12 @@
+@import "../../css/Mixins.scss";
+
+.projects-container{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    background-color: bisque;
+    
+    .projects-title{
+        @include pageTitle();
+    }
+}

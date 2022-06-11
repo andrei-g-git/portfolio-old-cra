@@ -1,12 +1,18 @@
 @import "../../css/Variables.scss";
-@import "../../css/Variables.scss";
+@import "../../css/Mixins.scss";
+@import "../../css/Themes.scss";
 
 .about-container{
     display: flex;
     justify-content: center;
     gap: 10%;
     width: 100vw;
-    background-color: bisque;
+
+    @include themed(){
+        background-color: theme-get("bg-primary");
+    }
+
+    //background-color: bisque;
     position: relative;
 
     //touch-action: pan-y;
@@ -19,8 +25,9 @@
     }
     
     .about-title{
-        position: absolute;
-        top: 20px;
+        // position: absolute;
+        // top: 20px;
+        @include pageTitle();
     }
     .about-me-container{
         position: relative;
