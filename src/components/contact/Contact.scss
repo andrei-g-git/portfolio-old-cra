@@ -13,6 +13,18 @@
     resize: none;
     font-size: $contact-page-primary-font-size;
     color: $contact-page-primary-color;    
+
+    &:focus{ 
+        border: none;
+        border: 1px solid rgb(85, 84, 83);
+    }
+
+    @media(max-width: map-get($breakpoints, "tablet")){
+        width: 90vw;        
+        min-width: 90vw;
+        max-width: 90vw;
+        //background-color: rgb(124, 179, 124);
+    }
 }
 
 .contact-container{
@@ -25,6 +37,8 @@
 
     @media(max-width: map-get($breakpoints, "tablet")){
         flex-direction: column;
+        justify-content: unset;
+        align-items: center;
     }
 
     .contact-title{
@@ -39,17 +53,10 @@
         gap: 30px;
 
         .contact-form-input{
-
             @include inputElementCommon(2rem);
-
-            &:focus{ 
-                border: none;
-                border: 1px solid rgb(85, 84, 83);
-            }
         }
 
         .contact-form-text-area{
-
             @include inputElementCommon(400px);
         }
 

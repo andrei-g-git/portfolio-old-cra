@@ -13,19 +13,29 @@ function Contact(props: any) {
         </div>
 
         <form className="contact-form"
-            onSubmit={(event) => {event.preventDefault(); console.log("aweawef")}}
+            method="post" 
+            action="https://forms.un-static.com/forms/1120de76e2c5b4d51a64958b1a5c0ca95d39267c"
+            //onSubmit={(event) => {event.preventDefault(); console.log("aweawef")}}
         >
-            <input className="contact-form-input"
-                id="input-email"
-                type="email"
-            />
-
             <input className="contact-form-input"
                 id="input-name"
                 type="text"
+                name="name"
+                placeholder="Subject"
             />
 
-            <textarea className="contact-form-text-area" />
+            <input className="contact-form-input"
+                id="input-email"
+                type="email"
+                name="email"
+                placeholder="Your Email"
+            />
+
+            <textarea className="contact-form-text-area" 
+                name="message"
+            />
+
+            {/* <input type="file" /> */}
 
             <input className="contact-form-submit"
                 id="contact-form-submit"

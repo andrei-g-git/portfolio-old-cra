@@ -9,6 +9,8 @@
 @media (max-width: 720px) {
   .contact-container {
     flex-direction: column;
+    justify-content: unset;
+    align-items: center;
   }
 }
 .contact-container .contact-title {
@@ -39,6 +41,13 @@
   border: none;
   border: 1px solid #555453;
 }
+@media (max-width: 720px) {
+  .contact-container .contact-form .contact-form-input {
+    width: 90vw;
+    min-width: 90vw;
+    max-width: 90vw;
+  }
+}
 .contact-container .contact-form .contact-form-text-area {
   width: 700px;
   min-width: 700px;
@@ -52,6 +61,17 @@
   resize: none;
   font-size: large;
   color: white;
+}
+.contact-container .contact-form .contact-form-text-area:focus {
+  border: none;
+  border: 1px solid #555453;
+}
+@media (max-width: 720px) {
+  .contact-container .contact-form .contact-form-text-area {
+    width: 90vw;
+    min-width: 90vw;
+    max-width: 90vw;
+  }
 }
 .contact-container .contact-form .contact-form-submit {
   background-color: transparent;

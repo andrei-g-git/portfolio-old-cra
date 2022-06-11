@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.useHighlightNavItemByScrollHeight = exports.scrollToActiveNavItem = exports.useScrollByActiveNavItem = void 0;
+exports.getPageHeight = exports.useHighlightNavItemByScrollHeight = exports.scrollToActiveNavItem = exports.useScrollByActiveNavItem = void 0;
 var react_1 = require("react");
 var Pages_1 = require("./Pages");
 var utils_1 = require("../../js/utils");
@@ -12,13 +12,13 @@ exports.useScrollByActiveNavItem = function (props /* change */) {
                 height = 0; //obviously these will have to be more dynamic
                 break;
             case 1:
-                height = 1080;
+                height = exports.getPageHeight(Pages_1.Pages.ABOUT.name); //convertViewportHeightToNumber(Pages.HOME.height);//1080;
                 break;
             case 2:
-                height = 2160;
+                height = exports.getPageHeight(Pages_1.Pages.PROJECTS.name); //convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height);//2160;
                 break;
             case 3:
-                height = 3240;
+                height = exports.getPageHeight(Pages_1.Pages.CONTACT.name); //convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height) + convertViewportHeightToNumber(Pages.PROJECTS.height);//3240;
                 break;
             default:
                 height = 0;
@@ -45,13 +45,13 @@ exports.scrollToActiveNavItem = function (selectedNavIndex) {
             height = 0; //convertViewportHeightToNumber(Pages.HOME.height); 
             break;
         case 1:
-            height = utils_1.convertViewportHeightToNumber(Pages_1.Pages.HOME.height); //if I change orders this is going to break
+            height = exports.getPageHeight(Pages_1.Pages.ABOUT.name); //convertViewportHeightToNumber(Pages.HOME.height); //if I change orders this is going to break
             break;
         case 2:
-            height = utils_1.convertViewportHeightToNumber(Pages_1.Pages.HOME.height) + utils_1.convertViewportHeightToNumber(Pages_1.Pages.ABOUT.height);
+            height = exports.getPageHeight(Pages_1.Pages.PROJECTS.name); //convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height);
             break;
         case 3:
-            height = utils_1.convertViewportHeightToNumber(Pages_1.Pages.HOME.height) + utils_1.convertViewportHeightToNumber(Pages_1.Pages.ABOUT.height) + utils_1.convertViewportHeightToNumber(Pages_1.Pages.PROJECTS.height);
+            height = exports.getPageHeight(Pages_1.Pages.CONTACT.name); //convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height) + convertViewportHeightToNumber(Pages.PROJECTS.height);
             break;
         default:
             height = 0;
@@ -73,16 +73,33 @@ exports.useHighlightNavItemByScrollHeight = function (highlightNavItem) {
 };
 var changeActiveNavItemByScrollPosition = function (highlightNavItem) {
     var height = window.scrollY;
+    var aboutHeight = exports.getPageHeight(Pages_1.Pages.ABOUT.name);
+    var projectsHeight = exports.getPageHeight(Pages_1.Pages.PROJECTS.name);
+    var contactHeight = exports.getPageHeight(Pages_1.Pages.CONTACT.name);
     if (height >= 0 && height < 1080 / 2) {
         highlightNavItem(0); //this assumes nav items are always ordered the right way, I have to change how I store the nav items
     }
-    if (height >= 1080 && height < 2160 - 1080 / 2) {
+    if (height >= aboutHeight && height < 3 * aboutHeight / 2) { //height - height/2 --- halfway through the page
         highlightNavItem(1);
     }
-    if (height >= 2160 && height < 3240 - 1080 / 2) {
+    if (height >= projectsHeight && height < 3 * projectsHeight / 2) {
         highlightNavItem(2);
     }
-    if (height >= 3240 && height < 4320 - 1080 / 2) {
+    if (height >= contactHeight && height < 3 * contactHeight / 2) {
         highlightNavItem(3);
+    }
+};
+exports.getPageHeight = function (name) {
+    switch (name) {
+        case Pages_1.Pages.HOME.name:
+            return 0;
+        case Pages_1.Pages.ABOUT.name:
+            return utils_1.convertViewportHeightToNumber(Pages_1.Pages.HOME.height);
+        case Pages_1.Pages.PROJECTS.name:
+            return utils_1.convertViewportHeightToNumber(Pages_1.Pages.HOME.height) + utils_1.convertViewportHeightToNumber(Pages_1.Pages.ABOUT.height);
+        case Pages_1.Pages.CONTACT.name:
+            return utils_1.convertViewportHeightToNumber(Pages_1.Pages.HOME.height) + utils_1.convertViewportHeightToNumber(Pages_1.Pages.ABOUT.height) + utils_1.convertViewportHeightToNumber(Pages_1.Pages.PROJECTS.height);
+        default:
+            return 0;
     }
 };

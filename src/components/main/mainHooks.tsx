@@ -12,13 +12,13 @@ export const useScrollByActiveNavItem = (props: any /* change */) => { //too cou
                 height = 0; //obviously these will have to be more dynamic
                 break;
             case 1: 
-                height = 1080;
+                height = getPageHeight(Pages.ABOUT.name);//convertViewportHeightToNumber(Pages.HOME.height);//1080;
                 break;
             case 2: 
-                height = 2160;
+                height = getPageHeight(Pages.PROJECTS.name);//convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height);//2160;
                 break;
             case 3: 
-                height = 3240;
+                height = getPageHeight(Pages.CONTACT.name);//convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height) + convertViewportHeightToNumber(Pages.PROJECTS.height);//3240;
                 break;
             default:
                 height = 0;
@@ -51,13 +51,13 @@ export const scrollToActiveNavItem = (selectedNavIndex: number) => {
             height = 0;//convertViewportHeightToNumber(Pages.HOME.height); 
             break;
         case 1: 
-            height = convertViewportHeightToNumber(Pages.HOME.height); //if I change orders this is going to break
+            height = getPageHeight(Pages.ABOUT.name);//convertViewportHeightToNumber(Pages.HOME.height); //if I change orders this is going to break
             break;
         case 2: 
-            height = convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height);
+            height = getPageHeight(Pages.PROJECTS.name);//convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height);
             break;
         case 3: 
-            height = convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height) + convertViewportHeightToNumber(Pages.PROJECTS.height);
+            height = getPageHeight(Pages.CONTACT.name);//convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height) + convertViewportHeightToNumber(Pages.PROJECTS.height);
             break;
         default:
             height = 0;
@@ -82,18 +82,36 @@ export const useHighlightNavItemByScrollHeight = (highlightNavItem: Function) =>
     );        
 };
 
-const changeActiveNavItemByScrollPosition = (highlightNavItem: Function): void => {
+const changeActiveNavItemByScrollPosition = (highlightNavItem: Function): void => { //this should factor in scroll direction - if down then the height si the height, if up then the height should at most be the height + 1/2
             let height: number = window.scrollY;
+            const aboutHeight = getPageHeight(Pages.ABOUT.name);
+            const projectsHeight = getPageHeight(Pages.PROJECTS.name);
+            const contactHeight = getPageHeight(Pages.CONTACT.name);
             if(height >= 0 && height < 1080/2){ 
                 highlightNavItem(0); //this assumes nav items are always ordered the right way, I have to change how I store the nav items
             }
-            if(height >= 1080 && height < 2160 - 1080/2){
+            if(height >= aboutHeight && height < 3 * aboutHeight / 2){  //height - height/2 --- halfway through the page
                 highlightNavItem(1);
             }
-            if(height >= 2160 && height < 3240 - 1080/2){
+            if(height >= projectsHeight && height < 3 * projectsHeight / 2){
                 highlightNavItem(2);
             }
-            if(height >= 3240 && height < 4320 - 1080/2){
+            if(height >= contactHeight && height < 3 * contactHeight / 2){
                 highlightNavItem(3);
             }        
 };
+
+export const getPageHeight = (name: string): number => {
+    switch(name){
+        case Pages.HOME.name: 
+            return 0;
+        case Pages.ABOUT.name:
+            return convertViewportHeightToNumber(Pages.HOME.height);
+        case Pages.PROJECTS.name:
+            return convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height);
+        case Pages.CONTACT.name:
+            return convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height) + convertViewportHeightToNumber(Pages.PROJECTS.height);
+        default:
+            return 0;
+    }
+}
