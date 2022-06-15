@@ -12,10 +12,7 @@ export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number
         if(element){
             const panzoom = Panzoom(element, {disableYAxis: true, disableZoom: true, touchAction: "pan-y", animate: true, duration: 150});
 
-            const viewportWidth = window.innerWidth;
-            const offsetToStillSeePartOfCharacter = 200;
-            const amountToPan = viewportWidth - offsetToStillSeePartOfCharacter;
-
+            let amountToPan = getHorizontalPanAmount(window.innerWidth, element.offsetWidth);
 
             const dragObject = {
                 xStart: 0,
@@ -25,7 +22,12 @@ export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number
                 right: -amountToPan
             }
 
-            //panzoom.setStyle("transition-duration", "1s");
+            window.addEventListener("resize", () => {
+
+                amountToPan = getHorizontalPanAmount(window.innerWidth, element ? element.offsetWidth : 0);
+                dragObject.left = amountToPan;
+                dragObject.right = -amountToPan;
+            });
 
             element.addEventListener("panzoomstart", (event) => {
                 event.preventDefault();
@@ -49,11 +51,11 @@ export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number
                 const x = panzoom.getPan().x;
                 const viewportWidth = window.innerWidth;
                 const overflowingAreaWidth = maxWidth - viewportWidth;
-                const overflowOnEigherSide = overflowingAreaWidth / 2;
+                const overflowOnEigherSide = overflowingAreaWidth / 2; //not using
                 // if(x > overflowOnEigherSide) panzoom.pan(overflowOnEigherSide, 0);
                 // if(x < -overflowOnEigherSide) panzoom.pan(-overflowOnEigherSide, 0);
 
-                console.log("x is: " + x + "     and prev x: " + dragObject.xStart)
+                //console.log("x is: " + x + "     and prev x: " + dragObject.xStart)
 
                 if(Math.abs((x - dragObject.xStart)) > 10){
                     if(dragObject.location === "center"){ 
@@ -77,22 +79,32 @@ export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number
                         if((x - dragObject.xStart) < 10) {
                             panzoom.pan( - amountToPan, 0);
                         }                        
-                    }                       
+                    }    
+                    
+                    // if(element){
+                    //     let left = element.offsetLeft;
+                    //     left = clamp(left, -element.offsetWidth, 0);
+                    //     element.style.left = left + "px";
+                    // }
                 }
 
                 
-                console.log(x - dragObject.xStart + "  and prev location: " + dragObject.location)
+                //console.log(x - dragObject.xStart + "  and prev location: " + dragObject.location)
             });
-
-            
-
         }
     },
         []
     )
 };
 
-
+const getHorizontalPanAmount = (windowInnerWidth: number, elementWidth: number): number => {
+    const viewportWidth = windowInnerWidth;
+    const offsetToStillSeePartOfCharacter = viewportWidth/2;
+    let amountToPan = viewportWidth - offsetToStillSeePartOfCharacter;    
+    const max = (elementWidth - windowInnerWidth)/2;
+    amountToPan = clamp(amountToPan, 0, max);
+    return amountToPan;
+};
 
 
 //on hold... using panzoom library for now    

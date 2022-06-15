@@ -12,9 +12,7 @@ exports.useHorizontalPanningPANZOOM = function (identifier, maxWidth) {
         var element = document.getElementsByClassName(identifier)[0];
         if (element) {
             var panzoom_2 = panzoom_1["default"](element, { disableYAxis: true, disableZoom: true, touchAction: "pan-y", animate: true, duration: 150 });
-            var viewportWidth = window.innerWidth;
-            var offsetToStillSeePartOfCharacter = 200;
-            var amountToPan_1 = viewportWidth - offsetToStillSeePartOfCharacter;
+            var amountToPan_1 = getHorizontalPanAmount(window.innerWidth, element.offsetWidth);
             var dragObject_1 = {
                 xStart: 0,
                 location: "center",
@@ -22,7 +20,11 @@ exports.useHorizontalPanningPANZOOM = function (identifier, maxWidth) {
                 center: 0,
                 right: -amountToPan_1
             };
-            //panzoom.setStyle("transition-duration", "1s");
+            window.addEventListener("resize", function () {
+                amountToPan_1 = getHorizontalPanAmount(window.innerWidth, element ? element.offsetWidth : 0);
+                dragObject_1.left = amountToPan_1;
+                dragObject_1.right = -amountToPan_1;
+            });
             element.addEventListener("panzoomstart", function (event) {
                 event.preventDefault();
                 dragObject_1.xStart = panzoom_2.getPan().x;
@@ -42,10 +44,10 @@ exports.useHorizontalPanningPANZOOM = function (identifier, maxWidth) {
                 var x = panzoom_2.getPan().x;
                 var viewportWidth = window.innerWidth;
                 var overflowingAreaWidth = maxWidth - viewportWidth;
-                var overflowOnEigherSide = overflowingAreaWidth / 2;
+                var overflowOnEigherSide = overflowingAreaWidth / 2; //not using
                 // if(x > overflowOnEigherSide) panzoom.pan(overflowOnEigherSide, 0);
                 // if(x < -overflowOnEigherSide) panzoom.pan(-overflowOnEigherSide, 0);
-                console.log("x is: " + x + "     and prev x: " + dragObject_1.xStart);
+                //console.log("x is: " + x + "     and prev x: " + dragObject.xStart)
                 if (Math.abs((x - dragObject_1.xStart)) > 10) {
                     if (dragObject_1.location === "center") {
                         if ((x - dragObject_1.xStart) > 10) {
@@ -71,11 +73,24 @@ exports.useHorizontalPanningPANZOOM = function (identifier, maxWidth) {
                             panzoom_2.pan(-amountToPan_1, 0);
                         }
                     }
+                    // if(element){
+                    //     let left = element.offsetLeft;
+                    //     left = clamp(left, -element.offsetWidth, 0);
+                    //     element.style.left = left + "px";
+                    // }
                 }
-                console.log(x - dragObject_1.xStart + "  and prev location: " + dragObject_1.location);
+                //console.log(x - dragObject.xStart + "  and prev location: " + dragObject.location)
             });
         }
     }, []);
+};
+var getHorizontalPanAmount = function (windowInnerWidth, elementWidth) {
+    var viewportWidth = windowInnerWidth;
+    var offsetToStillSeePartOfCharacter = viewportWidth / 2;
+    var amountToPan = viewportWidth - offsetToStillSeePartOfCharacter;
+    var max = (elementWidth - windowInnerWidth) / 2;
+    amountToPan = utils_1.clamp(amountToPan, 0, max);
+    return amountToPan;
 };
 //on hold... using panzoom library for now    
 exports.useHorizontalPanning_onhold = function (identifier) {
