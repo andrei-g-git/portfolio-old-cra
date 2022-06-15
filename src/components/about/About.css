@@ -5,10 +5,10 @@
   width: 100vw;
   position: relative;
 }
-.theme--dark .about-container {
+.theme-dark .about-container {
   background-color: #6b5e4f;
 }
-.theme--light .about-container {
+.theme-light .about-container {
   background-color: bisque;
 }
 @media (max-width: 720px) {
@@ -21,6 +21,12 @@
 .about-container .about-title {
   padding-top: 40px;
   padding-bottom: 50px;
+}
+.theme-dark .about-container .about-title {
+  color: #e2cece;
+}
+.theme-light .about-container .about-title {
+  color: black;
 }
 .about-container .about-me-container {
   position: relative;
@@ -62,6 +68,12 @@
   width: 100%;
   height: 250px;
   font-size: large;
+}
+.theme-dark .about-container .about-me-container .about-me .little-bit-about {
+  color: #e2cece;
+}
+.theme-light .about-container .about-me-container .about-me .little-bit-about {
+  color: black;
 }
 @media (max-width: 720px) {
   .about-container .about-me-container .about-me .little-bit-about {

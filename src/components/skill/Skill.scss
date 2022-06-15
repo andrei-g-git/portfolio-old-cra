@@ -1,3 +1,5 @@
+@import "../../css/Mixins.scss";
+
 .skill-icon-and-name{
     display: flex;
 
@@ -8,6 +10,9 @@
 
     .skill-name{
         margin: unset;
+        @include themed(){
+            color: theme-get("text-primary");
+        }
     }
 }
 

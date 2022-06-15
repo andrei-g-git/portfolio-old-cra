@@ -5,8 +5,8 @@ $themes: (
 
         cta-primary: rgb(0, 189, 189),
 
-        text-primary: rgb(209, 180, 180),
-        text-cta: rgb(255, 209, 216),
+        text-primary: rgb(226, 206, 206),
+        text-cta: rgb(226, 206, 206),
         text-secondary: white,
 
         contact-bg-primary: rgb(66, 65, 62),
@@ -34,7 +34,7 @@ $theme-map: ();
 @mixin themed(){
     @each $theme, $map in $themes{
         $theme-map: $map !global; //if not using helper function for maping then I prob don't need the !global
-        .theme--#{$theme} & {
+        .theme-#{$theme} & { //.theme--#{$theme} & {
 
             @each $key, $submap in $map {
                 $value: map-get(map-get($themes, $theme), '#{$key}');

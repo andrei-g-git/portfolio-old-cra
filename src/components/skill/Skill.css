@@ -8,3 +8,9 @@
 .skill-icon-and-name .skill-name {
   margin: unset;
 }
+.theme-dark .skill-icon-and-name .skill-name {
+  color: #e2cece;
+}
+.theme-light .skill-icon-and-name .skill-name {
+  color: black;
+}

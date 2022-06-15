@@ -1,3 +1,5 @@
+@import "./Themes.scss";
+
 @mixin animateOneWayWithClass($className, $animation, $percent, $maxDuration: 3s){
     #{$className}{
         transform-origin: left;
@@ -32,4 +34,7 @@
 @mixin pageTitle($paddingTop: 40px, $paddingBottom: 50px){
     padding-top: $paddingTop;
     padding-bottom: $paddingBottom;
+    @include themed(){
+        color: theme-get("text-primary");
+    }
 }
