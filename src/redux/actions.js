@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.toggledTheme = exports.scrollDirectionChanged = exports.scrolled = exports.navItemSelected = exports.navItemHighlighted = exports.switchedAutoscroll = exports.justClickedNavItem = exports.activeNavItemChanged = exports.characterAnimationChanged = exports.whatever = void 0;
+exports.selectedShowcaseItem = exports.toggledShowcaseModal = exports.toggledTheme = exports.scrollDirectionChanged = exports.scrolled = exports.navItemSelected = exports.navItemHighlighted = exports.switchedAutoscroll = exports.justClickedNavItem = exports.activeNavItemChanged = exports.characterAnimationChanged = exports.whatever = void 0;
 var actionTypes_1 = require("./actionTypes");
 exports.whatever = function (value) {
     return {
@@ -60,5 +60,17 @@ exports.toggledTheme = function (isDark) {
     return {
         type: actionTypes_1.TOGGLED_THEME,
         payload: isDark
+    };
+};
+exports.toggledShowcaseModal = function (showcasing) {
+    return {
+        type: actionTypes_1.TOGGLED_SHOWCASE_MODAL,
+        payload: showcasing
+    };
+};
+exports.selectedShowcaseItem = function (selectedItem) {
+    return {
+        type: actionTypes_1.SELECTED_SHOWCASE_ITEM,
+        payload: selectedItem
     };
 };

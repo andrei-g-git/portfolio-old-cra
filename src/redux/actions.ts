@@ -9,7 +9,9 @@ import {
     NAV_ITEM_SELECTED,
     SCROLLED,
     SCROLL_DIRECTION_CANGED,
-    TOGGLED_THEME
+    TOGGLED_THEME,
+    TOGGLED_SHOWCASE_MODAL,
+    SELECTED_SHOWCASE_ITEM
 } from "./actionTypes";
 import {
     NumberPayload,
@@ -83,5 +85,19 @@ export const toggledTheme = (isDark: boolean): BooleanPayload => {
     return{
         type: TOGGLED_THEME,
         payload: isDark
+    };
+};
+
+export const toggledShowcaseModal = (showcasing: boolean): BooleanPayload => {
+    return{
+        type: TOGGLED_SHOWCASE_MODAL,
+        payload: showcasing
+    };
+};
+
+export const selectedShowcaseItem = (selectedItem: number): NumberPayload => {
+    return{
+        type: SELECTED_SHOWCASE_ITEM,
+        payload: selectedItem
     };
 };

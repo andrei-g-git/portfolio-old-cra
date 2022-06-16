@@ -26,7 +26,9 @@ var initialState = {
     highlightedNavItem: 0,
     scrolling: false,
     scrollDirection: uiEnums_1.Scrolling.NONE,
-    darkTheme: false
+    darkTheme: false,
+    showcasing: false,
+    selectedProject: 0
 };
 exports.uiReducer = function (state, action) {
     if (state === void 0) { state = initialState; }
@@ -51,6 +53,10 @@ exports.uiReducer = function (state, action) {
             return __assign(__assign({}, state), { scrollDirection: action.payload });
         case actionTypes_1.TOGGLED_THEME:
             return __assign(__assign({}, state), { darkTheme: action.payload });
+        case actionTypes_1.TOGGLED_SHOWCASE_MODAL:
+            return __assign(__assign({}, state), { showcasing: action.payload });
+        case actionTypes_1.SELECTED_SHOWCASE_ITEM:
+            return __assign(__assign({}, state), { selectedProject: action.payload });
         default:
             return state;
     }

@@ -1,0 +1,42 @@
+.showcase-overlay-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
+}
+.theme-dark .showcase-overlay-container {
+  background-color: #5e8d7d;
+}
+.theme-light .showcase-overlay-container {
+  background-color: aquamarine;
+}
+.showcase-overlay-container .showcase-title {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  transform: translateX(-50%);
+}
+.theme-dark .showcase-overlay-container .showcase-title {
+  color: #e2cece;
+}
+.theme-light .showcase-overlay-container .showcase-title {
+  color: black;
+}
+.showcase-overlay-container .showcase-description {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  transform: translateX(-50%);
+}
+.showcase-overlay-container .showcase-button {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  transform: translateX(-50%);
+}

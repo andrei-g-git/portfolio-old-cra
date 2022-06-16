@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Skill from '../skill/Skill';
 import Gauge from '../gauge/Gauge';
 import { SkillData } from '../../data/dataTypes';
-import { withPageState } from '../_higherOrderComponents/withPageState';
+import { withPageState } from '../_higherOrderComponents/withState';
 
 const SkillGroup = (props: any) => {
 

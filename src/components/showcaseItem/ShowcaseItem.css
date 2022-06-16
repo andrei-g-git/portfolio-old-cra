@@ -1,8 +1,12 @@
 .showcase-item-container {
+  position: relative;
   width: 400px;
   height: 300px;
 }
 .showcase-item-container .showcase-pic {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;

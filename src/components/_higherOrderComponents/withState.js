@@ -11,16 +11,28 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.withPageState = void 0;
+exports.withThemeState = exports.withPageState = void 0;
 var React = require("react");
 var react_redux_1 = require("react-redux");
 exports.withPageState = function (WrappedComponent) {
-    return react_redux_1.connect(mapStateToProps, {})(function (props) {
+    return react_redux_1.connect(mapPageState, {})(function (props) {
         return (React.createElement(WrappedComponent, __assign({}, props)));
     });
 };
-var mapStateToProps = function (state) {
+var mapPageState = function (state) {
     return {
         page: state.ui.highlightedNavItem
+    };
+};
+//--------------------------------------------------------------------
+exports.withThemeState = function (// DRY!!!!!!!
+WrappedComponent) {
+    return react_redux_1.connect(mapThemeState, {})(function (props) {
+        return (React.createElement(WrappedComponent, __assign({}, props)));
+    });
+};
+var mapThemeState = function (state) {
+    return {
+        darkTheme: state.ui.darkTheme
     };
 };

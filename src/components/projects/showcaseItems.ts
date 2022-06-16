@@ -38,29 +38,33 @@ export class Showcase{
 //     return ["awefawef"]
 // }
 
-export const getShowcaseItems = (): {index: number, name: string, url: string, image: string}[] => {
+export const getShowcaseItems = (): {index: number, name: string, description: string, url: string, image: string}[] => {
     return [
         {
             index: 0,
             name: "gamestore",
+            description: "a game store client with server side",
             url: "https://wikipedia.org",
             image: "work-gamestore1.png"
         },
         {
             index: 1,
             name: "motorhead",
+            description: "motorhead fan page, blah blah blah blah blah",
             url: "duckduckgo.com",
             image: "work-motorhead1.png"
         },
         {
             index: 2,
             name: "invoice",
+            description: "invoice management client for businesses, express backend",
             url: "startpage.com",
             image: "work-invoice1.png"
         },
         {
             index: 3,
             name: "standin",
+            description: "a browser extension featuring popup and context menu functionality",
             url: "piped.kavin.rocks",
             image: "work-standin1.png"
         }        
