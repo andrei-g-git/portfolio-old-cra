@@ -2,11 +2,19 @@
 
 .projects-container{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    //justify-content: center;
+    align-items: center;
     width: 100vw;
     background-color: bisque;
     
     .projects-title{
         @include pageTitle();
+    }
+
+    .showcase-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto;
     }
 }
