@@ -26,3 +26,7 @@
     flex-direction: column;
   }
 }
+
+.blur-projects .projects-title, .blur-projects .showcase-container {
+  filter: blur(5px);
+}

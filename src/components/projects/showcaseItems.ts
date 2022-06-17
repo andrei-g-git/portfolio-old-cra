@@ -1,3 +1,5 @@
+import { Interface } from "readline";
+
 export class Showcase{
     static get GAMESTORE(){
         return{
@@ -38,7 +40,11 @@ export class Showcase{
 //     return ["awefawef"]
 // }
 
-export const getShowcaseItems = (): {index: number, name: string, description: string, url: string, image: string}[] => {
+export interface ShowcaseObject{
+    index: number, name: string, description: string, url: string, image: string
+}
+
+export const getShowcaseItems = (): /* {index: number, name: string, description: string, url: string, image: string} */ShowcaseObject[] => {
     return [
         {
             index: 0,

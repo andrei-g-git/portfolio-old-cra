@@ -1,0 +1,24 @@
+@import "../../css/Variables.scss";
+
+.expand-project-container{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.expand-project-modal{
+    width: 50%;
+    height: 80%;
+    background-color: cornflowerblue;
+
+    @media(max-width: map-get($breakpoints, "tablet")){
+        width: 80%;
+        height: 80%;      
+        background-color: cornflowerblue;  
+    }
+}

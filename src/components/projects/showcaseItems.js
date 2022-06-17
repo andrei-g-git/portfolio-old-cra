@@ -51,11 +51,6 @@ var Showcase = /** @class */ (function () {
     return Showcase;
 }());
 exports.Showcase = Showcase;
-// export const getShowcaseImagePaths = (): Map<string, string> => {
-//     const imagePaths: Map<string, string> = new Map();
-//     imagePaths.set
-//     return ["awefawef"]
-// }
 exports.getShowcaseItems = function () {
     return [
         {

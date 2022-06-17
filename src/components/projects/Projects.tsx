@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import ShowcaseItem from '../showcaseItem/ShowcaseItem';
 import ShowcaseOverlay from '../showcaseOverlay/ShowcaseOverlay';
-import { getShowcaseItems } from './showcaseItems';
+import ExpandProject from '../expandProject/ExpandProject';
+import { getShowcaseItems, ShowcaseObject } from './showcaseItems';
 import { withThemeState } from '../_higherOrderComponents/withState';
 import { toggledShowcaseModal, selectedShowcaseItem } from '../../redux/actions';
 import "./Projects.scss";
@@ -13,8 +14,11 @@ import "./Projects.scss";
 const ShowcaseOverlayWithThemeState = withThemeState(ShowcaseOverlay);
 
 const Projects = (props: any) => {
+
+	let upperClass = "projects-container";
+	if(props.showcasing) upperClass += " blur-projects" //ternary statement in the tsx doesn't work for some reason
 	return (
-		<div className="projects-container"
+		<div className={upperClass}//{"projects-container" + props.showcasing ? " blur-projects" : ""}
 			style={{ height: "100vh", maxHeight: "100vh" }}
 		>
 			<div className="projects-title">
@@ -39,6 +43,13 @@ const Projects = (props: any) => {
 					)
 				}
 			</div>
+
+			{
+				props.showcasing ?
+					<ExpandProject notifyParent={curryOpenProjectUrl(getShowcaseItems(), props.selectedProject)}/>
+				:
+					null
+			}
 		</div>
 	);
 };
@@ -50,10 +61,19 @@ const curryStoreSelectedProject = (selectedShowcaseItemCallback: Function, toggl
 	};
 };
 
+const curryOpenProjectUrl = (showcaseItems: ShowcaseObject[], index: number) => {
+	return (): void => {
+		const url = showcaseItems[index].url;
+		window.open(url, "_blank");
+	};
+}
+
 const mapStateToProps = (state: any) => {
-	// return{
-	// 	selectedProject: state.ui.selectedProject
-	// };
+	return{
+		showcasing: state.ui.showcasing,
+		selectedProject: state.ui.selectedProject
+
+	};
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
