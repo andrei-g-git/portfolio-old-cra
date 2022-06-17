@@ -1,5 +1,4 @@
 @import "../../css/Themes.scss";
-@import "../../css/Variables.scss";
 
 @mixin absolutePositionCenteredColumn($top, $left, $width: auto, $height: auto){
     position: absolute;
@@ -11,21 +10,13 @@
 }
 
 .showcase-overlay-container{
-    opacity: 0; 
-
     position: absolute; //relative;
     width: 100%;
     height: 100%;
     @include themed(){
         background-color: theme-get("bg-secondary");  
     }
-
-    &:hover{ //so this doesn't work anymore. This exact thing that I crtl-z'd to was working perfectly but not anymore for some reason
-        @media(max-width: map-get($breakpoints, "lg")){
-            opacity: 0.8;
-            transition-duration: 0.5s;            
-        }
-    }
+    opacity: 0.9;
 
     .showcase-title{
         @include absolutePositionCenteredColumn(10%, 50%);
@@ -39,8 +30,4 @@
     .showcase-button{
         @include absolutePositionCenteredColumn(75%, 50%);
     }
-}
-
-.visible{
-    display: block;
 }

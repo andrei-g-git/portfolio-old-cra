@@ -20,10 +20,3 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto;
 }
-
-.test {
-  display: none;
-}
-.test:hover {
-  display: block;
-}
