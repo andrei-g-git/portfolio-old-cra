@@ -1,4 +1,5 @@
 @import "../../css/Themes.scss";
+@import "../../css/Variables.scss";
 
 @mixin absolutePositionCenteredColumn($top, $left, $width: auto, $height: auto){
     position: absolute;
@@ -16,7 +17,33 @@
     @include themed(){
         background-color: theme-get("bg-secondary");  
     }
-    opacity: 0.9;
+    opacity: 0; //0.9;
+
+    &:hover{
+        opacity: 0.8;
+        transition: opacity 0.5s;
+
+        .showcase-title, .showcase-button{
+            animation: translateRight 0.3s forwards ease-in-out;
+        }
+        .showcase-description{
+            animation: translateLeft 0.3s forwards ease-in-out;
+        }
+    }
+
+    @media(max-width: map-get($breakpoints, "tablet")){
+        &:active{
+            opacity: 0.8;
+            transition: opacity 0.5s;
+    
+            .showcase-title, .showcase-button{
+                animation: translateRight 0.3s forwards ease-in-out;
+            }
+            .showcase-description{
+                animation: translateLeft 0.3s forwards ease-in-out;
+            }
+        }        
+    }
 
     .showcase-title{
         @include absolutePositionCenteredColumn(10%, 50%);
@@ -29,5 +56,35 @@
     }
     .showcase-button{
         @include absolutePositionCenteredColumn(75%, 50%);
+    }
+}
+
+@keyframes translateRight{
+    0%{
+        transform: translateX(-300%);
+    }
+    70%{
+        transform: translateX(-30%);
+    }
+    85%{
+        transform: translateX(-60%);
+    }
+    100%{
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes translateLeft{
+    0%{
+        transform: translateX(300%);
+    }
+    70%{
+        transform: translateX(-30%);
+    }
+    85%{
+        transform: translateX(-60%);
+    }
+    100%{
+        transform: translateX(-50%);
     }
 }

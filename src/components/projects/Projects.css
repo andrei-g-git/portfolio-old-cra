@@ -20,3 +20,9 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto;
 }
+@media (max-width: 720px) {
+  .projects-container .showcase-container {
+    display: flex;
+    flex-direction: column;
+  }
+}

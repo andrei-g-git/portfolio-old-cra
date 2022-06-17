@@ -2,13 +2,35 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  opacity: 0.9;
+  opacity: 0;
 }
 .theme-dark .showcase-overlay-container {
   background-color: #5e8d7d;
 }
 .theme-light .showcase-overlay-container {
   background-color: aquamarine;
+}
+.showcase-overlay-container:hover {
+  opacity: 0.8;
+  transition: opacity 0.5s;
+}
+.showcase-overlay-container:hover .showcase-title, .showcase-overlay-container:hover .showcase-button {
+  animation: translateRight 0.3s forwards ease-in-out;
+}
+.showcase-overlay-container:hover .showcase-description {
+  animation: translateLeft 0.3s forwards ease-in-out;
+}
+@media (max-width: 720px) {
+  .showcase-overlay-container:active {
+    opacity: 0.8;
+    transition: opacity 0.5s;
+  }
+  .showcase-overlay-container:active .showcase-title, .showcase-overlay-container:active .showcase-button {
+    animation: translateRight 0.3s forwards ease-in-out;
+  }
+  .showcase-overlay-container:active .showcase-description {
+    animation: translateLeft 0.3s forwards ease-in-out;
+  }
 }
 .showcase-overlay-container .showcase-title {
   position: absolute;
@@ -39,4 +61,33 @@
   width: auto;
   height: auto;
   transform: translateX(-50%);
+}
+
+@keyframes translateRight {
+  0% {
+    transform: translateX(-300%);
+  }
+  70% {
+    transform: translateX(-30%);
+  }
+  85% {
+    transform: translateX(-60%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@keyframes translateLeft {
+  0% {
+    transform: translateX(300%);
+  }
+  70% {
+    transform: translateX(-30%);
+  }
+  85% {
+    transform: translateX(-60%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
