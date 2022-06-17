@@ -1,14 +1,20 @@
 .showcase-overlay-container {
+  opacity: 0;
   position: absolute;
   width: 100%;
   height: 100%;
-  opacity: 0.9;
 }
 .theme-dark .showcase-overlay-container {
   background-color: #5e8d7d;
 }
 .theme-light .showcase-overlay-container {
   background-color: aquamarine;
+}
+@media (max-width: 960px) {
+  .showcase-overlay-container:hover {
+    opacity: 0.8;
+    transition-duration: 0.5s;
+  }
 }
 .showcase-overlay-container .showcase-title {
   position: absolute;
@@ -39,4 +45,8 @@
   width: auto;
   height: auto;
   transform: translateX(-50%);
+}
+
+.visible {
+  display: block;
 }
