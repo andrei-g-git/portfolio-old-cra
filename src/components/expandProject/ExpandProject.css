@@ -28,6 +28,30 @@
     height: 80%;
   }
 }
+.expand-project-modal .expand-project-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.expand-project-modal .expand-project-content .expand-project-pic {
+  width: 100%;
+  height: auto;
+}
+.expand-project-modal .expand-project-skills {
+  display: flex;
+  gap: 10px;
+}
+.expand-project-modal .expand-project-skills .expand-project-logo-and-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.expand-project-modal .expand-project-skills .expand-project-logo-and-name .expand-project-skill-logo {
+  width: 32px;
+  height: 32px;
+}
+.expand-project-modal .expand-project-skills .expand-project-logo-and-name .expand-project-framework-name {
+  font-size: x-small;
+}
 
 .close-popup-03s {
   animation: closePopup 0.3s forwards ease-in-out;

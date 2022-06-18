@@ -45,13 +45,35 @@ const Projects = (props: any) => {
 
 			{
 				props.showcasing ?
-					<ExpandProjectWithThemeState notifyParent={curryOpenProjectUrl(getShowcaseItems(), props.selectedProject)}/>
+					<ExpandProjectWithThemeState images={getShowcaseItems()[props.selectedProject].images}
+						title={getShowcaseItems()[props.selectedProject].name} //I should probably extract the showcase object once
+						description={getShowcaseItems()[props.selectedProject].longDescription}
+						frameworks={getShowcaseItems()[props.selectedProject].frameworks}
+						logos={getShowcaseItems()[props.selectedProject].frameworkLogos}
+						openSite={curryOpenProjectUrl(
+							getShowcaseItems(), 
+							props.selectedProject, 
+							false)
+						}
+						openGit={curryOpenProjectUrl(
+							getShowcaseItems(), 
+							props.selectedProject, 
+							true)
+						}
+
+					/>
 				:
 					null
 			}
 		</div>
 	);
 };
+
+// const getShowcasePicturesForModal = (index: number): ShowcaseObject => {
+// 	const showcaseItems = getShowcaseItems();
+// 	const pics = showcaseItems[index];
+// 	return pics;
+// }
 
 const curryStoreSelectedProject = (selectedShowcaseItemCallback: Function, toggledCallback: Function) => { //should be custom hook
 	return (index: number) => {
@@ -60,10 +82,11 @@ const curryStoreSelectedProject = (selectedShowcaseItemCallback: Function, toggl
 	};
 };
 
-const curryOpenProjectUrl = (showcaseItems: ShowcaseObject[], index: number) => {
+const curryOpenProjectUrl = (showcaseItems: ShowcaseObject[], index: number, isGit: boolean) => {
 	return (): void => {
-		const url = showcaseItems[index].url;
-		window.open(url, "_blank");
+		const showcaseObject = showcaseItems[index];
+		const siteOrGit = showcaseObject[isGit? "git" : "url"]; //i don't like branching in this sort of thing I should leave this as a helper function and have separate functions for git and the site
+		window.open(siteOrGit, "_blank");
 	};
 }
 

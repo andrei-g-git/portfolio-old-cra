@@ -8,9 +8,10 @@ import "./ExpandProject.scss";
 
 export const ExpandProject = (props: any) => {
 
+    const duration = 0.3;
     const {suffix, delay} = getClassSecondsAndTimeoutMiliseconds(
         clamp(
-            calcFloatToDecimal(0.3, 1),
+            calcFloatToDecimal(duration, 1),
             0.3,
             1
         )
@@ -32,6 +33,47 @@ export const ExpandProject = (props: any) => {
         <div className={props.darkTheme? "theme-dark" : "theme-light"}>
             <div className="expand-project-container">
                 <div className={"expand-project-modal" + popupClass}>{/* props.visible? "" : ` close-popup-${suffix}`}> */}
+
+                    <div className="expand-project-content">
+                        {
+                            props.images.map((image: string, index: number) => 
+                                <img className="expand-project-pic"
+                                    src={require("../../assets/img/" + image)}
+                                    alt="screenshot"
+                                    key={index}
+                                />
+                            )
+                        }
+                    </div>
+
+                    <h3 className="expand-project-title">
+                        {props.title}
+                    </h3>
+
+                    <p className="expand-project-description">
+                        {props.description}
+                    </p>
+                    
+                    <div className="expand-project-skills">
+                        {
+                            props.logos.map((logo: string, index: number) => 
+                                <div className="expand-project-logo-and-name"
+                                    key={index}
+                                >
+                                    <img className="expand-project-skill-logo"
+                                        src={require("../../assets/img/" + logo)}
+                                        alt={props.frameworks[index] + "logo"}
+                                    />
+                                    <div className="expand-project-framework-name">
+                                        {props.frameworks[index]}
+                                    </div>
+                                </div>
+
+                            )
+                        }
+                    </div>
+
+
                     <button
                         style={{fontSize: "xl"}}
                         onClick={() => props.closeModal(false, delay)}
@@ -40,10 +82,17 @@ export const ExpandProject = (props: any) => {
                     </button>
 
                     <button
-                        onClick={() => props.notifyParent()}
+                        onClick={() => props.openSite()}
                     >
                         GO TO SITE
                     </button>
+
+                    <button
+                        onClick={() => props.openGit()}
+                    >
+                        GIT HUB
+                    </button>
+
                 </div>
             </div>
         </div>

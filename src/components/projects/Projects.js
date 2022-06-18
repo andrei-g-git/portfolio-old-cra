@@ -22,20 +22,26 @@ var Projects = function (props) {
                 React.createElement(ShowcaseOverlayWithThemeState, { index: item.index, title: item.name, description: item.description, notifyParent: curryStoreSelectedProject(props.selectProject, props.toggleModal), key: item.index }));
         })),
         props.showcasing ?
-            React.createElement(ExpandProjectWithThemeState, { notifyParent: curryOpenProjectUrl(showcaseItems_1.getShowcaseItems(), props.selectedProject) })
+            React.createElement(ExpandProjectWithThemeState, { images: showcaseItems_1.getShowcaseItems()[props.selectedProject].images, title: showcaseItems_1.getShowcaseItems()[props.selectedProject].name, description: showcaseItems_1.getShowcaseItems()[props.selectedProject].longDescription, frameworks: showcaseItems_1.getShowcaseItems()[props.selectedProject].frameworks, logos: showcaseItems_1.getShowcaseItems()[props.selectedProject].frameworkLogos, openSite: curryOpenProjectUrl(showcaseItems_1.getShowcaseItems(), props.selectedProject, false), openGit: curryOpenProjectUrl(showcaseItems_1.getShowcaseItems(), props.selectedProject, true) })
             :
                 null));
 };
+// const getShowcasePicturesForModal = (index: number): ShowcaseObject => {
+// 	const showcaseItems = getShowcaseItems();
+// 	const pics = showcaseItems[index];
+// 	return pics;
+// }
 var curryStoreSelectedProject = function (selectedShowcaseItemCallback, toggledCallback) {
     return function (index) {
         selectedShowcaseItemCallback(index);
         toggledCallback(true);
     };
 };
-var curryOpenProjectUrl = function (showcaseItems, index) {
+var curryOpenProjectUrl = function (showcaseItems, index, isGit) {
     return function () {
-        var url = showcaseItems[index].url;
-        window.open(url, "_blank");
+        var showcaseObject = showcaseItems[index];
+        var siteOrGit = showcaseObject[isGit ? "git" : "url"]; //i don't like branching in this sort of thing I should leave this as a helper function and have separate functions for git and the site
+        window.open(siteOrGit, "_blank");
     };
 };
 var mapStateToProps = function (state) {
