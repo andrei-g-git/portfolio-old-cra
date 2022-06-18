@@ -39,6 +39,10 @@ export const calcPercentIncrement10 = (numerator: number, max: number): number =
     return rounded * 10;
 }
 
+export const calcFloatToDecimal = (value: number, decimals: number): number => {
+    return parseFloat(value.toFixed(decimals));
+};
+
 export const toggleWithTimer = (timer: NodeJS.Timeout | null, duration: number, callback: Function, initialState: boolean): any => {
     callback(initialState);
     if(timer !== null) {

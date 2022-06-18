@@ -12,12 +12,77 @@
 .expand-project-modal {
   width: 50%;
   height: 80%;
-  background-color: cornflowerblue;
+  border-radius: 6px;
+  box-shadow: 0px 0px 8px black;
+  animation: popup 0.3s forwards ease-in-out;
+}
+.theme-dark .expand-project-modal {
+  background-color: #5e8d7d;
+}
+.theme-light .expand-project-modal {
+  background-color: #00bdbd;
 }
 @media (max-width: 720px) {
   .expand-project-modal {
     width: 80%;
     height: 80%;
-    background-color: cornflowerblue;
+  }
+}
+
+.close-popup-03s {
+  animation: closePopup 0.3s forwards ease-in-out;
+}
+
+.close-popup-04s {
+  animation: closePopup 0.4s forwards ease-in-out;
+}
+
+.close-popup-05s {
+  animation: closePopup 0.5s forwards ease-in-out;
+}
+
+.close-popup-06s {
+  animation: closePopup 0.6s forwards ease-in-out;
+}
+
+.close-popup-07s {
+  animation: closePopup 0.7s forwards ease-in-out;
+}
+
+.close-popup-08s {
+  animation: closePopup 0.8s forwards ease-in-out;
+}
+
+.close-popup-09s {
+  animation: closePopup 0.9s forwards ease-in-out;
+}
+
+.close-popup-1s {
+  animation: closePopup 1s forwards ease-in-out;
+}
+
+@keyframes popup {
+  0% {
+    transform: scale(0, 0);
+  }
+  75% {
+    transform: scale(1.15, 1.15);
+  }
+  90% {
+    transform: scale(0.9, 0.9);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+@keyframes closePopup {
+  0% {
+    transform: scale(1, 1);
+  }
+  67% {
+    transform: scale(1.15, 1.15);
+  }
+  100% {
+    transform: scale(0, 0);
   }
 }

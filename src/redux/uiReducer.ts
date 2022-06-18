@@ -10,7 +10,8 @@ import {
     SCROLL_DIRECTION_CANGED,
     TOGGLED_THEME,
     TOGGLED_SHOWCASE_MODAL,
-    SELECTED_SHOWCASE_ITEM
+    SELECTED_SHOWCASE_ITEM,
+    CLOSING_SHOWCASE_MODAL //I'll try working with showcasing first and if it doesn't work I'll use this
 } from "./actionTypes";
 import {ReduxAction} from "./interface/ReduxAction";
 //import { NavItems } from "../components/navbar/navItems";
@@ -29,7 +30,7 @@ interface UiState{ //should be in the interfaces folder
     scrollDirection: number,
     darkTheme: boolean,
     showcasing: boolean,
-    selectedProject: number
+    selectedProject: number,
 }
 
 const initialState: UiState = {

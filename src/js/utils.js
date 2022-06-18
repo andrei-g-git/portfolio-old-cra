@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.toggleWithTimer = exports.calcPercentIncrement10 = exports.calcFractionToDecimal = exports.convertToPixels = exports.convertViewportHeightToNumber = exports.getElementByClassOrId = exports.clamp = void 0;
+exports.toggleWithTimer = exports.calcFloatToDecimal = exports.calcPercentIncrement10 = exports.calcFractionToDecimal = exports.convertToPixels = exports.convertViewportHeightToNumber = exports.getElementByClassOrId = exports.clamp = void 0;
 exports.clamp = function (value, min, max) {
     return Math.min(Math.max(value, min), max);
 };
@@ -35,6 +35,9 @@ exports.calcPercentIncrement10 = function (numerator, max) {
     var forRounding = withTwoDecimals * 10;
     var rounded = Math.round(forRounding);
     return rounded * 10;
+};
+exports.calcFloatToDecimal = function (value, decimals) {
+    return parseFloat(value.toFixed(decimals));
 };
 exports.toggleWithTimer = function (timer, duration, callback, initialState) {
     callback(initialState);

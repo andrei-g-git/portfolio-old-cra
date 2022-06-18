@@ -10,6 +10,7 @@ var withState_1 = require("../_higherOrderComponents/withState");
 var actions_1 = require("../../redux/actions");
 require("./Projects.scss");
 var ShowcaseOverlayWithThemeState = withState_1.withThemeState(ShowcaseOverlay_1["default"]);
+var ExpandProjectWithThemeState = withState_1.withThemeState(ExpandProject_1["default"]);
 var Projects = function (props) {
     var upperClass = "projects-container";
     if (props.showcasing)
@@ -21,7 +22,7 @@ var Projects = function (props) {
                 React.createElement(ShowcaseOverlayWithThemeState, { index: item.index, title: item.name, description: item.description, notifyParent: curryStoreSelectedProject(props.selectProject, props.toggleModal), key: item.index }));
         })),
         props.showcasing ?
-            React.createElement(ExpandProject_1["default"], { notifyParent: curryOpenProjectUrl(showcaseItems_1.getShowcaseItems(), props.selectedProject) })
+            React.createElement(ExpandProjectWithThemeState, { notifyParent: curryOpenProjectUrl(showcaseItems_1.getShowcaseItems(), props.selectedProject) })
             :
                 null));
 };

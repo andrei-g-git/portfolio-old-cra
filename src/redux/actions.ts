@@ -11,7 +11,8 @@ import {
     SCROLL_DIRECTION_CANGED,
     TOGGLED_THEME,
     TOGGLED_SHOWCASE_MODAL,
-    SELECTED_SHOWCASE_ITEM
+    SELECTED_SHOWCASE_ITEM,
+    CLOSING_SHOWCASE_MODAL
 } from "./actionTypes";
 import {
     NumberPayload,
@@ -99,5 +100,12 @@ export const selectedShowcaseItem = (selectedItem: number): NumberPayload => {
     return{
         type: SELECTED_SHOWCASE_ITEM,
         payload: selectedItem
+    };
+};
+
+export const closingShowcaseModal = (closing: boolean): BooleanPayload => {
+    return{
+        type: CLOSING_SHOWCASE_MODAL,
+        payload: closing
     };
 };

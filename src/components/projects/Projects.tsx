@@ -9,9 +9,8 @@ import { withThemeState } from '../_higherOrderComponents/withState';
 import { toggledShowcaseModal, selectedShowcaseItem } from '../../redux/actions';
 import "./Projects.scss";
 
-
-
 const ShowcaseOverlayWithThemeState = withThemeState(ShowcaseOverlay);
+const ExpandProjectWithThemeState = withThemeState(ExpandProject);
 
 const Projects = (props: any) => {
 
@@ -46,7 +45,7 @@ const Projects = (props: any) => {
 
 			{
 				props.showcasing ?
-					<ExpandProject notifyParent={curryOpenProjectUrl(getShowcaseItems(), props.selectedProject)}/>
+					<ExpandProjectWithThemeState notifyParent={curryOpenProjectUrl(getShowcaseItems(), props.selectedProject)}/>
 				:
 					null
 			}

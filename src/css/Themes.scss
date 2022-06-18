@@ -11,7 +11,9 @@ $themes: (
 
         contact-bg-primary: rgb(66, 65, 62),
         contact-bg-secondary: rgb(85, 84, 83),
-        footer-bg: rgb(28, 29, 32),
+        footer-bg: rgb(28, 29, 32),  
+        
+        modal-primary: rgb(94, 141, 125),
     ),
     light: (
         bg-primary: bisque,
@@ -26,6 +28,8 @@ $themes: (
         contact-bg-primary: rgb(66, 65, 62),
         contact-bg-secondary: rgb(85, 84, 83),
         footer-bg: rgb(28, 29, 32),
+
+        modal-primary: rgb(0, 189, 189),
     )
 );
 
