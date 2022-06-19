@@ -7,11 +7,13 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  z-index: 9;
 }
 
 .expand-project-modal {
   width: 50%;
-  height: 80%;
+  min-height: 80%;
+  height: auto;
   border-radius: 6px;
   box-shadow: 0px 0px 8px black;
   animation: popup 0.3s forwards ease-in-out;
@@ -25,12 +27,25 @@
 @media (max-width: 720px) {
   .expand-project-modal {
     width: 80%;
-    height: 80%;
+    min-height: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 .expand-project-modal .expand-project-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+@media (max-width: 720px) {
+  .expand-project-modal .expand-project-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 .expand-project-modal .expand-project-content .expand-project-pic {
   width: 100%;

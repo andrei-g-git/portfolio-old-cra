@@ -16,6 +16,13 @@ function Main(props) {
     react_1.useEffect(function () {
         mainHooks_1.scrollToActiveNavItem(props.selectedNavItem);
     }, [props.clickedNavItem]);
+    // window.addEventListener("scroll", () => {
+    //     if(props.showcasing){
+    //         const x = window.scrollX;
+    //         const y = window.scrollY;
+    //         window.scrollTo(x, y);
+    //     }
+    // });
     return (React.createElement("div", { className: "main", id: "main" },
         React.createElement(LandingPage_1["default"], { height: "100vh" }),
         " ",
@@ -28,7 +35,8 @@ var mapStateToProps = function (state) {
     return {
         clickedNavItem: state.ui.clickedNavItem,
         autoScrolling: state.ui.autoScrolling,
-        selectedNavItem: state.ui.selectedNavItem
+        selectedNavItem: state.ui.selectedNavItem,
+        showcasing: state.ui.showcasing
     };
 };
 var mapDispatchToProps = function (dispatch) {

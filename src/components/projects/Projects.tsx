@@ -10,9 +10,28 @@ import { toggledShowcaseModal, selectedShowcaseItem } from '../../redux/actions'
 import "./Projects.scss";
 
 const ShowcaseOverlayWithThemeState = withThemeState(ShowcaseOverlay);
-const ExpandProjectWithThemeState = withThemeState(ExpandProject);
+//const ExpandProjectWithThemeState = withThemeState(ExpandProject);
 
 const Projects = (props: any) => {
+
+	// let extraTimePassed = false;
+
+	// React.useEffect(() => {
+	// 	if( ! props.showcasing){
+	// 		setTimeout(() => {
+	// 			extraTimePassed = true;
+	// 			setTimeout(() => {
+	// 				extraTimePassed = false; 
+	// 			},
+	// 				20
+	// 			);
+	// 		}, 
+	// 			50
+	// 		)
+	// 	}
+	// }, 
+	// 	props.showcasing
+	// )
 
 	let upperClass = "projects-container";
 	if(props.showcasing) upperClass += " blur-projects" //ternary statement in the tsx doesn't work for some reason
@@ -43,9 +62,10 @@ const Projects = (props: any) => {
 				}
 			</div>
 
-			{
+			{/* {
 				props.showcasing ?
-					<ExpandProjectWithThemeState images={getShowcaseItems()[props.selectedProject].images}
+					//<ExpandProjectWithThemeState images={getShowcaseItems()[props.selectedProject].images} */}
+					<ExpandProject images={getShowcaseItems()[props.selectedProject].images}
 						title={getShowcaseItems()[props.selectedProject].name} //I should probably extract the showcase object once
 						description={getShowcaseItems()[props.selectedProject].longDescription}
 						frameworks={getShowcaseItems()[props.selectedProject].frameworks}
@@ -53,21 +73,22 @@ const Projects = (props: any) => {
 						openSite={curryOpenProjectUrl(
 							getShowcaseItems(), 
 							props.selectedProject, 
-							false)
-						}
+							false
+						)}
 						openGit={curryOpenProjectUrl(
 							getShowcaseItems(), 
 							props.selectedProject, 
-							true)
-						}
+							true
+						)}
 
 					/>
-				:
+{/* 				: 
 					null
-			}
+			} */}
 		</div>
 	);
 };
+
 
 // const getShowcasePicturesForModal = (index: number): ShowcaseObject => {
 // 	const showcaseItems = getShowcaseItems();
@@ -93,8 +114,8 @@ const curryOpenProjectUrl = (showcaseItems: ShowcaseObject[], index: number, isG
 const mapStateToProps = (state: any) => {
 	return{
 		showcasing: state.ui.showcasing,
-		selectedProject: state.ui.selectedProject
-
+		selectedProject: state.ui.selectedProject, 
+		
 	};
 };
 

@@ -10,11 +10,14 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    z-index: 9;
+
 }
 
 .expand-project-modal{
     width: 50%;
-    height: 80%;
+    min-height: 80%;
+    height: auto;
     border-radius: 6px;
     box-shadow: 0px 0px 8px black ;
 
@@ -25,16 +28,38 @@
     }
     @media(max-width: map-get($breakpoints, "tablet")){
         width: 80%;
-        height: 80%;      
+        min-height: 80%;   
+        height: auto;   
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     .expand-project-content{
 
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr; //just 1 row max 3 event if there are more. Later I'll make it a carousel
+        // display: grid;
+        // grid-template-columns: 1fr 1fr 1fr; //just 1 row max 3 event if there are more. Later I'll make it a carousel
+        display: flex;
+        justify-content: center;
+        align-items: center; //??
+
+        width: 80%;
+
+        @media(max-width: map-get($breakpoints, "tablet")){
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            //grid-template-columns: 1fr 1fr;
+        }
 
         .expand-project-pic{
             width: 100%; //320px;
             height: auto;//240px;
+
+            // @media(max-width: map-get($breakpoints, "tablet")){
+            //     width: 50%;
+            //     height: auto;
+            // }
         }
     }
 

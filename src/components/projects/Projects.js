@@ -10,8 +10,25 @@ var withState_1 = require("../_higherOrderComponents/withState");
 var actions_1 = require("../../redux/actions");
 require("./Projects.scss");
 var ShowcaseOverlayWithThemeState = withState_1.withThemeState(ShowcaseOverlay_1["default"]);
-var ExpandProjectWithThemeState = withState_1.withThemeState(ExpandProject_1["default"]);
+//const ExpandProjectWithThemeState = withThemeState(ExpandProject);
 var Projects = function (props) {
+    // let extraTimePassed = false;
+    // React.useEffect(() => {
+    // 	if( ! props.showcasing){
+    // 		setTimeout(() => {
+    // 			extraTimePassed = true;
+    // 			setTimeout(() => {
+    // 				extraTimePassed = false; 
+    // 			},
+    // 				20
+    // 			);
+    // 		}, 
+    // 			50
+    // 		)
+    // 	}
+    // }, 
+    // 	props.showcasing
+    // )
     var upperClass = "projects-container";
     if (props.showcasing)
         upperClass += " blur-projects"; //ternary statement in the tsx doesn't work for some reason
@@ -21,10 +38,7 @@ var Projects = function (props) {
             return React.createElement(ShowcaseItem_1["default"], { image: item.image, key: item.index },
                 React.createElement(ShowcaseOverlayWithThemeState, { index: item.index, title: item.name, description: item.description, notifyParent: curryStoreSelectedProject(props.selectProject, props.toggleModal), key: item.index }));
         })),
-        props.showcasing ?
-            React.createElement(ExpandProjectWithThemeState, { images: showcaseItems_1.getShowcaseItems()[props.selectedProject].images, title: showcaseItems_1.getShowcaseItems()[props.selectedProject].name, description: showcaseItems_1.getShowcaseItems()[props.selectedProject].longDescription, frameworks: showcaseItems_1.getShowcaseItems()[props.selectedProject].frameworks, logos: showcaseItems_1.getShowcaseItems()[props.selectedProject].frameworkLogos, openSite: curryOpenProjectUrl(showcaseItems_1.getShowcaseItems(), props.selectedProject, false), openGit: curryOpenProjectUrl(showcaseItems_1.getShowcaseItems(), props.selectedProject, true) })
-            :
-                null));
+        React.createElement(ExpandProject_1["default"], { images: showcaseItems_1.getShowcaseItems()[props.selectedProject].images, title: showcaseItems_1.getShowcaseItems()[props.selectedProject].name, description: showcaseItems_1.getShowcaseItems()[props.selectedProject].longDescription, frameworks: showcaseItems_1.getShowcaseItems()[props.selectedProject].frameworks, logos: showcaseItems_1.getShowcaseItems()[props.selectedProject].frameworkLogos, openSite: curryOpenProjectUrl(showcaseItems_1.getShowcaseItems(), props.selectedProject, false), openGit: curryOpenProjectUrl(showcaseItems_1.getShowcaseItems(), props.selectedProject, true) })));
 };
 // const getShowcasePicturesForModal = (index: number): ShowcaseObject => {
 // 	const showcaseItems = getShowcaseItems();
