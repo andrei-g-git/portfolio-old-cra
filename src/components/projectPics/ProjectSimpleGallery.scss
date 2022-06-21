@@ -1,0 +1,21 @@
+@import "../../css/Variables.scss";
+//@import "../../css/Themes.scss";
+
+.gallery-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+
+    @media(max-width: map-get($breakpoints, "tablet")){
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .gallery-pic{
+        width: 100%; //320px;
+        height: auto;//240px;
+
+        // @media(max-width: map-get($breakpoints, "tablet")){
+        //     width: 50%;
+        //     height: auto;
+        // }
+    }
+}

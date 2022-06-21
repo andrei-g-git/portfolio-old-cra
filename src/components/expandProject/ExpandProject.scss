@@ -36,20 +36,20 @@
     }
     .expand-project-content{
 
-        // display: grid;
-        // grid-template-columns: 1fr 1fr 1fr; //just 1 row max 3 event if there are more. Later I'll make it a carousel
-        display: flex;
-        justify-content: center;
-        align-items: center; //??
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr; 
+        // display: flex;
+        // justify-content: center;
+        // align-items: center; //??
 
-        width: 80%;
+        //width: 80%;
 
         @media(max-width: map-get($breakpoints, "tablet")){
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            // display: flex;
+            // flex-direction: column;
+            // align-items: center;
 
-            //grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
         }
 
         .expand-project-pic{

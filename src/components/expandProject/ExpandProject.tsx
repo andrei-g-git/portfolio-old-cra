@@ -1,43 +1,18 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import SwiperCore, { Navigation, Pagination, EffectCreative } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { toggledShowcaseModal } from '../../redux/actions';
-import { calcFloatToDecimal, clamp } from '../../js/utils';
+import ProjectSimpleGallery from '../projectPics/ProjectSimpleGallery';
+import { useClosePopupClass } from './hooksExpandProject';
 import "./ExpandProject.scss";
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-creative';
-
-SwiperCore.use([Navigation, Pagination, EffectCreative]);
 
 export const ExpandProject = (props: any) => {
 
-    const [waited, setWaited] = useState(false);
+    const [waitedObject, setWaited] = useState({waited: false});
 
-    const duration = 0.3;
-    const {suffix, delay} = getClassSecondsAndTimeoutMiliseconds(
-        clamp(
-            calcFloatToDecimal(duration, 1),
-            0.3,
-            1
-        )
-    );
+    const {popupClass, delay} =  useClosePopupClass(0.9, waitedObject);
 
-    let popupClass = "";
-    useEffect(() => {
-        const abc = 123;
-        if(/* ! props.visible */waited){
-            popupClass = ` close-popup-${suffix}`; 
-            console.log(suffix);
-        } 
-        
-    }, 
-        [/* props.visible */waited] //this only triggers when visible changes to 'true' for some reason --- the reason was that conditional rendering was set in parent and the component was destroyed before it couls run this
-    );
 
     // const x = window.scrollX; //doesn't work, visible doesn't change to false, maybe the component gets destroyed in it's parent before it gets the chance to run this
     // const y = window.scrollY;
@@ -53,66 +28,7 @@ export const ExpandProject = (props: any) => {
                 <div className="expand-project-container">
                     <div className={"expand-project-modal" + popupClass}>{/* props.visible? "" : ` close-popup-${suffix}`}> */}
 
-{/*                         <div className="expand-project-content">
-                            {
-                                props.images.map((image: string, index: number) => 
-                                    <img className="expand-project-pic"
-                                        src={require("../../assets/img/" + image)}
-                                        alt="screenshot"
-                                        key={index}
-                                    />
-                                )
-                            }
-                        </div> */}
-
-                        <div className="expand-project-content">
-                            <Swiper 
-                                modules={[Navigation, Pagination, EffectCreative]}
-                                //spaceBetween={0}
-                                //slidesPerView={3}
-                                navigation
-                                pagination
-                                effect="creative"
-                                centeredSlides={true}
-                                creativeEffect={{
-                                    prev: {
-                                        translate: [0.01, 0, 0],
-                                        scale: 0.7
-                                    },
-                                    next: {
-                                        translate: ['100%', 0, 0],
-                                        scale: 1
-                                    },
-                                }}
-                                speed={400}
-                                breakpoints={{
-                                    425: {
-                                        width: 425,
-                                        slidesPerView: 1
-                                    },
-                                    768: {
-                               
-                                    },
-                                    1024: {
-                                        width: 700,
-                                        slidesPerView: 3
-                                    }
-                                }}
-                            >
-                                {
-                                    props.images.map((image: string, index: number) => 
-                                        <SwiperSlide key={index}>
-                                            <img className="expand-project-pic"
-                                                src={require("../../assets/img/" + image)}
-                                                alt="screenshot"
-                                                //key={index}
-                                            />                                        
-                                        </SwiperSlide>
-
-                                    )                                   
-                                }
-                            </Swiper>
-                        </div>
+                        <ProjectSimpleGallery images={props.images} />
 
                         <h3 className="expand-project-title">
                             {props.title}
@@ -147,9 +63,9 @@ export const ExpandProject = (props: any) => {
                             onClick={() => {
                                 setTimeout(() => {
                                     props.closeModal(false,/*  delay */0);
-                                    setWaited(true);
+                                    setWaited(waitedObject => ({waited: true}));//true);
                                     setTimeout(() => {
-                                        setWaited(false);
+                                        setWaited(waitedObject => ({waited: false}));//false);
                                     }, 
                                         20
                                     )
@@ -181,22 +97,6 @@ export const ExpandProject = (props: any) => {
         :
             null                    
     );
-};
-
-const getClassSecondsAndTimeoutMiliseconds = (seconds: number): {suffix: string, delay: number} => {
-    if(seconds >= 1) seconds = Math.floor(seconds);
-    const rawSuffix = seconds.toString();
-    let suffix = rawSuffix;
-    if(rawSuffix.includes(".")) {
-        suffix = rawSuffix.replace(".", "");
-        suffix += "s";
-    }
-    const milliseconds = seconds * 1000;
-
-    return{
-        suffix: suffix,
-        delay: milliseconds
-    };
 };
 
 const mapStateToProps = (state: any) => {

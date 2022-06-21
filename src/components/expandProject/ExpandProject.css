@@ -35,16 +35,12 @@
   }
 }
 .expand-project-modal .expand-project-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 @media (max-width: 720px) {
   .expand-project-modal .expand-project-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr 1fr;
   }
 }
 .expand-project-modal .expand-project-content .expand-project-pic {

@@ -1,0 +1,13 @@
+.gallery-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+@media (max-width: 720px) {
+  .gallery-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.gallery-container .gallery-pic {
+  width: 100%;
+  height: auto;
+}

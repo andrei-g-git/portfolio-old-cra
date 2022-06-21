@@ -4,29 +4,13 @@ exports.ExpandProject = void 0;
 var React = require("react");
 var react_1 = require("react");
 var react_redux_1 = require("react-redux");
-var swiper_1 = require("swiper");
-var react_2 = require("swiper/react");
 var actions_1 = require("../../redux/actions");
-var utils_1 = require("../../js/utils");
+var ProjectSimpleGallery_1 = require("../projectPics/ProjectSimpleGallery");
+var hooksExpandProject_1 = require("./hooksExpandProject");
 require("./ExpandProject.scss");
-require("swiper/css");
-require("swiper/css/navigation");
-require("swiper/css/pagination");
-require("swiper/css/effect-creative");
-swiper_1["default"].use([swiper_1.Navigation, swiper_1.Pagination, swiper_1.EffectCreative]);
 exports.ExpandProject = function (props) {
-    var _a = react_1.useState(false), waited = _a[0], setWaited = _a[1];
-    var duration = 0.3;
-    var _b = getClassSecondsAndTimeoutMiliseconds(utils_1.clamp(utils_1.calcFloatToDecimal(duration, 1), 0.3, 1)), suffix = _b.suffix, delay = _b.delay;
-    var popupClass = "";
-    react_1.useEffect(function () {
-        var abc = 123;
-        if ( /* ! props.visible */waited) {
-            popupClass = " close-popup-" + suffix;
-            console.log(suffix);
-        }
-    }, [/* props.visible */ waited] //this only triggers when visible changes to 'true' for some reason --- the reason was that conditional rendering was set in parent and the component was destroyed before it couls run this
-    );
+    var _a = react_1.useState({ waited: false }), waitedObject = _a[0], setWaited = _a[1];
+    var _b = hooksExpandProject_1.useClosePopupClass(0.9, waitedObject), popupClass = _b.popupClass, delay = _b.delay;
     // const x = window.scrollX; //doesn't work, visible doesn't change to false, maybe the component gets destroyed in it's parent before it gets the chance to run this
     // const y = window.scrollY;
     // window.addEventListener("scroll", () => {
@@ -38,33 +22,7 @@ exports.ExpandProject = function (props) {
         React.createElement("div", { className: props.darkTheme ? "theme-dark" : "theme-light" },
             React.createElement("div", { className: "expand-project-container" },
                 React.createElement("div", { className: "expand-project-modal" + popupClass },
-                    React.createElement("div", { className: "expand-project-content" },
-                        React.createElement(react_2.Swiper, { modules: [swiper_1.Navigation, swiper_1.Pagination, swiper_1.EffectCreative], 
-                            //spaceBetween={0}
-                            //slidesPerView={3}
-                            navigation: true, pagination: true, effect: "creative", centeredSlides: true, creativeEffect: {
-                                prev: {
-                                    translate: [0.01, 0, 0],
-                                    scale: 0.7
-                                },
-                                next: {
-                                    translate: ['100%', 0, 0],
-                                    scale: 1
-                                }
-                            }, speed: 400, breakpoints: {
-                                425: {
-                                    width: 425,
-                                    slidesPerView: 1
-                                },
-                                768: {},
-                                1024: {
-                                    width: 700,
-                                    slidesPerView: 3
-                                }
-                            } }, props.images.map(function (image, index) {
-                            return React.createElement(react_2.SwiperSlide, { key: index },
-                                React.createElement("img", { className: "expand-project-pic", src: require("../../assets/img/" + image), alt: "screenshot" }));
-                        }))),
+                    React.createElement(ProjectSimpleGallery_1["default"], { images: props.images }),
                     React.createElement("h3", { className: "expand-project-title" }, props.title),
                     React.createElement("p", { className: "expand-project-description" }, props.description),
                     React.createElement("div", { className: "expand-project-skills" }, props.logos.map(function (logo, index) {
@@ -75,9 +33,9 @@ exports.ExpandProject = function (props) {
                     React.createElement("button", { style: { fontSize: "xl" }, onClick: function () {
                             setTimeout(function () {
                                 props.closeModal(false, /*  delay */ 0);
-                                setWaited(true);
+                                setWaited(function (waitedObject) { return ({ waited: true }); }); //true);
                                 setTimeout(function () {
-                                    setWaited(false);
+                                    setWaited(function (waitedObject) { return ({ waited: false }); }); //false);
                                 }, 20);
                             }, delay);
                         } }, "X"),
@@ -85,21 +43,6 @@ exports.ExpandProject = function (props) {
                     React.createElement("button", { onClick: function () { return props.openGit(); } }, "GIT HUB"))))
         :
             null);
-};
-var getClassSecondsAndTimeoutMiliseconds = function (seconds) {
-    if (seconds >= 1)
-        seconds = Math.floor(seconds);
-    var rawSuffix = seconds.toString();
-    var suffix = rawSuffix;
-    if (rawSuffix.includes(".")) {
-        suffix = rawSuffix.replace(".", "");
-        suffix += "s";
-    }
-    var milliseconds = seconds * 1000;
-    return {
-        suffix: suffix,
-        delay: milliseconds
-    };
 };
 var mapStateToProps = function (state) {
     return {
