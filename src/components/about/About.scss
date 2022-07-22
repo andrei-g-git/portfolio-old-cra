@@ -4,92 +4,91 @@
 
 .about-container{
     display: flex;
-    justify-content: center;
-    gap: 10%;
+    flex-direction: column;
+    align-items: center;
     width: 100vw;
+    position: relative;
 
     @include themed(){
         background-color: theme-get("bg-primary");
     }
 
-    //background-color: bisque;
-    position: relative;
-
-    //touch-action: pan-y;
-
-    @media(max-width: map-get($breakpoints, "tablet")){
-        flex-direction: column;
-        //justify-content:flex-start;
-        align-items: center;
-        gap: 0;
-    }
-    
     .about-title{
-        // position: absolute;
-        // top: 20px;
         @include pageTitle();
     }
-    .about-me-container{
-        position: relative;
-        width: 25%;
-        min-width: 250px;
+    
+    .about-all-content{
+        display: flex;
+        justify-content: center;
+        gap: 10%;
+
         @media(max-width: map-get($breakpoints, "tablet")){
-            display: flex;
             flex-direction: column;
             align-items: center;
-            width: 80%;   
-            position: unset; 
-        }
-        .about-me{
-            position: absolute;
-            top: 100px;
-            
-            @media(max-width: map-get($breakpoints, "tablet")){
-                position: unset;
-            }
-            .about-avatar{
-                width: 200px;
-                height: 250px;
-                //background-color:brown;
-                background-image: url(../../assets/img/avatar1.png);
-                background-repeat: no-repeat;
-                background-size: contain;
-                @media(max-width: map-get($breakpoints, "tablet")){
-                    width: 150px;
-                    height: 180px;
-                }
-            }
-            .little-bit-about{
-                width: 100%;
-                height: 250px;
-                font-size: large;
-                @include themed(){
-                    color: theme-get("text-primary");
-                }
-                @media(max-width: map-get($breakpoints, "tablet")){
-                    font-size: medium;
-                }
-            }            
+            gap: 0;
         }
 
-    }
-    .skills-container{
-        position: relative;
-        width: 450px;//fit-content; //this is a band aid, when I don't hard code the width it's set to 0. Weird, because it's not absolutely positioned
-        @media(max-width: map-get($breakpoints, "tablet")){
-            position: unset;
-        }   
-        .skills{
-            position: absolute;
-            top: 200px;     
+        .about-me-container{
+            position: relative;
+            width: 25%;
+            min-width: 250px;
             @media(max-width: map-get($breakpoints, "tablet")){
                 display: flex;
-                justify-content: center;
-                width: auto;   
-
-                position: unset;
+                flex-direction: column;
+                align-items: center;
+                width: 80%;   
+                position: unset; 
             }
-        } 
+            .about-me{
+                position: absolute;
+                top: 100px;
+                
+                @media(max-width: map-get($breakpoints, "tablet")){
+                    position: unset;
+                }
+                .about-avatar{
+                    width: 200px;
+                    height: 250px;
+                    background-image: url(../../assets/img/avatar1.png);
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    @media(max-width: map-get($breakpoints, "tablet")){
+                        width: 150px;
+                        height: 180px;
+                    }
+                }
+                .little-bit-about{
+                    width: 100%;
+                    height: 250px;
+                    font-size: large;
+                    @include themed(){
+                        color: theme-get("text-primary");
+                    }
+                    @media(max-width: map-get($breakpoints, "tablet")){
+                        font-size: medium;
+                    }
+                }            
+            }
+    
+        }
+        .skills-container{
+            position: relative;
+            width: 450px;//fit-content; //this is a band aid, when I don't hard code the width it's set to 0. Weird, because it's not absolutely positioned
+            @media(max-width: map-get($breakpoints, "tablet")){
+                position: unset;
+            }   
+            .skills{
+                position: absolute;
+                top: 200px;     
+                @media(max-width: map-get($breakpoints, "tablet")){
+                    display: flex;
+                    justify-content: center;
+                    width: auto;   
+    
+                    position: unset;
+                }
+            } 
+        }
     }
 
 }

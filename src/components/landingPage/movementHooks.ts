@@ -10,7 +10,7 @@ export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number
     useEffect(() => {
         let element: HTMLElement | null = (document.getElementsByClassName(identifier) as HTMLCollectionOf<HTMLElement>)[0];
         if(element){
-            
+
             const panzoom = Panzoom(element, {disableYAxis: true, disableZoom: true, touchAction: "pan-y", animate: true, duration: 150});
 
             const panning = {
@@ -129,6 +129,34 @@ const curryPanzoomPan = (panzoom: PanzoomObject): Function => {
     };
 };
 
+/* 
+    useCenteredResizing
+*/
+
+export const useCenteredResizing = (element: string, maxElementWidth: number) => {
+    useEffect(() => {
+        resizeCentered(element, maxElementWidth);
+    },
+        []
+    );
+
+    window.addEventListener("resize", () => {   
+        resizeCentered(element, maxElementWidth);
+    });
+};
+
+export const resizeCentered = (identifier: string, maxElementWidth: number) => {
+    const element = getElementByClassOrId(identifier);
+    const windowWidth = window.innerWidth;
+    const offset = (maxElementWidth - windowWidth) / 2;
+    if(element) element.style.right = offset + "px";
+};
+
+
+
+
+
+
 
 
 
@@ -238,26 +266,5 @@ const stopPanning = (
 
 
 
-/* 
-    useCenteredResizing
-*/
 
-export const useCenteredResizing = (element: string, maxElementWidth: number) => {
-    useEffect(() => {
-        resizeCentered(element, maxElementWidth);
-    },
-        []
-    );
-
-    window.addEventListener("resize", () => {   
-        resizeCentered(element, maxElementWidth);
-    });
-};
-
-export const resizeCentered = (identifier: string, maxElementWidth: number) => {
-    const element = getElementByClassOrId(identifier);
-    const windowWidth = window.innerWidth;
-    const offset = (maxElementWidth - windowWidth) / 2;
-    if(element) element.style.right = offset + "px";
-};
 

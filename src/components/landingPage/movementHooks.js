@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.resizeCentered = exports.useCenteredResizing = exports.useHorizontalPanning_onhold = exports.useHorizontalPanningPANZOOM = void 0;
+exports.useHorizontalPanning_onhold = exports.resizeCentered = exports.useCenteredResizing = exports.useHorizontalPanningPANZOOM = void 0;
 var react_1 = require("react");
 var utils_1 = require("../../js/utils");
 var panzoom_1 = require("@panzoom/panzoom");
@@ -103,6 +103,24 @@ var curryPanzoomPan = function (panzoom) {
         panzoom.pan(x, y);
     };
 };
+/*
+    useCenteredResizing
+*/
+exports.useCenteredResizing = function (element, maxElementWidth) {
+    react_1.useEffect(function () {
+        exports.resizeCentered(element, maxElementWidth);
+    }, []);
+    window.addEventListener("resize", function () {
+        exports.resizeCentered(element, maxElementWidth);
+    });
+};
+exports.resizeCentered = function (identifier, maxElementWidth) {
+    var element = utils_1.getElementByClassOrId(identifier);
+    var windowWidth = window.innerWidth;
+    var offset = (maxElementWidth - windowWidth) / 2;
+    if (element)
+        element.style.right = offset + "px";
+};
 //###########################################
 //#############################################
 //###############################################
@@ -174,21 +192,3 @@ dragObject) {
         // document.removeEventListener("drag", pan);                                       which I don't know if they have constant references
     }; //if I don't clean up there may be mem leaks, hopefully only on old browsers like IE7
 }; //if there are leaks I should just make the curried callbacks non-anonymous
-/*
-    useCenteredResizing
-*/
-exports.useCenteredResizing = function (element, maxElementWidth) {
-    react_1.useEffect(function () {
-        exports.resizeCentered(element, maxElementWidth);
-    }, []);
-    window.addEventListener("resize", function () {
-        exports.resizeCentered(element, maxElementWidth);
-    });
-};
-exports.resizeCentered = function (identifier, maxElementWidth) {
-    var element = utils_1.getElementByClassOrId(identifier);
-    var windowWidth = window.innerWidth;
-    var offset = (maxElementWidth - windowWidth) / 2;
-    if (element)
-        element.style.right = offset + "px";
-};
