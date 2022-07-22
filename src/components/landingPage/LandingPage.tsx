@@ -19,10 +19,6 @@ import "../landingPage/LandingPage.scss";
 
 export const LandingPage = (props: any) => { //make this thing pannable horizontally rather than using the scrollbar
 
-    //test
-    const panzoom = require("@panzoom/panzoom");
-    console.log("PANZOOM: ", panzoom);
-
     useCharacterEntrance(props.changeCharacterAnimation, animations);
 
     useCenteredResizing("landing-page-container", 1920);
