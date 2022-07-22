@@ -8,17 +8,6 @@ export const useScrollCheck = (toggleScrolling: Function) => {
     useEffect(() => {
         let timer: NodeJS.Timeout | null = null;
         window.addEventListener("scroll", () => {
-
-            // toggleScrolling(true);
-            // if(timer !== null) {
-            //     clearTimeout(timer);        
-            // }
-            // timer = setTimeout(() => {
-            //     toggleScrolling(false);
-            // }, 
-            //     150
-            // );
-
             timer = toggleWithTimer(timer, 150, toggleScrolling, true);
         });
     },

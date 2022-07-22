@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+//import {useEffect} from "react";
 import { Animation } from "../interface/Animation";
 
 export const animations: any = {
@@ -16,7 +16,7 @@ export const animations: any = {
     },
     restingArms: <Animation> {
         index: 2,
-        path: "assets/img/sitting.gif",//rest-arms.gif",
+        path: "assets/img/sitting.gif",
         duration: 500,
         preceedingAnimation: "turning"
     },

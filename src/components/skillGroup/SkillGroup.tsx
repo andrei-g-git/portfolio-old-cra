@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
 import Skill from '../skill/Skill';
 import Gauge from '../gauge/Gauge';
 import { SkillData } from '../../data/dataTypes';
@@ -25,26 +24,10 @@ const SkillGroup = (props: any) => {
                         index={index}
                         key={index}
                     >
-
                         <GaugeWithPageState proficiency={skill.proficiency} 
                             maxWidth={350} 
                             index={index}
                         />
-
-{/*                         <Gauge proficiency={skill.proficiency} 
-                            maxWidth={350} 
-                            index={index}
-                        /> */}
-                        {/* {
-                            withPageState(
-                                Gauge, 
-                                {
-                                    proficiency: skill.proficiency,
-                                    maxWidth: 350,
-                                    index: index
-                                }
-                            )
-                        } */}
                     </Skill>
                 )
             }
@@ -52,12 +35,4 @@ const SkillGroup = (props: any) => {
     );
 };
 
-const mapStateToProps = (state: any) => {
-    return {
-        //page: state.ui.highlightedNavItem   
-    }
-};
-
-const mapDispatchToProps = {}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SkillGroup)
+export default SkillGroup;

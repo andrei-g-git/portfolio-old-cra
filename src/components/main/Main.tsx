@@ -30,15 +30,6 @@ function Main(props: any) {
         [props.clickedNavItem]
     );
 
-    // window.addEventListener("scroll", () => {
-    //     if(props.showcasing){
-    //         const x = window.scrollX;
-    //         const y = window.scrollY;
-
-    //         window.scrollTo(x, y);
-    //     }
-    // });
-
     return (
         <div className="main" id="main">
             <LandingPage height="100vh"/> {/* heights are stored in the Pages class */}

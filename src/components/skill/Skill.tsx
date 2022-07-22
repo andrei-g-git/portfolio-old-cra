@@ -1,4 +1,4 @@
-import * as React from 'react'; //consider adding the * as for TS
+import * as React from 'react'; 
 import "./Skill.scss";
 
 function Skill(props: any) {
