@@ -1,4 +1,4 @@
-import { NavItems } from "../../redux/uiEnums"; //not using
+import { NavItems } from "../../redux/uiEnums"; //not using ###
 
 export const navbarItemList: String[] = [];
 navbarItemList[NavItems.HOME.index] = NavItems.HOME.name.toUpperCase();

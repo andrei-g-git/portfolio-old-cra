@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { 
@@ -11,31 +10,31 @@ import { Pages } from "../main/Pages";
 import NavItem from '../navItem/NavItem';
 import "./NavBar.scss";
 
-const Sticky = require("sticky-js");
+//const Sticky = require("sticky-js"); 
 
-export const NavBar = (props: any /* CHANGE */) => {
+export const NavBar = (props: any /* CHANGE */) => { //I forgot what gives this it's sticky effect now...
 
-	const sticky = new Sticky(".nav-bar"); //position: sticky doesn't work even after removeing overflow from parent
+	//const sticky = new Sticky(".nav-bar"); //position: sticky doesn't work even after removeing overflow from parent
 
 	return (
 		<div className="nav-bar"
 			id="nav-bar"
 		>
-				{
-					Pages.getNavItems().map((item, index) => 
-						<NavItem index={index}
-							name={item.toUpperCase()}
-							active={props.highlightedNavItem === index ? true : false}
-							notifyParent={props.selectedNavItem}
-						/>
-					)
-				}		
+			{
+				Pages.getNavItems().map((item, index) => 
+					<NavItem index={index}
+						name={item.toUpperCase()}
+						active={props.highlightedNavItem === index ? true : false}
+						notifyParent={props.selectedNavItem}
+					/>
+				)
+			}		
 
-				<button onClick={() => props.themeToggle(! props.darkTheme)}>T</button>		
+			<button onClick={() => props.themeToggle(! props.darkTheme)}>T</button>		
 
 		</div>
-	)
-}
+	);
+};
 
 const mapStateToProps = (state: any) => {
 	return{
@@ -43,16 +42,12 @@ const mapStateToProps = (state: any) => {
 		highlightedNavItem: state.ui.highlightedNavItem,
 		darkTheme: state.ui.darkTheme
 	};
-}
+};
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
 	return{
 		selectedNavItem: (navIndex: number) => {
 			dispatch(navItemSelected(navIndex));
-			// finishDispatchWrapper(dispatch, justClickedNavItem, true) //this seems to happen too fast, the change isn't registering
-			// 	.then(
-			// 		dispatch(justClickedNavItem(false))
-			// 	)
 			dispatch(justClickedNavItem(true));
 			setTimeout(() => {
 				dispatch(justClickedNavItem(false)); //band aid
@@ -64,6 +59,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 			dispatch(toggledTheme(isDark));
 		}
 	}
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

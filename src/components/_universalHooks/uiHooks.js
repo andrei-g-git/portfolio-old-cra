@@ -9,15 +9,6 @@ exports.useScrollCheck = function (toggleScrolling) {
     react_1.useEffect(function () {
         var timer = null;
         window.addEventListener("scroll", function () {
-            // toggleScrolling(true);
-            // if(timer !== null) {
-            //     clearTimeout(timer);        
-            // }
-            // timer = setTimeout(() => {
-            //     toggleScrolling(false);
-            // }, 
-            //     150
-            // );
             timer = utils_1.toggleWithTimer(timer, 150, toggleScrolling, true);
         });
     }, []);

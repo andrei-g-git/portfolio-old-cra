@@ -7,51 +7,44 @@ var utils_1 = require("../../js/utils");
 exports.useScrollByActiveNavItem = function (props /* change */) {
     react_1.useEffect(function () {
         var height = 0;
-        switch (props.selectedNavItem /* activeNavItem */) {
+        switch (props.selectedNavItem) {
             case 0:
-                height = 0; //obviously these will have to be more dynamic
+                height = 0;
                 break;
             case 1:
-                height = exports.getPageHeight(Pages_1.Pages.ABOUT.name); //convertViewportHeightToNumber(Pages.HOME.height);//1080;
+                height = exports.getPageHeight(Pages_1.Pages.ABOUT.name);
                 break;
             case 2:
-                height = exports.getPageHeight(Pages_1.Pages.PROJECTS.name); //convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height);//2160;
+                height = exports.getPageHeight(Pages_1.Pages.PROJECTS.name);
                 break;
             case 3:
-                height = exports.getPageHeight(Pages_1.Pages.CONTACT.name); //convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height) + convertViewportHeightToNumber(Pages.PROJECTS.height);//3240;
+                height = exports.getPageHeight(Pages_1.Pages.CONTACT.name);
                 break;
             default:
                 height = 0;
                 break;
         }
-        //props.toggleAutoscrolling(true); //this is way too coupled, the function shouldn't have access to the props, just some values
-        //it's also async-y because it's calling a redux dispatch so it won't happen instantly
         window.scrollTo({
             top: height,
             left: 0,
             behavior: "smooth"
         });
-        // setTimeout(() => { //one of these days I should learn to code without fucking setTimeout()
-        //     props.toggleAutoscrolling(false)
-        // },
-        //     900
-        // );
-    }, [/* props.activeNavItem,  */ props.selectedNavItem]);
+    }, [props.selectedNavItem]);
 };
 exports.scrollToActiveNavItem = function (selectedNavIndex) {
     var height = 0;
     switch (selectedNavIndex) {
         case 0:
-            height = 0; //convertViewportHeightToNumber(Pages.HOME.height); 
+            height = 0;
             break;
         case 1:
-            height = exports.getPageHeight(Pages_1.Pages.ABOUT.name); //convertViewportHeightToNumber(Pages.HOME.height); //if I change orders this is going to break
+            height = exports.getPageHeight(Pages_1.Pages.ABOUT.name);
             break;
         case 2:
-            height = exports.getPageHeight(Pages_1.Pages.PROJECTS.name); //convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height);
+            height = exports.getPageHeight(Pages_1.Pages.PROJECTS.name);
             break;
         case 3:
-            height = exports.getPageHeight(Pages_1.Pages.CONTACT.name); //convertViewportHeightToNumber(Pages.HOME.height) + convertViewportHeightToNumber(Pages.ABOUT.height) + convertViewportHeightToNumber(Pages.PROJECTS.height);
+            height = exports.getPageHeight(Pages_1.Pages.CONTACT.name);
             break;
         default:
             height = 0;

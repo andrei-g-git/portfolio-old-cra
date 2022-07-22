@@ -1,7 +1,13 @@
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import { clamp, calcFloatToDecimal } from "../../js/utils";
 
 export const useClosePopupClass = (duration: number, waitedObject: {waited: boolean}): {popupClass: string, delay: number} => { //UNIT TEST
+
+    //const [classAndDelay, setClassAndDelay] = useState({popupClass: "", delay: 0});
+    const classAndDelay = {
+        popupClass: "", 
+        delay: 0
+    };
 
     const {suffix, delay} = getClassSecondsAndTimeoutMiliseconds(
         clamp(
@@ -11,18 +17,28 @@ export const useClosePopupClass = (duration: number, waitedObject: {waited: bool
         )
     );
     let popupClass = "";
-    useEffect(() => {
-        if(waitedObject.waited){ //this is too coupled
+    //useEffect(() => {
+        //if(waitedObject.waited){ //this is too coupled
             popupClass = ` close-popup-${suffix}`;
-        }
-    },
-        [waitedObject.waited]
-    );
+            classAndDelay.popupClass = popupClass;
+            classAndDelay.delay = delay;
+            // setClassAndDelay({
+            //     ...classAndDelay,
+            //     popupClass: popupClass,
+            //     delay: delay
+            // })
+        //}
+    //},
+        /* [waitedObject.waited] */
+    //);
 
-    return{
-        popupClass: popupClass,
-        delay: delay
-    };    
+    // return{
+    //     popupClass: popupClass,
+    //     delay: delay
+    // };  
+
+    
+    return classAndDelay;  
 };
 
 const getClassSecondsAndTimeoutMiliseconds = (seconds: number): {suffix: string, delay: number} => {

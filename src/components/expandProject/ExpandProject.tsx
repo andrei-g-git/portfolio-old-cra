@@ -4,29 +4,20 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { toggledShowcaseModal } from '../../redux/actions';
 import ProjectSimpleGallery from '../projectPics/ProjectSimpleGallery';
-import { useClosePopupClass } from './hooksExpandProject';
+import { getDelayAndAppendToClassName } from './ExpandProjectController';
 import "./ExpandProject.scss";
 
 export const ExpandProject = (props: any) => {
 
-    const [waitedObject, setWaited] = useState({waited: false});
+    const [modalCloseClass, setPopupClass] = useState("");
 
-    const {popupClass, delay} =  useClosePopupClass(0.9, waitedObject);
+    const {popupClass, delay} = getDelayAndAppendToClassName(0.4);
 
-
-    // const x = window.scrollX; //doesn't work, visible doesn't change to false, maybe the component gets destroyed in it's parent before it gets the chance to run this
-    // const y = window.scrollY;
-    // window.addEventListener("scroll", () => {
-    //     if(props.visible){
-    //         window.scrollTo(x, y);
-    //     }
-    // });
-
-    return (
+    return ( 
         props.visible ? 
             <div className={props.darkTheme? "theme-dark" : "theme-light"}>
                 <div className="expand-project-container">
-                    <div className={"expand-project-modal" + popupClass}>{/* props.visible? "" : ` close-popup-${suffix}`}> */}
+                    <div className={"expand-project-modal" + modalCloseClass}>
 
                         <ProjectSimpleGallery images={props.images} />
 
@@ -61,19 +52,13 @@ export const ExpandProject = (props: any) => {
                         <button
                             style={{fontSize: "xl"}}
                             onClick={() => {
+                                setPopupClass(popupClass); 
                                 setTimeout(() => {
                                     props.closeModal(false,/*  delay */0);
-                                    setWaited(waitedObject => ({waited: true}));//true);
-                                    setTimeout(() => {
-                                        setWaited(waitedObject => ({waited: false}));//false);
-                                    }, 
-                                        20
-                                    )
+                                    setPopupClass("");
                                 },
-                                    delay
-                                )
-                                
-
+                                    delay 
+                                );
                             }}
                         >
                             X
@@ -95,7 +80,7 @@ export const ExpandProject = (props: any) => {
                 </div>
             </div>
         :
-            null                    
+            null               
     );
 };
 

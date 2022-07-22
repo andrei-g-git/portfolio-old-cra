@@ -11,10 +11,7 @@ exports.handleDoodadClick = function (changeAnimation, animationsObject) {
         setTimeout(function () {
             changeAnimation(animations_1.getAnimationByName("idling", animations_2.animations));
         }, 
-        /*             animationsObject[
-                        animationsObject.idling.preceedingAnimation
-                    ]
-                        .duration */ //no, the preceeding animation is set in the animations object, but at runtime it doesn't have to be that. in this case it would be one of the look-sideways animations
+        //don't use the animationObject's duration, the preceeding animation is set in the animations object, but at runtime it doesn't have to be that. in this case it would be one of the look-sideways animations
         1500);
         return anim;
     };
