@@ -35,7 +35,7 @@ export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number
                 dragObject.right = -amountToPan;
             });
 
-            panzoomStart(element, dragObject, panzoom.getPan().x);
+            panzoomStart(element, dragObject, /* panzoom.getPan().x */getPanX, panzoom);
 
             panzoomEnd(
                 element, 
@@ -44,7 +44,8 @@ export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number
                 maxWidth, 
                 amountToPan, 
                 getPanX, 
-                panzoomPan
+                panzoomPan,
+                panzoom
             );
         }
     },
@@ -61,12 +62,13 @@ const getHorizontalPanAmount = (windowInnerWidth: number, elementWidth: number):
     return amountToPan;
 };
 
-const panzoomStart = (element: HTMLElement | null, dragObject: DragObjectPanzoom, currentX: number): void => {
+const panzoomStart = (element: HTMLElement | null, dragObject: DragObjectPanzoom, /* currentX: number */getPanX: Function, panzoom: PanzoomObject): void => {
     element?.addEventListener("panzoomstart", (event) => {
         event.preventDefault();
-        dragObject.xStart = currentX;
+        dragObject.xStart = getPanX(panzoom);//currentX;
         
-        const x = currentX;
+        //const x = getPanX(panzoom);//currentX;
+        const x = panzoom.getPan().x;
         if((x > dragObject.center - 5) && (x < dragObject.center + 5)){
             dragObject.location = "center";
         }
@@ -85,12 +87,13 @@ const panzoomEnd = (
     dragObject: DragObjectPanzoom, 
     maxWidth: number, 
     amountToPan: number, 
-    getPanX: ReturnsNumber, 
-    panzoomPan: Function
+    getPanX: Function, 
+    panzoomPan: Function,
+    panzoom: PanzoomObject
 ): void => {
     element?.addEventListener("panzoomend", (event) => {
         event.preventDefault();
-        const x = getPanX();
+        const x = getPanX(panzoom);
         const viewportWidth = window.innerWidth;
         const overflowingAreaWidth = maxWidth - viewportWidth;
         const overflowOnEigherSide = overflowingAreaWidth / 2; //not using
@@ -102,38 +105,46 @@ const panzoomEnd = (
         if(Math.abs((x - dragObject.xStart)) > 10){
             if(dragObject.location === "center"){ 
                 if((x - dragObject.xStart) > 10) {
-                    panzoomPan(amountToPan, 0);
+                    //panzoomPan(panzoom, amountToPan, 0);
+                    panzoom.pan(amountToPan, 0);
                 }
                 if((x - dragObject.xStart) < 10) {
-                    panzoomPan( - amountToPan, 0);
+                    //panzoomPan(panzoom,  - amountToPan, 0);
+                    panzoom.pan( - amountToPan, 0);
                 }                        
             }else if(dragObject.location === "left"){
                 if((x - dragObject.xStart) > 10) {
-                    panzoomPan(amountToPan, 0);
+                    //panzoomPan(panzoom, amountToPan, 0);
+                    panzoom.pan(amountToPan, 0);
                 }
                 if((x - dragObject.xStart) < 10) { 
-                    panzoomPan(0, 0);
+                    //panzoomPan(panzoom, 0, 0);
+                    panzoom.pan(0, 0);
                 }                        
             }else if(dragObject.location === "right"){
                 if((x - dragObject.xStart) > 10) {
-                    panzoomPan(0, 0);
+                    //panzoomPan(panzoom, 0, 0);
+                    panzoom.pan(0, 0);
                 }
                 if((x - dragObject.xStart) < 10) {
-                    panzoomPan( - amountToPan, 0);
+                    //panzoomPan(panzoom,  - amountToPan, 0);
+                    panzoom.pan( - amountToPan, 0);
                 }                        
             }    
         }
     });
 }
 
-const getPanX = (): number => {
-    const panzoom = require("@panzoom/panzoom");
+const getPanX = (/* element: HTMLElement | null */panzoom: PanzoomObject): number => {
+    // const Panzoom2 = require("@panzoom/panzoom");
+    // const panzoom = Panzoom2(element, {disableYAxis: true, disableZoom: true, touchAction: "pan-y", animate: true, duration: 150});
     const x = panzoom.getPan().x;
     return x;
 }
 
-const panzoomPan = (x: number, y: number): void => {
-    const panzoom = require("@panzoom/panzoom");
+const panzoomPan = (/* element: HTMLElement | null */panzoom: PanzoomObject, x: number, y: number): void => {
+    // const Panzoom2 = require("@panzoom/panzoom");
+    // const panzoom = Panzoom2(element, {disableYAxis: true, disableZoom: true, touchAction: "pan-y", animate: true, duration: 150});
     panzoom.pan(x, y);
 };
 

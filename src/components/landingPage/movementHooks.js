@@ -30,8 +30,8 @@ exports.useHorizontalPanningPANZOOM = function (identifier, maxWidth) {
                 dragObject_1.left = amountToPan_1;
                 dragObject_1.right = -amountToPan_1;
             });
-            panzoomStart(element, dragObject_1, panzoom.getPan().x);
-            panzoomEnd(element, window, dragObject_1, maxWidth, amountToPan_1, getPanX, panzoomPan);
+            panzoomStart(element, dragObject_1, /* panzoom.getPan().x */ getPanX, panzoom);
+            panzoomEnd(element, window, dragObject_1, maxWidth, amountToPan_1, getPanX, panzoomPan, panzoom);
         }
     }, []);
 };
@@ -43,11 +43,12 @@ var getHorizontalPanAmount = function (windowInnerWidth, elementWidth) {
     amountToPan = utils_1.clamp(amountToPan, 0, max);
     return amountToPan;
 };
-var panzoomStart = function (element, dragObject, currentX) {
+var panzoomStart = function (element, dragObject, /* currentX: number */ getPanX, panzoom) {
     element === null || element === void 0 ? void 0 : element.addEventListener("panzoomstart", function (event) {
         event.preventDefault();
-        dragObject.xStart = currentX;
-        var x = currentX;
+        dragObject.xStart = getPanX(panzoom); //currentX;
+        //const x = getPanX(panzoom);//currentX;
+        var x = panzoom.getPan().x;
         if ((x > dragObject.center - 5) && (x < dragObject.center + 5)) {
             dragObject.location = "center";
         }
@@ -59,10 +60,10 @@ var panzoomStart = function (element, dragObject, currentX) {
         }
     });
 };
-var panzoomEnd = function (element, window, dragObject, maxWidth, amountToPan, getPanX, panzoomPan) {
+var panzoomEnd = function (element, window, dragObject, maxWidth, amountToPan, getPanX, panzoomPan, panzoom) {
     element === null || element === void 0 ? void 0 : element.addEventListener("panzoomend", function (event) {
         event.preventDefault();
-        var x = getPanX();
+        var x = getPanX(panzoom);
         var viewportWidth = window.innerWidth;
         var overflowingAreaWidth = maxWidth - viewportWidth;
         var overflowOnEigherSide = overflowingAreaWidth / 2; //not using
@@ -72,38 +73,46 @@ var panzoomEnd = function (element, window, dragObject, maxWidth, amountToPan, g
         if (Math.abs((x - dragObject.xStart)) > 10) {
             if (dragObject.location === "center") {
                 if ((x - dragObject.xStart) > 10) {
-                    panzoomPan(amountToPan, 0);
+                    //panzoomPan(panzoom, amountToPan, 0);
+                    panzoom.pan(amountToPan, 0);
                 }
                 if ((x - dragObject.xStart) < 10) {
-                    panzoomPan(-amountToPan, 0);
+                    //panzoomPan(panzoom,  - amountToPan, 0);
+                    panzoom.pan(-amountToPan, 0);
                 }
             }
             else if (dragObject.location === "left") {
                 if ((x - dragObject.xStart) > 10) {
-                    panzoomPan(amountToPan, 0);
+                    //panzoomPan(panzoom, amountToPan, 0);
+                    panzoom.pan(amountToPan, 0);
                 }
                 if ((x - dragObject.xStart) < 10) {
-                    panzoomPan(0, 0);
+                    //panzoomPan(panzoom, 0, 0);
+                    panzoom.pan(0, 0);
                 }
             }
             else if (dragObject.location === "right") {
                 if ((x - dragObject.xStart) > 10) {
-                    panzoomPan(0, 0);
+                    //panzoomPan(panzoom, 0, 0);
+                    panzoom.pan(0, 0);
                 }
                 if ((x - dragObject.xStart) < 10) {
-                    panzoomPan(-amountToPan, 0);
+                    //panzoomPan(panzoom,  - amountToPan, 0);
+                    panzoom.pan(-amountToPan, 0);
                 }
             }
         }
     });
 };
-var getPanX = function () {
-    var panzoom = require("@panzoom/panzoom");
+var getPanX = function (/* element: HTMLElement | null */ panzoom) {
+    // const Panzoom2 = require("@panzoom/panzoom");
+    // const panzoom = Panzoom2(element, {disableYAxis: true, disableZoom: true, touchAction: "pan-y", animate: true, duration: 150});
     var x = panzoom.getPan().x;
     return x;
 };
-var panzoomPan = function (x, y) {
-    var panzoom = require("@panzoom/panzoom");
+var panzoomPan = function (/* element: HTMLElement | null */ panzoom, x, y) {
+    // const Panzoom2 = require("@panzoom/panzoom");
+    // const panzoom = Panzoom2(element, {disableYAxis: true, disableZoom: true, touchAction: "pan-y", animate: true, duration: 150});
     panzoom.pan(x, y);
 };
 //on hold... using panzoom library for now    

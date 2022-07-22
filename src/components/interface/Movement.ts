@@ -18,4 +18,4 @@ export interface DimensionsObject {
 };
 export type Pan = (element: HTMLElement | null, dragObject: DragObject, dimensionsObject: DimensionsObject) => (event: MouseEvent/* DragEvent */) => void;
 
-export type ReturnsNumber = () => number;
+export type ReturnsNumber = () => number; //not using
