@@ -6,16 +6,31 @@ export interface DragObject {
 };
 
 export interface DragObjectPanzoom{
-    xStart: number,
-    location: String,
-    left: number,
-    center: number,
-    right: number,
+    xStart: number/*  | null */,
+    location: String/*  | null */,
+    left: number/*  | null */,
+    center: number/*  | null */,
+    right: number/*  | null */,
     
     //new
     farLeft: number,
     farRight: number
 };
+
+export interface PositionProperties{
+    current: number,
+    leftward: number,
+    rightward: number      
+}
+export interface PanObject{
+    start: number,
+    location: String,
+    left: PositionProperties,
+    center: PositionProperties,
+    right: PositionProperties, 
+    farLeft: PositionProperties,
+    farRight: PositionProperties    
+}
 
 export interface DimensionsObject {
     windowWidth: number

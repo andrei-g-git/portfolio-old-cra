@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Pan, DragObject, DragObjectPanzoom, DimensionsObject, ReturnsNumber } from "../interface/Movement";
+import { Pan, DragObject, DragObjectPanzoom, DimensionsObject, ReturnsNumber, PanObject } from "../interface/Movement";
 import { clamp, getElementByClassOrId } from "../../js/utils";
 import Panzoom, { PanzoomObject } from "@panzoom/panzoom";
 
@@ -29,24 +29,95 @@ export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number
                 farRight: - panning.amount * 2 - window.innerWidth/2,
             };
 
+            // const panObject: any/* PanObject */ = {
+            //     start: 0,
+            //     location: "center",
+            //     left: {
+            //         current: panning.amount,
+            //         leftward: panning.amount * 2 + window.innerWidth/2,
+            //         rightward: 0
+            //     },
+            //     center: {
+            //         current: 0,
+            //         leftward: panning.amount,
+            //         rightward: -panning.amount,                    
+            //     },
+            //     right: {
+            //         current: -panning.amount,
+            //         leftward: 0,
+            //         rightward: - panning.amount * 2 - window.innerWidth/2
+            //     }, 
+            //     farLeft: {
+            //         current: panning.amount * 2 + window.innerWidth/2,
+            //         leftward: panning.amount * 2 + window.innerWidth/2,
+            //         rightward: panning.amount
+            //     },
+            //     farRight: {
+            //         current: - panning.amount * 2 - window.innerWidth/2,
+            //         leftward: -panning.amount,
+            //         rightward: - panning.amount * 2 - window.innerWidth/2 
+            //     }
+            // };
+
+            const panObject = {}; 
+
+            const populatePanObject = (amountToPan: number, panObject: any): any => {
+                panObject.start = 0;
+                panObject.location = "center";
+                panObject.left = {
+                    current: amountToPan,
+                    leftward: amountToPan * 2 + window.innerWidth/2,
+                    rightward: 0
+                };
+                panObject.center = {
+                    current: 0,
+                    leftward: amountToPan,
+                    rightward: -amountToPan,                    
+                };
+                panObject.right = {
+                    current: -amountToPan,
+                    leftward: 0,
+                    rightward: - amountToPan * 2 - window.innerWidth/2
+                }; 
+                panObject.farLeft = {
+                    current: amountToPan * 2 + window.innerWidth/2,
+                    leftward: amountToPan * 2 + window.innerWidth/2,
+                    rightward: amountToPan
+                };
+                panObject.farRight = {
+                    current: - amountToPan * 2 - window.innerWidth/2,
+                    leftward: -amountToPan,
+                    rightward: - amountToPan * 2 - window.innerWidth/2 
+                };
+            }
+
+            populatePanObject(panning.amount, panObject)
+
             window.addEventListener("resize", () => {
                 panning.amount = getHorizontalPanAmount(window.innerWidth, element ? element.offsetWidth : 0);
-                dragObject.left = panning.amount;
-                dragObject.right = -panning.amount;
+                // dragObject.left = panning.amount;
+                // dragObject.right = -panning.amount;
+                // //new
+                // dragObject.farLeft = panning.amount * 2 + window.innerWidth/2;
+                // dragObject.farRight = - panning.amount * 2 - window.innerWidth/2;
 
-                //new
-                dragObject.farLeft = panning.amount * 2 + window.innerWidth/2;
-                dragObject.farRight = - panning.amount * 2 - window.innerWidth/2;
+                populatePanObject(panning.amount, panObject);
             });
 
-            panzoomStart(element, dragObject, curryGetPanX(panzoom));
+            panzoomStart(element, /* dragObject */panObject, curryGetPanX(panzoom));
 
             panzoomEnd(
                 element, 
                 dragObject, 
                 curryGetAmountToPan(panning),
                 curryGetPanX(panzoom), 
-                curryPanzoomPan(panzoom)
+                curryPanzoomPan(panzoom),
+                curryDragBehaviorAtLocation(
+                    curryGetDragStart(panObject),
+                    curryGetPanX(panzoom),
+                    panObject,
+                    curryPanzoomPan(panzoom)
+                )
             );
         }
     },
@@ -74,29 +145,72 @@ const getHorizontalPanAmount = (windowInnerWidth: number, elementWidth: number):
 //    ###    try to replace as much of the branching with an object with comprehensive properties, maybe some of them would be functions
 //    ###    figure out if there's an equation to all this to not need any branching
 
-const panzoomStart = (element: HTMLElement | null, dragObject: DragObjectPanzoom, getPanX: Function): void => {
+const curryGetDragStart = (panObject: /* PanObject */any): Function => {
+    return (): number => {
+        return panObject.start;
+    }
+}
+
+const curryDragBehaviorAtLocation = (getDragStart: Function, getPanX: Function, panObject: any/* PanObject */, panzoomPan: Function): Function => {
+    return (location: keyof PanObject): boolean => {
+        if(panObject.location === location){
+            if((getPanX() - panObject.start) > 10) {
+                panzoomPan(panObject[location].leftward, 0);         console.log("end ", panObject[location], "     to ", panObject[location].leftward)
+                return true;
+            } else if((getPanX() - panObject.start) < 10) {
+                panzoomPan(panObject[location].rightward, 0);        console.log("end ", panObject[location], "     to ", panObject[location].rightward)
+                return true;
+            }          
+        }
+
+        return false;    
+    }
+
+}
+
+// const curryDragBehaviorAtLocation = (dragStart: number, dragObject: DragObjectPanzoom, panzoomPan: Function): Function => {
+//     return (location: string, leftRelativeLocation: keyof DragObjectPanzoom, rightRelativeLocation: keyof DragObjectPanzoom, currentX: number): void => {
+//         if((currentX - dragStart) > 10) {
+//             panzoomPan(dragObject[leftRelativeLocation], 0);
+//         }
+//         if((currentX - dragStart) < 10) {
+//             panzoomPan(dragObject[rightRelativeLocation], 0);
+//         }         
+//     }
+
+// }
+
+const panzoomStart = (element: HTMLElement | null, /* dragObject: DragObjectPanzoom */panObject: any/* PanObject */, getPanX: Function): void => {
     element?.addEventListener("panzoomstart", (event) => {
         event.preventDefault();
-        dragObject.xStart = getPanX();
+        //dragObject.xStart = getPanX();
+        panObject.start = getPanX();
     
         const x = getPanX();
-        if((x > dragObject.center - 5) && (x < dragObject.center + 5)){
-            dragObject.location = "center";
+        if((x > /* dragObject.center */panObject.center.current - 5) && (x < /* dragObject.center */panObject.center.current + 5)){
+            //dragObject.location = "center";
+            panObject.location = "center";
         }
-        if((x > dragObject.left - 5) && (x < dragObject.left + 5)){
-            dragObject.location = "left";
+        if((x > /* dragObject.left */panObject.left.current - 5) && (x < /* dragObject.left */panObject.left.current + 5)){
+            //dragObject.location = "left";
+            panObject.location = "left";
         }
-        if((x > dragObject.right - 5) && (x < dragObject.right + 5)){
-            dragObject.location = "right";
+        if((x > /* dragObject.right */panObject.right.current - 5) && (x < /* dragObject.right */panObject.right.current + 5)){
+            //dragObject.location = "right";
+            panObject.location = "right";
         }    
 
         //new
-        if((x > dragObject.farLeft - 5) && (x < dragObject.farLeft + 5)){
-            dragObject.location = "far-left";
+        if((x > /* dragObject.farLeft */panObject.farLeft.current - 5) && (x < /* dragObject.farLeft */panObject.farLeft.current + 5)){
+            //dragObject.location = "farLeft";
+            panObject.location = "farLeft";
         }
-        if((x > dragObject.farRight - 5) && (x < dragObject.farRight + 5)){
-            dragObject.location = "far-right";
+        if((x > /* dragObject.farRight */panObject.farRight.current - 5) && (x < /* dragObject.farRight */panObject.farRight.current + 5)){
+            //dragObject.location = "farRight";
+            panObject.location = "farRight";
         }
+
+        console.log("start ", panObject.location)
     });
 };
 
@@ -105,55 +219,69 @@ const panzoomEnd = (
     dragObject: DragObjectPanzoom, 
     getAmountToPan: Function,
     getPanX: Function, 
-    panzoomPan: Function
+    panzoomPan: Function,
+    dragBehaviorAtLocation: Function
 ): void => {
     element?.addEventListener("panzoomend", (event) => {
         event.preventDefault();
         const x = getPanX();
 
-        if(Math.abs((x - dragObject.xStart)) > 10){
-            if(dragObject.location === "center"){ 
-                if((x - dragObject.xStart) > 10) {
-                    panzoomPan(getAmountToPan(), 0/* ,        {relative: false} */);
-                }
-                if((x - dragObject.xStart) < 10) {
-                    panzoomPan( - getAmountToPan(), 0/* ,        {relative: false} */);
-                }                        
-            }else if(dragObject.location === "left"){
-                if((x - dragObject.xStart) > 10) {
-                    panzoomPan(getAmountToPan(), 0/* ,        {relative: false} */);
-                }
-                if((x - dragObject.xStart) < 10) { 
-                    //panzoomPan(0, 0);
-                    panzoomPan( - getAmountToPan() * 2 - window.innerWidth/2, 0/* ,        {relative: false} */);
-                }                        
-            }else if(dragObject.location === "right"){
-                if((x - dragObject.xStart) > 10) {
-                    //panzoomPan(0, 0);
-                    panzoomPan(/*  -  */getAmountToPan() * 2 + window.innerWidth/2, 0/* ,        {relative: false} */);
-                }
-                if((x - dragObject.xStart) < 10) {
-                    panzoomPan( - getAmountToPan(), 0);
-                }                        
-            }  
-            
-            //new
-             else if(dragObject.location === "far-left"){
-                if((x - dragObject.xStart) > 10) {
-                    panzoomPan(getAmountToPan() * 2 + window.innerWidth/2, 0/* ,        {relative: false} */);                   
-                }
-                if((x - dragObject.xStart) < 10) {
-                   panzoomPan(0, 0/* ,        {relative: true} */);
-                }                        
-            }else if(dragObject.location === "far-right"){
-                if((x - dragObject.xStart) > 10) {
-                    panzoomPan(0, 0/* ,        {relative: true} */);
-                }
-                if((x - dragObject.xStart) < 10) {
-                    panzoomPan( - getAmountToPan() - window.innerWidth/2, 0/* ,        {relative: false} */);
-                }                        
-            }            
+        const locations = [
+            "center",
+            "left",
+            "right",
+            "farLeft",
+            "farRight",
+        ];
+
+        for(let location of locations) {
+            const isDraggingFromHere = dragBehaviorAtLocation(location);
+            if(isDraggingFromHere) break;
         }
+        
+        // if(Math.abs((x - dragObject.xStart)) > 10){ //???
+        //     if(dragObject.location === "center"){ 
+        //         if((x - dragObject.xStart) > 10) {
+        //             panzoomPan(getAmountToPan(), 0);
+        //         }
+        //         if((x - dragObject.xStart) < 10) {
+        //             panzoomPan( - getAmountToPan(), 0);
+        //         }                        
+        //     }else if(dragObject.location === "left"){
+        //         if((x - dragObject.xStart) > 10) {
+        //             panzoomPan(getAmountToPan() * 2 + window.innerWidth/2, 0);
+        //         }
+        //         if((x - dragObject.xStart) < 10) { 
+        //             panzoomPan(0, 0);
+        //         }                        
+        //     }else if(dragObject.location === "right"){
+        //         if((x - dragObject.xStart) > 10) {
+        //             panzoomPan(0, 0);
+        //         }
+        //         if((x - dragObject.xStart) < 10) {
+        //             panzoomPan( - getAmountToPan() * 2 - window.innerWidth/2, 0);
+        //         }                        
+        //     }  
+            
+        //     //new
+        //      else if(dragObject.location === "farLeft"){
+        //         if((x - dragObject.xStart) > 10) {
+        //             panzoomPan(getAmountToPan() * 2 + window.innerWidth/2, 0);                   
+        //         }
+        //         if((x - dragObject.xStart) < 10) {
+        //            //panzoomPan(0, 0); //these aren't relative
+        //            panzoomPan(getAmountToPan(), 0);
+        //         }                        
+        //     }else if(dragObject.location === "farRight"){
+        //         if((x - dragObject.xStart) > 10) {
+        //             //panzoomPan(0, 0);
+        //             panzoomPan( - getAmountToPan(), 0);
+        //         }
+        //         if((x - dragObject.xStart) < 10) {
+        //             panzoomPan( - getAmountToPan() - window.innerWidth/2, 0);
+        //         }                        
+        //     }            
+        // }
     });
 };
 
@@ -164,8 +292,8 @@ const curryGetPanX = (panzoom: PanzoomObject): Function => {
 };
 
 const curryPanzoomPan = (panzoom: PanzoomObject): Function => {
-    return (x: number, y: number/* , relative: boolean */) => {
-        panzoom.pan(x, y/* , {relative: relative} */);
+    return (x: number, y: number) => {
+        panzoom.pan(x, y);
     };
 };
 
