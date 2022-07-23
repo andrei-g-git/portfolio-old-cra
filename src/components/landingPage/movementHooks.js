@@ -15,93 +15,47 @@ exports.useHorizontalPanningPANZOOM = function (identifier, maxWidth) {
             var panning_1 = {
                 amount: getHorizontalPanAmount(window.innerWidth, element.offsetWidth)
             };
-            var dragObject = {
-                xStart: 0,
-                location: "center",
-                left: panning_1.amount,
-                center: 0,
-                right: -panning_1.amount,
-                //new
-                farLeft: panning_1.amount * 2 + window.innerWidth / 2,
-                farRight: -panning_1.amount * 2 - window.innerWidth / 2
-            };
-            // const panObject: any/* PanObject */ = {
-            //     start: 0,
-            //     location: "center",
-            //     left: {
-            //         current: panning.amount,
-            //         leftward: panning.amount * 2 + window.innerWidth/2,
-            //         rightward: 0
-            //     },
-            //     center: {
-            //         current: 0,
-            //         leftward: panning.amount,
-            //         rightward: -panning.amount,                    
-            //     },
-            //     right: {
-            //         current: -panning.amount,
-            //         leftward: 0,
-            //         rightward: - panning.amount * 2 - window.innerWidth/2
-            //     }, 
-            //     farLeft: {
-            //         current: panning.amount * 2 + window.innerWidth/2,
-            //         leftward: panning.amount * 2 + window.innerWidth/2,
-            //         rightward: panning.amount
-            //     },
-            //     farRight: {
-            //         current: - panning.amount * 2 - window.innerWidth/2,
-            //         leftward: -panning.amount,
-            //         rightward: - panning.amount * 2 - window.innerWidth/2 
-            //     }
-            // };
             var panObject_1 = {};
-            var populatePanObject_1 = function (amountToPan, panObject) {
-                panObject.start = 0;
-                panObject.location = "center";
-                panObject.left = {
-                    current: amountToPan,
-                    leftward: amountToPan * 2 + window.innerWidth / 2,
-                    rightward: 0
-                };
-                panObject.center = {
-                    current: 0,
-                    leftward: amountToPan,
-                    rightward: -amountToPan
-                };
-                panObject.right = {
-                    current: -amountToPan,
-                    leftward: 0,
-                    rightward: -amountToPan * 2 - window.innerWidth / 2
-                };
-                panObject.farLeft = {
-                    current: amountToPan * 2 + window.innerWidth / 2,
-                    leftward: amountToPan * 2 + window.innerWidth / 2,
-                    rightward: amountToPan
-                };
-                panObject.farRight = {
-                    current: -amountToPan * 2 - window.innerWidth / 2,
-                    leftward: -amountToPan,
-                    rightward: -amountToPan * 2 - window.innerWidth / 2
-                };
-            };
-            populatePanObject_1(panning_1.amount, panObject_1);
+            var absLimit_1 = (element.offsetWidth - window.innerWidth) / 2;
+            populatePanObject(panning_1.amount, panObject_1, utils_1.clamp, absLimit_1);
             window.addEventListener("resize", function () {
                 panning_1.amount = getHorizontalPanAmount(window.innerWidth, element ? element.offsetWidth : 0);
-                // dragObject.left = panning.amount;
-                // dragObject.right = -panning.amount;
-                // //new
-                // dragObject.farLeft = panning.amount * 2 + window.innerWidth/2;
-                // dragObject.farRight = - panning.amount * 2 - window.innerWidth/2;
-                populatePanObject_1(panning_1.amount, panObject_1);
+                populatePanObject(panning_1.amount, panObject_1, utils_1.clamp, absLimit_1);
             });
             panzoomStart(element, /* dragObject */ panObject_1, curryGetPanX(panzoom));
-            panzoomEnd(element, dragObject, curryGetAmountToPan(panning_1), curryGetPanX(panzoom), curryPanzoomPan(panzoom), curryDragBehaviorAtLocation(curryGetDragStart(panObject_1), curryGetPanX(panzoom), panObject_1, curryPanzoomPan(panzoom)));
+            panzoomEnd(element, curryDragBehaviorAtLocation(curryGetDragStart(panObject_1), curryGetPanX(panzoom), panObject_1, curryPanzoomPan(panzoom)));
         }
     }, []);
 };
-var curryGetAmountToPan = function (panning) {
-    return function () {
-        return panning.amount;
+var populatePanObject = function (amountToPan, panObject, clamp, absLimit) {
+    var farLeftPan = clamp(amountToPan * 2 + window.innerWidth / 2, -absLimit, absLimit);
+    var farRightPan = clamp(-amountToPan * 2 - window.innerWidth / 2, -absLimit, absLimit);
+    panObject.start = 0;
+    panObject.location = "center";
+    panObject.left = {
+        current: amountToPan,
+        leftward: farLeftPan,
+        rightward: 0
+    };
+    panObject.center = {
+        current: 0,
+        leftward: amountToPan,
+        rightward: -amountToPan
+    };
+    panObject.right = {
+        current: -amountToPan,
+        leftward: 0,
+        rightward: farRightPan
+    };
+    panObject.farLeft = {
+        current: farLeftPan,
+        leftward: farLeftPan,
+        rightward: amountToPan
+    };
+    panObject.farRight = {
+        current: farRightPan,
+        leftward: -amountToPan,
+        rightward: farRightPan
     };
 };
 var getHorizontalPanAmount = function (windowInnerWidth, elementWidth) {
@@ -112,10 +66,11 @@ var getHorizontalPanAmount = function (windowInnerWidth, elementWidth) {
     amountToPan = utils_1.clamp(amountToPan, 0, max);
     return amountToPan;
 };
-//    ###    NEED TO ADD 2 MORE LOCATIONS     ###
-//    ###    clamping should only depend on not going ove the edge
-//    ###    try to replace as much of the branching with an object with comprehensive properties, maybe some of them would be functions
-//    ###    figure out if there's an equation to all this to not need any branching
+//this is actually redundant too
+var clampPanningBoudaries = function (panAmount, elementWidth, clamp) {
+    var absLimit = (elementWidth - window.innerWidth) / 2;
+    return clamp(panAmount, -absLimit, absLimit);
+};
 var curryGetDragStart = function (panObject) {
     return function () {
         return panObject.start;
@@ -138,50 +93,32 @@ var curryDragBehaviorAtLocation = function (getDragStart, getPanX, panObject /* 
         return false;
     };
 };
-// const curryDragBehaviorAtLocation = (dragStart: number, dragObject: DragObjectPanzoom, panzoomPan: Function): Function => {
-//     return (location: string, leftRelativeLocation: keyof DragObjectPanzoom, rightRelativeLocation: keyof DragObjectPanzoom, currentX: number): void => {
-//         if((currentX - dragStart) > 10) {
-//             panzoomPan(dragObject[leftRelativeLocation], 0);
-//         }
-//         if((currentX - dragStart) < 10) {
-//             panzoomPan(dragObject[rightRelativeLocation], 0);
-//         }         
-//     }
-// }
-var panzoomStart = function (element, /* dragObject: DragObjectPanzoom */ panObject /* PanObject */, getPanX) {
+var panzoomStart = function (element, panObject /* PanObject */, getPanX) {
     element === null || element === void 0 ? void 0 : element.addEventListener("panzoomstart", function (event) {
         event.preventDefault();
-        //dragObject.xStart = getPanX();
         panObject.start = getPanX();
         var x = getPanX();
-        if ((x > /* dragObject.center */ panObject.center.current - 5) && (x < /* dragObject.center */ panObject.center.current + 5)) {
-            //dragObject.location = "center";
+        if ((x > panObject.center.current - 5) && (x < panObject.center.current + 5)) {
             panObject.location = "center";
         }
-        if ((x > /* dragObject.left */ panObject.left.current - 5) && (x < /* dragObject.left */ panObject.left.current + 5)) {
-            //dragObject.location = "left";
+        if ((x > panObject.left.current - 5) && (x < panObject.left.current + 5)) {
             panObject.location = "left";
         }
-        if ((x > /* dragObject.right */ panObject.right.current - 5) && (x < /* dragObject.right */ panObject.right.current + 5)) {
-            //dragObject.location = "right";
+        if ((x > panObject.right.current - 5) && (x < panObject.right.current + 5)) {
             panObject.location = "right";
         }
-        //new
-        if ((x > /* dragObject.farLeft */ panObject.farLeft.current - 5) && (x < /* dragObject.farLeft */ panObject.farLeft.current + 5)) {
-            //dragObject.location = "farLeft";
+        if ((x > panObject.farLeft.current - 5) && (x < panObject.farLeft.current + 5)) {
             panObject.location = "farLeft";
         }
-        if ((x > /* dragObject.farRight */ panObject.farRight.current - 5) && (x < /* dragObject.farRight */ panObject.farRight.current + 5)) {
-            //dragObject.location = "farRight";
+        if ((x > panObject.farRight.current - 5) && (x < panObject.farRight.current + 5)) {
             panObject.location = "farRight";
         }
         console.log("start ", panObject.location);
     });
 };
-var panzoomEnd = function (element, dragObject, getAmountToPan, getPanX, panzoomPan, dragBehaviorAtLocation) {
+var panzoomEnd = function (element, dragBehaviorAtLocation) {
     element === null || element === void 0 ? void 0 : element.addEventListener("panzoomend", function (event) {
         event.preventDefault();
-        var x = getPanX();
         var locations = [
             "center",
             "left",
@@ -195,48 +132,6 @@ var panzoomEnd = function (element, dragObject, getAmountToPan, getPanX, panzoom
             if (isDraggingFromHere)
                 break;
         }
-        // if(Math.abs((x - dragObject.xStart)) > 10){ //???
-        //     if(dragObject.location === "center"){ 
-        //         if((x - dragObject.xStart) > 10) {
-        //             panzoomPan(getAmountToPan(), 0);
-        //         }
-        //         if((x - dragObject.xStart) < 10) {
-        //             panzoomPan( - getAmountToPan(), 0);
-        //         }                        
-        //     }else if(dragObject.location === "left"){
-        //         if((x - dragObject.xStart) > 10) {
-        //             panzoomPan(getAmountToPan() * 2 + window.innerWidth/2, 0);
-        //         }
-        //         if((x - dragObject.xStart) < 10) { 
-        //             panzoomPan(0, 0);
-        //         }                        
-        //     }else if(dragObject.location === "right"){
-        //         if((x - dragObject.xStart) > 10) {
-        //             panzoomPan(0, 0);
-        //         }
-        //         if((x - dragObject.xStart) < 10) {
-        //             panzoomPan( - getAmountToPan() * 2 - window.innerWidth/2, 0);
-        //         }                        
-        //     }  
-        //     //new
-        //      else if(dragObject.location === "farLeft"){
-        //         if((x - dragObject.xStart) > 10) {
-        //             panzoomPan(getAmountToPan() * 2 + window.innerWidth/2, 0);                   
-        //         }
-        //         if((x - dragObject.xStart) < 10) {
-        //            //panzoomPan(0, 0); //these aren't relative
-        //            panzoomPan(getAmountToPan(), 0);
-        //         }                        
-        //     }else if(dragObject.location === "farRight"){
-        //         if((x - dragObject.xStart) > 10) {
-        //             //panzoomPan(0, 0);
-        //             panzoomPan( - getAmountToPan(), 0);
-        //         }
-        //         if((x - dragObject.xStart) < 10) {
-        //             panzoomPan( - getAmountToPan() - window.innerWidth/2, 0);
-        //         }                        
-        //     }            
-        // }
     });
 };
 var curryGetPanX = function (panzoom) {
