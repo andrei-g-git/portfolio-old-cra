@@ -84,15 +84,9 @@ const getHorizontalPanAmount = (windowInnerWidth: number, elementWidth: number):
     const offsetToStillSeePartOfCharacter = viewportWidth/2;
     let amountToPan = viewportWidth - offsetToStillSeePartOfCharacter;    
     const max = (elementWidth - windowInnerWidth)/2;
-    amountToPan = clamp(amountToPan, 0, max);
+    amountToPan = clamp(amountToPan, 0, max); //redundant, already clamping when final pan coordinates to panObject
     return amountToPan;
 };
-
-//this is actually redundant too
-const clampPanningBoudaries = (panAmount: number, elementWidth: number, clamp: Function): number => { //basically makes the same check inside getHorizontalPanAmount redundant, but it already was since it no longer determines the bounds of where you can pan to
-    const absLimit = (elementWidth - window.innerWidth)/2;    
-    return clamp(panAmount, -absLimit, absLimit);
-}
 
 const curryGetDragStart = (panObject: /* PanObject */any): Function => {
     return (): number => {
@@ -104,10 +98,10 @@ const curryDragBehaviorAtLocation = (getDragStart: Function, getPanX: Function, 
     return (location: keyof PanObject): boolean => {
         if(panObject.location === location){
             if((getPanX() - panObject.start) > 10) {
-                panzoomPan(panObject[location].leftward, 0);         console.log("end ", panObject[location], "     to ", panObject[location].leftward)
+                panzoomPan(panObject[location].leftward, 0);         console.log("end ", panObject[location].current, "     to ", panObject[location].leftward)
                 return true;
             } else if((getPanX() - panObject.start) < 10) {
-                panzoomPan(panObject[location].rightward, 0);        console.log("end ", panObject[location], "     to ", panObject[location].rightward)
+                panzoomPan(panObject[location].rightward, 0);        console.log("end ", panObject[location].current, "     to ", panObject[location].rightward)
                 return true;
             }          
         }

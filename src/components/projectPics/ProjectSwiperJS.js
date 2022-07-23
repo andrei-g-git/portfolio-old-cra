@@ -7,15 +7,11 @@ require("swiper/css");
 require("swiper/css/navigation");
 require("swiper/css/pagination");
 require("swiper/css/effect-creative");
+require("./ProjectSwiperJS.scss");
 swiper_1["default"].use([swiper_1.Navigation, swiper_1.Pagination, swiper_1.EffectCreative]);
 function ProjectSwiperJS(props) {
     return (React.createElement("div", { className: "swiper-container" //coresponds to expand-project-content in the parent component
-        , style: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "80%"
-        } },
+     },
         React.createElement(react_1.Swiper, { modules: [swiper_1.Navigation, swiper_1.Pagination, swiper_1.EffectCreative], 
             //spaceBetween={0}
             //slidesPerView={3}

@@ -63,13 +63,8 @@ var getHorizontalPanAmount = function (windowInnerWidth, elementWidth) {
     var offsetToStillSeePartOfCharacter = viewportWidth / 2;
     var amountToPan = viewportWidth - offsetToStillSeePartOfCharacter;
     var max = (elementWidth - windowInnerWidth) / 2;
-    amountToPan = utils_1.clamp(amountToPan, 0, max);
+    amountToPan = utils_1.clamp(amountToPan, 0, max); //redundant, already clamping when final pan coordinates to panObject
     return amountToPan;
-};
-//this is actually redundant too
-var clampPanningBoudaries = function (panAmount, elementWidth, clamp) {
-    var absLimit = (elementWidth - window.innerWidth) / 2;
-    return clamp(panAmount, -absLimit, absLimit);
 };
 var curryGetDragStart = function (panObject) {
     return function () {
@@ -81,12 +76,12 @@ var curryDragBehaviorAtLocation = function (getDragStart, getPanX, panObject /* 
         if (panObject.location === location) {
             if ((getPanX() - panObject.start) > 10) {
                 panzoomPan(panObject[location].leftward, 0);
-                console.log("end ", panObject[location], "     to ", panObject[location].leftward);
+                console.log("end ", panObject[location].current, "     to ", panObject[location].leftward);
                 return true;
             }
             else if ((getPanX() - panObject.start) < 10) {
                 panzoomPan(panObject[location].rightward, 0);
-                console.log("end ", panObject[location], "     to ", panObject[location].rightward);
+                console.log("end ", panObject[location].current, "     to ", panObject[location].rightward);
                 return true;
             }
         }

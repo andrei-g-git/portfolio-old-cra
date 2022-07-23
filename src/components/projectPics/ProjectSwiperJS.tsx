@@ -5,18 +5,19 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-creative';
+import './ProjectSwiperJS.scss';
 
 SwiperCore.use([Navigation, Pagination, EffectCreative]);
 
 function ProjectSwiperJS(props: any) {
     return (
         <div className="swiper-container" //coresponds to expand-project-content in the parent component
-            style={{ //make css file
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center", //??
-                width: "80%",
-            }}
+            // style={{ //make css file
+            //     display: "flex",
+            //     justifyContent: "center",
+            //     alignItems: "center", //??
+            //     width: "80%",
+            // }}
         >
             <Swiper 
                 modules={[Navigation, Pagination, EffectCreative]}
