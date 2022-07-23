@@ -10,7 +10,11 @@ export interface DragObjectPanzoom{
     location: String,
     left: number,
     center: number,
-    right: number    
+    right: number,
+    
+    //new
+    farLeft: number,
+    farRight: number
 };
 
 export interface DimensionsObject {

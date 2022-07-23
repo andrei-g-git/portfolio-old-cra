@@ -20,12 +20,18 @@ exports.useHorizontalPanningPANZOOM = function (identifier, maxWidth) {
                 location: "center",
                 left: panning_1.amount,
                 center: 0,
-                right: -panning_1.amount
+                right: -panning_1.amount,
+                //new
+                farLeft: panning_1.amount * 2 + window.innerWidth / 2,
+                farRight: -panning_1.amount * 2 - window.innerWidth / 2
             };
             window.addEventListener("resize", function () {
                 panning_1.amount = getHorizontalPanAmount(window.innerWidth, element ? element.offsetWidth : 0);
                 dragObject_1.left = panning_1.amount;
                 dragObject_1.right = -panning_1.amount;
+                //new
+                dragObject_1.farLeft = panning_1.amount * 2 + window.innerWidth / 2;
+                dragObject_1.farRight = -panning_1.amount * 2 - window.innerWidth / 2;
             });
             panzoomStart(element, dragObject_1, curryGetPanX(panzoom));
             panzoomEnd(element, dragObject_1, curryGetAmountToPan(panning_1), curryGetPanX(panzoom), curryPanzoomPan(panzoom));
@@ -45,6 +51,10 @@ var getHorizontalPanAmount = function (windowInnerWidth, elementWidth) {
     amountToPan = utils_1.clamp(amountToPan, 0, max);
     return amountToPan;
 };
+//    ###    NEED TO ADD 2 MORE LOCATIONS     ###
+//    ###    clamping should only depend on not going ove the edge
+//    ###    try to replace as much of the branching with an object with comprehensive properties, maybe some of them would be functions
+//    ###    figure out if there's an equation to all this to not need any branching
 var panzoomStart = function (element, dragObject, getPanX) {
     element === null || element === void 0 ? void 0 : element.addEventListener("panzoomstart", function (event) {
         event.preventDefault();
@@ -59,6 +69,13 @@ var panzoomStart = function (element, dragObject, getPanX) {
         if ((x > dragObject.right - 5) && (x < dragObject.right + 5)) {
             dragObject.location = "right";
         }
+        //new
+        if ((x > dragObject.farLeft - 5) && (x < dragObject.farLeft + 5)) {
+            dragObject.location = "far-left";
+        }
+        if ((x > dragObject.farRight - 5) && (x < dragObject.farRight + 5)) {
+            dragObject.location = "far-right";
+        }
     });
 };
 var panzoomEnd = function (element, dragObject, getAmountToPan, getPanX, panzoomPan) {
@@ -68,26 +85,45 @@ var panzoomEnd = function (element, dragObject, getAmountToPan, getPanX, panzoom
         if (Math.abs((x - dragObject.xStart)) > 10) {
             if (dragObject.location === "center") {
                 if ((x - dragObject.xStart) > 10) {
-                    panzoomPan(getAmountToPan(), 0);
+                    panzoomPan(getAmountToPan(), 0 /* ,        {relative: false} */);
                 }
                 if ((x - dragObject.xStart) < 10) {
-                    panzoomPan(-getAmountToPan(), 0);
+                    panzoomPan(-getAmountToPan(), 0 /* ,        {relative: false} */);
                 }
             }
             else if (dragObject.location === "left") {
                 if ((x - dragObject.xStart) > 10) {
-                    panzoomPan(getAmountToPan(), 0);
+                    panzoomPan(getAmountToPan(), 0 /* ,        {relative: false} */);
                 }
                 if ((x - dragObject.xStart) < 10) {
-                    panzoomPan(0, 0);
+                    //panzoomPan(0, 0);
+                    panzoomPan(-getAmountToPan() * 2 - window.innerWidth / 2, 0 /* ,        {relative: false} */);
                 }
             }
             else if (dragObject.location === "right") {
                 if ((x - dragObject.xStart) > 10) {
-                    panzoomPan(0, 0);
+                    //panzoomPan(0, 0);
+                    panzoomPan(/*  -  */ getAmountToPan() * 2 + window.innerWidth / 2, 0 /* ,        {relative: false} */);
                 }
                 if ((x - dragObject.xStart) < 10) {
                     panzoomPan(-getAmountToPan(), 0);
+                }
+            }
+            //new
+            else if (dragObject.location === "far-left") {
+                if ((x - dragObject.xStart) > 10) {
+                    panzoomPan(getAmountToPan() * 2 + window.innerWidth / 2, 0 /* ,        {relative: false} */);
+                }
+                if ((x - dragObject.xStart) < 10) {
+                    panzoomPan(0, 0 /* ,        {relative: true} */);
+                }
+            }
+            else if (dragObject.location === "far-right") {
+                if ((x - dragObject.xStart) > 10) {
+                    panzoomPan(0, 0 /* ,        {relative: true} */);
+                }
+                if ((x - dragObject.xStart) < 10) {
+                    panzoomPan(-getAmountToPan() - window.innerWidth / 2, 0 /* ,        {relative: false} */);
                 }
             }
         }
@@ -99,8 +135,8 @@ var curryGetPanX = function (panzoom) {
     };
 };
 var curryPanzoomPan = function (panzoom) {
-    return function (x, y) {
-        panzoom.pan(x, y);
+    return function (x, y /* , relative: boolean */) {
+        panzoom.pan(x, y /* , {relative: relative} */);
     };
 };
 /*
