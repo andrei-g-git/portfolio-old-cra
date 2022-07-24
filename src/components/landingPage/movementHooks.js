@@ -18,17 +18,23 @@ exports.useHorizontalPanningPANZOOM = function (identifier, maxWidth) {
                 amount: getHorizontalPanAmount(window.innerWidth, element.offsetWidth)
             };
             var panObject_1 = {};
-            var absLimit_1 = (element.offsetWidth - window.innerWidth) / 2;
-            populatePanObject(panning_1.amount, panObject_1, utils_1.clamp, absLimit_1);
+            populatePanObject(panning_1.amount, panObject_1, utils_1.clamp, getAbsPanLimit(element));
             window.addEventListener("resize", function () {
                 panning_1.amount = getHorizontalPanAmount(window.innerWidth, element ? element.offsetWidth : 0);
-                populatePanObject(panning_1.amount, panObject_1, utils_1.clamp, absLimit_1);
+                populatePanObject(panning_1.amount, panObject_1, utils_1.clamp, getAbsPanLimit(element));
             });
             panzoomStart(element, /* dragObject */ panObject_1, curryGetPanX(panzoom));
             panzoomEnd(element, curryDragBehaviorAtLocation(curryGetDragStart(panObject_1), curryGetPanX(panzoom), panObject_1, curryPanzoomPan(panzoom)));
         }
     }, []);
 };
+var getAbsPanLimit = function (element) {
+    return (element.offsetWidth - window.innerWidth) / 2;
+};
+//this makes no sense. when I remove the clamping, recompile, add the clamp back and recompile, the pan bug resolves itself
+//but if I do it that while pressing ctrl+C and npm starting instead of watching, then the bug is present. The code is the exact same...
+//I get a "compilation failed" error on the bottom bar of VScode but the program runs just fine
+//in chrome debugging the bug reverts only after F5, so I guess the debugger session is tied with the previous dev server run...
 var populatePanObject = function (amountToPan, panObject, clamp, absLimit) {
     var farLeftPan = clamp(amountToPan * 2 + window.innerWidth / 2, -absLimit, absLimit);
     var farRightPan = clamp(-amountToPan * 2 - window.innerWidth / 2, -absLimit, absLimit);

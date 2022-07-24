@@ -24,14 +24,22 @@ export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number
 
             const panObject = {}; 
 
-            const absLimit = (element.offsetWidth - window.innerWidth)/2;
-
-            populatePanObject(panning.amount, panObject, clamp, absLimit)
+            populatePanObject(
+                panning.amount, 
+                panObject, 
+                clamp, 
+                getAbsPanLimit(element)
+            );
 
             window.addEventListener("resize", () => {
                 panning.amount = getHorizontalPanAmount(window.innerWidth, element ? element.offsetWidth : 0);
 
-                populatePanObject(panning.amount, panObject, clamp, absLimit);
+                populatePanObject(
+                    panning.amount, 
+                    panObject, 
+                    clamp, 
+                    getAbsPanLimit(element)
+                );
             });
 
             panzoomStart(element, /* dragObject */panObject, curryGetPanX(panzoom));
@@ -51,6 +59,15 @@ export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number
     )
 };
 
+
+const getAbsPanLimit = (element: HTMLElement | null): number => {
+    return (element!.offsetWidth - window.innerWidth)/2;
+};
+
+//this makes no sense. when I remove the clamping, recompile, add the clamp back and recompile, the pan bug resolves itself
+//but if I do it that while pressing ctrl+C and npm starting instead of watching, then the bug is present. The code is the exact same...
+//I get a "compilation failed" error on the bottom bar of VScode but the program runs just fine
+//in chrome debugging the bug reverts only after F5, so I guess the debugger session is tied with the previous dev server run...
 const populatePanObject = (amountToPan: number, panObject: any, clamp: Function, absLimit: number): any => {
     const farLeftPan = clamp(amountToPan * 2 + window.innerWidth/2, -absLimit, absLimit);
     const farRightPan = clamp( - amountToPan * 2 - window.innerWidth/2, -absLimit, absLimit); 
