@@ -10,6 +10,7 @@ var actions_1 = require("../../redux/actions");
 var Projects_1 = require("../projects/Projects");
 var Contact_1 = require("../contact/Contact");
 var mainHooks_1 = require("./mainHooks");
+var Pages_1 = require("./Pages");
 var withState_1 = require("../_higherOrderComponents/withState");
 require("./Main.scss");
 var ProjectsThemed = withState_1.withThemeState(Projects_1["default"]);
@@ -23,7 +24,7 @@ function Main(props) {
         " ",
         React.createElement(NavBar_1["default"], null),
         React.createElement(About_1["default"], { height: "100vh" }),
-        React.createElement(ProjectsThemed, { height: "100vh" }),
+        React.createElement(ProjectsThemed, { height: mainHooks_1.getPageVh(Pages_1.Pages.PROJECTS.name, 480) }),
         React.createElement(Contact_1["default"], { height: "100vh" })));
 }
 var mapStateToProps = function (state) {

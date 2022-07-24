@@ -16,7 +16,7 @@ var Projects = function (props) {
     if (props.showcasing)
         upperClass += " blur-projects"; //ternary statement in the tsx doesn't work for some reason
     return (React.createElement("div", { className: props.darkTheme ? "theme-dark" : "theme-light" },
-        React.createElement("div", { className: upperClass, style: { height: "100vh", maxHeight: "100vh" } },
+        React.createElement("div", { className: upperClass, style: { height: /* "100vh" */ props.height, maxHeight: /* "100vh" */ props.height } },
             React.createElement("div", { className: "projects-title" }, "PROJECTS"),
             React.createElement("div", { className: "showcase-container" }, showcaseItems_1.getShowcaseItems().map(function (item) {
                 return React.createElement(ShowcaseItem_1["default"], { image: item.image, key: item.index },

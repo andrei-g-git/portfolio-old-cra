@@ -14,8 +14,10 @@ import Contact from '../contact/Contact';
 import { 
     useScrollByActiveNavItem, 
     scrollToActiveNavItem,
-    useHighlightNavItemByScrollHeight
+    useHighlightNavItemByScrollHeight,
+    getPageVh //should be somewhere else, it's not a hook...
 } from './mainHooks';
+import { Pages } from './Pages';
 import {withThemeState} from '../_higherOrderComponents/withState';
 import "./Main.scss";
 
@@ -39,7 +41,7 @@ function Main(props: any) {
 
             <About height="100vh"/>
 
-            <ProjectsThemed height="100vh"/>
+            <ProjectsThemed height={getPageVh(Pages.PROJECTS.name, 480)}/>
 
             <Contact height="100vh" />
         </div>

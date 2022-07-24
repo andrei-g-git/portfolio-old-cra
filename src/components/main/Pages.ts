@@ -3,28 +3,32 @@ export class Pages { // should probably use a map, it's ordered and getting valu
         return {
             index: 0,
             name: "home",
-            height: "100vh"
+            height: "100vh",
+            mobileHeight: "100vh",
         };
     }
     static get ABOUT(){
         return {
             index: 1,
             name: "about",
-            height: "100vh"
+            height: "100vh",
+            mobileHeight: "100vh",
         };
     }
     static get PROJECTS(){
         return {
             index: 2,
             name: "projects",//"portfolio",
-            height: "100vh"
+            height: "100vh",
+            mobileHeight: "199vh",
         };
     }
     static get CONTACT(){
         return {
             index: 3,
             name: "contact",
-            height: "100vh"
+            height: "100vh",
+            mobileHeight: "100vh",
         };
     }
 

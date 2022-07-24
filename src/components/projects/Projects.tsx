@@ -20,7 +20,7 @@ const Projects = (props: any) => {
 		<div className={props.darkTheme ? "theme-dark" : "theme-light"}>
 
 			<div className={upperClass}
-						style={{ height: "100vh", maxHeight: "100vh" }}
+						style={{ height: /* "100vh" */props.height, maxHeight: /* "100vh" */props.height }}
 					>
 				<div className="projects-title">
 					PROJECTS

@@ -9,7 +9,8 @@ var Pages = /** @class */ (function () {
             return {
                 index: 0,
                 name: "home",
-                height: "100vh"
+                height: "100vh",
+                mobileHeight: "100vh"
             };
         },
         enumerable: false,
@@ -20,7 +21,8 @@ var Pages = /** @class */ (function () {
             return {
                 index: 1,
                 name: "about",
-                height: "100vh"
+                height: "100vh",
+                mobileHeight: "100vh"
             };
         },
         enumerable: false,
@@ -31,7 +33,8 @@ var Pages = /** @class */ (function () {
             return {
                 index: 2,
                 name: "projects",
-                height: "100vh"
+                height: "100vh",
+                mobileHeight: "199vh"
             };
         },
         enumerable: false,
@@ -42,7 +45,8 @@ var Pages = /** @class */ (function () {
             return {
                 index: 3,
                 name: "contact",
-                height: "100vh"
+                height: "100vh",
+                mobileHeight: "100vh"
             };
         },
         enumerable: false,
