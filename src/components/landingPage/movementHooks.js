@@ -7,11 +7,13 @@ var panzoom_1 = require("@panzoom/panzoom");
 /*
     useHorizontalPanning //
  */
+var test;
 exports.useHorizontalPanningPANZOOM = function (identifier, maxWidth) {
     react_1.useEffect(function () {
         var element = document.getElementsByClassName(identifier)[0];
         if (element) {
             var panzoom = panzoom_1["default"](element, { disableYAxis: true, disableZoom: true, touchAction: "pan-y", animate: true, duration: 150 });
+            test = panzoom;
             var panning_1 = {
                 amount: getHorizontalPanAmount(window.innerWidth, element.offsetWidth)
             };
@@ -74,14 +76,14 @@ var curryGetDragStart = function (panObject) {
 var curryDragBehaviorAtLocation = function (getDragStart, getPanX, panObject /* PanObject */, panzoomPan) {
     return function (location) {
         if (panObject.location === location) {
-            if ((getPanX() - panObject.start) > 10) {
+            if (( /* getPanX() */test.getPan().x - panObject.start) > 10) {
                 panzoomPan(panObject[location].leftward, 0);
-                console.log("end ", panObject[location].current, "     to ", panObject[location].leftward);
+                console.log("end ", panObject[location].current, "     to ", panObject[location].leftward, "x: ", getPanX(), "s: ", panObject.start);
                 return true;
             }
-            else if ((getPanX() - panObject.start) < 10) {
+            else if (( /* getPanX() */test.getPan().x - panObject.start) < 10) {
                 panzoomPan(panObject[location].rightward, 0);
-                console.log("end ", panObject[location].current, "     to ", panObject[location].rightward);
+                console.log("end ", panObject[location].current, "     to ", panObject[location].rightward, "x: ", getPanX(), "s: ", panObject.start);
                 return true;
             }
         }
@@ -108,7 +110,7 @@ var panzoomStart = function (element, panObject /* PanObject */, getPanX) {
         if ((x > panObject.farRight.current - 5) && (x < panObject.farRight.current + 5)) {
             panObject.location = "farRight";
         }
-        console.log("start ", panObject.location);
+        console.log("start ", panObject.location, "  val:  ", x);
     });
 };
 var panzoomEnd = function (element, dragBehaviorAtLocation) {
