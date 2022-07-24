@@ -14,57 +14,36 @@ const ShowcaseOverlayWithThemeState = withThemeState(ShowcaseOverlay);
 
 const Projects = (props: any) => {
 
-	// let extraTimePassed = false;
-
-	// React.useEffect(() => {
-	// 	if( ! props.showcasing){
-	// 		setTimeout(() => {
-	// 			extraTimePassed = true;
-	// 			setTimeout(() => {
-	// 				extraTimePassed = false; 
-	// 			},
-	// 				20
-	// 			);
-	// 		}, 
-	// 			50
-	// 		)
-	// 	}
-	// }, 
-	// 	props.showcasing
-	// )
-
 	let upperClass = "projects-container";
 	if(props.showcasing) upperClass += " blur-projects" //ternary statement in the tsx doesn't work for some reason
 	return (
-		<div className={upperClass}//{"projects-container" + props.showcasing ? " blur-projects" : ""}
-			style={{ height: "100vh", maxHeight: "100vh" }}
-		>
-			<div className="projects-title">
-				PROJECTS
-			</div>
-			<div className="showcase-container">
-				{
-					getShowcaseItems().map((item) => 
-						<ShowcaseItem image={item.image}
-							key={item.index}
-						>
-							<ShowcaseOverlayWithThemeState index={item.index}
-								title={item.name}
-								description={item.description}
-								notifyParent={curryStoreSelectedProject(
-									props.selectProject,
-									props.toggleModal
-								)}
-								key={item.index}
-							/>
-						</ShowcaseItem>
-					)
-				}
-			</div>
+		<div className={props.darkTheme ? "theme-dark" : "theme-light"}>
 
-			{/* {
-				props.showcasing ?
-					//<ExpandProjectWithThemeState images={getShowcaseItems()[props.selectedProject].images} */}
+			<div className={upperClass}
+						style={{ height: "100vh", maxHeight: "100vh" }}
+					>
+				<div className="projects-title">
+					PROJECTS
+				</div>
+				<div className="showcase-container">
+					{
+						getShowcaseItems().map((item) => 
+							<ShowcaseItem image={item.image}
+								key={item.index}
+							>
+								<ShowcaseOverlayWithThemeState index={item.index}
+									title={item.name}
+									description={item.description}
+									notifyParent={curryStoreSelectedProject(
+										props.selectProject,
+										props.toggleModal
+									)}
+									key={item.index}
+								/>
+							</ShowcaseItem>
+						)
+					}
+				</div>
 					<ExpandProject images={getShowcaseItems()[props.selectedProject].images}
 						title={getShowcaseItems()[props.selectedProject].name} //I should probably extract the showcase object once
 						description={getShowcaseItems()[props.selectedProject].longDescription}
@@ -82,10 +61,10 @@ const Projects = (props: any) => {
 						)}
 
 					/>
-{/* 				: 
-					null
-			} */}
+			</div>
+
 		</div>
+
 	);
 };
 

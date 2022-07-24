@@ -8,6 +8,7 @@ var panzoom_1 = require("@panzoom/panzoom");
     useHorizontalPanning //
  */
 var test;
+//I should probably give up snap-panning if it doesn't work out perfectly, switch to smooth panning and add a bunch of glowing arrows or some shit...
 exports.useHorizontalPanningPANZOOM = function (identifier, maxWidth) {
     react_1.useEffect(function () {
         var element = document.getElementsByClassName(identifier)[0];

@@ -9,6 +9,7 @@ import Panzoom, { PanzoomObject } from "@panzoom/panzoom";
 
 let test: PanzoomObject;
 
+//I should probably give up snap-panning if it doesn't work out perfectly, switch to smooth panning and add a bunch of glowing arrows or some shit...
 export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number): void => {
     useEffect(() => {
         let element: HTMLElement | null = (document.getElementsByClassName(identifier) as HTMLCollectionOf<HTMLElement>)[0];

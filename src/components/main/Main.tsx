@@ -16,9 +16,10 @@ import {
     scrollToActiveNavItem,
     useHighlightNavItemByScrollHeight
 } from './mainHooks';
+import {withThemeState} from '../_higherOrderComponents/withState';
 import "./Main.scss";
 
-
+const ProjectsThemed = withThemeState(Projects);
 
 function Main(props: any) {
 
@@ -38,7 +39,7 @@ function Main(props: any) {
 
             <About height="100vh"/>
 
-            <Projects height="100vh"/>
+            <ProjectsThemed height="100vh"/>
 
             <Contact height="100vh" />
         </div>

@@ -1,5 +1,6 @@
 @import "../../css/Mixins.scss";
 @import "../../css/Variables.scss";
+@import "../../css/Themes.scss";
 
 .projects-container{
     display: flex;
@@ -7,8 +8,9 @@
     //justify-content: center;
     align-items: center;
     width: 100vw;
-    background-color: bisque;
-    
+    @include themed(){
+        background-image: linear-gradient(theme-get("bg-primary"), rgb(193, 255, 252));
+    }
     .projects-title{
         @include pageTitle();
     }

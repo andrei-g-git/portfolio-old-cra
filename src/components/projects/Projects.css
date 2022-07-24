@@ -3,7 +3,12 @@
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  background-color: bisque;
+}
+.theme-dark .projects-container {
+  background-image: linear-gradient(#6b5e4f, #c1fffc);
+}
+.theme-light .projects-container {
+  background-image: linear-gradient(#ffe4c4, #c1fffc);
 }
 .projects-container .projects-title {
   padding-top: 40px;
