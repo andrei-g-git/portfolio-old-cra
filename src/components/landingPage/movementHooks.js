@@ -5,7 +5,7 @@ var react_1 = require("react");
 var utils_1 = require("../../js/utils");
 var panzoom_1 = require("@panzoom/panzoom");
 /*
-    useHorizontalPanning
+    useHorizontalPanning //
  */
 exports.useHorizontalPanningPANZOOM = function (identifier, maxWidth) {
     react_1.useEffect(function () {

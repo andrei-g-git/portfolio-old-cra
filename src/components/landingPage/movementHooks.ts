@@ -4,7 +4,7 @@ import { clamp, getElementByClassOrId } from "../../js/utils";
 import Panzoom, { PanzoomObject } from "@panzoom/panzoom";
 
 /*
-    useHorizontalPanning
+    useHorizontalPanning //
  */
 export const useHorizontalPanningPANZOOM = (identifier: string, maxWidth: number): void => {
     useEffect(() => {

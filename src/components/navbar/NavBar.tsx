@@ -10,11 +10,11 @@ import { Pages } from "../main/Pages";
 import NavItem from '../navItem/NavItem';
 import "./NavBar.scss";
 
-//const Sticky = require("sticky-js"); 
+const Sticky = require("sticky-js"); 
 
 export const NavBar = (props: any /* CHANGE */) => { //I forgot what gives this it's sticky effect now...
 
-	//const sticky = new Sticky(".nav-bar"); //position: sticky doesn't work even after removeing overflow from parent
+	const sticky = new Sticky(".nav-bar"); //position: sticky doesn't work even after removeing overflow from parent
 
 	return (
 		<div className="nav-bar"

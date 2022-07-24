@@ -7,9 +7,9 @@ var actions_1 = require("../../redux/actions"); //this would probably be more pr
 var Pages_1 = require("../main/Pages");
 var NavItem_1 = require("../navItem/NavItem");
 require("./NavBar.scss");
-//const Sticky = require("sticky-js"); 
+var Sticky = require("sticky-js");
 exports.NavBar = function (props /* CHANGE */) {
-    //const sticky = new Sticky(".nav-bar"); //position: sticky doesn't work even after removeing overflow from parent
+    var sticky = new Sticky(".nav-bar"); //position: sticky doesn't work even after removeing overflow from parent
     return (React.createElement("div", { className: "nav-bar", id: "nav-bar" },
         Pages_1.Pages.getNavItems().map(function (item, index) {
             return React.createElement(NavItem_1["default"], { index: index, name: item.toUpperCase(), active: props.highlightedNavItem === index ? true : false, notifyParent: props.selectedNavItem });
